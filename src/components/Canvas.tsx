@@ -806,7 +806,7 @@ export const Canvas: React.FC = () => {
                            {[40, 65, 45, 90, 55, 75, 40, 85, 60, 95, 30, 50].map((h, i) => (
                              <div key={i} className="flex-1 group relative cursor-pointer">
                                 <div 
-                                  className="w-full bg-primary/20 rounded-t-sm group-hover:bg-primary transition-all theme-transition" 
+                                  className="w-full bg-primary rounded-t-sm opacity-20 group-hover:opacity-100 transition-all theme-transition" 
                                   style={{ height: `${h}%` }}
                                 ></div>
                                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-tx text-surface text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
