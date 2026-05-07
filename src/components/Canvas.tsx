@@ -101,6 +101,7 @@ export const Canvas: React.FC = () => {
             {[
               { id: 'all', label: 'All (ภาพรวม)' },
               { id: 'dashboard', label: 'Dashboard (แดชบอร์ด)' },
+              { id: 'mockups', label: 'Mockups (ม็อคอัพ)' },
               { id: 'forms', label: 'Forms (ฟอร์ม & ปุ่ม)' },
               { id: 'navigation', label: 'Navigation (การนำทาง)' },
               { id: 'data', label: 'Data Display (ข้อมูล)' },
@@ -164,6 +165,110 @@ export const Canvas: React.FC = () => {
                 </div>
               </section>
             )}
+
+            {/* Mockups Section */}
+            {(activeTab === 'all' || activeTab === 'mockups') && (
+              <section className="space-y-4">
+                <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
+                  <span className="w-2 h-6 bg-primary rounded-full"></span> Mockup Components (Card Varieties)
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {/* Product Card */}
+                  <div className="group bg-surface rounded-[var(--radius-theme)] border border-bordercolor overflow-hidden shadow-[var(--shadow-theme)] theme-transition hover:translate-y-[-4px] transition-all duration-300">
+                    <div className="aspect-square bg-bg overflow-hidden relative">
+                      <img 
+                        src="https://images.unsplash.com/photo-1714418641975-47021e16428c?auto=format&fit=crop&q=80&w=800" 
+                        alt="Product" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <Badge className="absolute top-3 left-3" variant="primary">New Arrival</Badge>
+                    </div>
+                    <div className="p-5 space-y-3">
+                      <div>
+                        <h4 className="font-bold text-lg">Premium Headphones Pro</h4>
+                        <p className="text-xs text-muted">Acoustic Engineering Series</p>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xl font-bold text-primary">$299.00</span>
+                        <div className="flex gap-1">
+                           {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-primary/20"></div>)}
+                        </div>
+                      </div>
+                      <Button className="w-full">Add to Cart</Button>
+                    </div>
+                  </div>
+
+                  {/* Profile Card */}
+                  <Card className="flex flex-col items-center text-center p-8 space-y-4">
+                    <div className="relative">
+                      <div className="w-24 h-24 rounded-full border-4 border-primary/10 overflow-hidden shadow-lg">
+                        <img 
+                          src="/assets/avatar.png" 
+                          alt="Avatar" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="absolute bottom-0 right-0 w-6 h-6 bg-success border-4 border-surface rounded-full"></div>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-xl">Elena Rodriguez</h4>
+                      <p className="text-sm text-muted">Senior Product Designer</p>
+                    </div>
+                    <div className="flex gap-4 w-full pt-2">
+                      <Button variant="outline" className="flex-1">Message</Button>
+                      <Button className="flex-1">Follow</Button>
+                    </div>
+                    <div className="flex justify-around w-full pt-4 border-t border-bordercolor mt-4 theme-transition">
+                      <div>
+                        <p className="text-lg font-bold">1.2k</p>
+                        <p className="text-[10px] text-muted uppercase font-bold tracking-widest">Posts</p>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold">45k</p>
+                        <p className="text-[10px] text-muted uppercase font-bold tracking-widest">Followers</p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Newsletter Card */}
+                  <Card className="bg-primary/5 border-primary/20 flex flex-col justify-center space-y-6 p-8">
+                    <div className="space-y-2">
+                      <div className="w-12 h-12 bg-primary text-[var(--color-primary-foreground)] rounded-[var(--radius-theme)] flex items-center justify-center shadow-lg">
+                        <Envelope size={24} weight="fill" />
+                      </div>
+                      <h4 className="text-xl font-bold">Subscribe to Newsletter</h4>
+                      <p className="text-sm text-muted leading-relaxed">Get the latest design system tips and UI components delivered to your inbox.</p>
+                    </div>
+                    <div className="space-y-3">
+                      <Input placeholder="your@email.com" className="bg-surface" />
+                      <Button className="w-full shadow-lg shadow-primary/20">Subscribe Now</Button>
+                    </div>
+                    <p className="text-[10px] text-center text-muted">No spam, ever. Unsubscribe anytime.</p>
+                  </Card>
+
+                  {/* Horizontal Card */}
+                  <div className="md:col-span-2 lg:col-span-3 bg-surface border border-bordercolor rounded-[var(--radius-theme)] overflow-hidden shadow-[var(--shadow-theme)] theme-transition flex flex-col md:flex-row h-full md:h-48 hover:border-primary/50 transition-colors">
+                    <div className="w-full md:w-72 bg-primary/10 flex items-center justify-center p-8">
+                       <ChartLineUp size={64} weight="duotone" className="text-primary opacity-80" />
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                       <div className="space-y-1">
+                         <div className="flex justify-between items-start">
+                           <Badge variant="info" className="mb-1">Advanced Analytics</Badge>
+                           <span className="text-[10px] text-muted font-bold tracking-widest">LAST UPDATED: 2H AGO</span>
+                         </div>
+                         <h4 className="text-xl font-bold">Real-time Performance Monitoring</h4>
+                         <p className="text-sm text-muted max-w-xl">Monitor your application's health, traffic patterns, and user engagement metrics in a single consolidated dashboard with advanced visualization tools.</p>
+                       </div>
+                       <div className="flex gap-4 items-center pt-4">
+                         <Button variant="ghost" className="px-0 text-primary font-bold hover:bg-transparent hover:underline">View Detailed Report &rarr;</Button>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
 
             {/* Forms Section */}
             {(activeTab === 'all' || activeTab === 'forms') && (
