@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System Simulator - Phase 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            /* Default Theme (Light) */
+            --color-primary: 79 70 229;
+            /* Indigo-600 */
+            --color-secondary: 236 72 153;
+            /* Pink-500 */
+            --color-bg: 249 250 251;
+            /* Gray-50 */
+            --color-surface: 255 255 255;
+            /* White */
+            --color-text: 17 24 39;
+            /* Gray-900 */
+            --color-text-muted: 107 114 128;
+            /* Gray-500 */
+            --color-border: 229 231 235;
+            /* Gray-200 */
+
+            --radius-theme: 0.5rem;
+            /* 8px default */
+        }
+
+        .dark {
+            /* Default Theme (Dark) */
+            --color-bg: 17 24 39;
+            /* Gray-900 */
+            --color-surface: 31 41 55;
+            /* Gray-800 */
+            --color-text: 249 250 251;
+            /* Gray-50 */
+            --color-text-muted: 156 163 175;
+            /* Gray-400 */
+            --color-border: 55 65 81;
+            /* Gray-700 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-bg));
+            color: rgb(var(--color-text));
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Smooth transitions for theme changes */
+        .theme-transition {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, border-radius;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        /* Custom Scrollbar for canvas */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgb(var(--color-border));
+            border-radius: 10px;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+                            50: 'rgb(var(--color-primary-50) / <alpha-value>)',
+                            100: 'rgb(var(--color-primary-100) / <alpha-value>)',
+                            200: 'rgb(var(--color-primary-200) / <alpha-value>)',
+                            300: 'rgb(var(--color-primary-300) / <alpha-value>)',
+                            400: 'rgb(var(--color-primary-400) / <alpha-value>)',
+                            500: 'rgb(var(--color-primary-500) / <alpha-value>)',
+                            600: 'rgb(var(--color-primary-600) / <alpha-value>)',
+                            700: 'rgb(var(--color-primary-700) / <alpha-value>)',
+                            800: 'rgb(var(--color-primary-800) / <alpha-value>)',
+                            900: 'rgb(var(--color-primary-900) / <alpha-value>)',
+                            950: 'rgb(var(--color-primary-950) / <alpha-value>)',
+                        },
+                        secondary: {
+                            DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
+                            50: 'rgb(var(--color-secondary-50) / <alpha-value>)',
+                            100: 'rgb(var(--color-secondary-100) / <alpha-value>)',
+                            200: 'rgb(var(--color-secondary-200) / <alpha-value>)',
+                            300: 'rgb(var(--color-secondary-300) / <alpha-value>)',
+                            400: 'rgb(var(--color-secondary-400) / <alpha-value>)',
+                            500: 'rgb(var(--color-secondary-500) / <alpha-value>)',
+                            600: 'rgb(var(--color-secondary-600) / <alpha-value>)',
+                            700: 'rgb(var(--color-secondary-700) / <alpha-value>)',
+                            800: 'rgb(var(--color-secondary-800) / <alpha-value>)',
+                            900: 'rgb(var(--color-secondary-900) / <alpha-value>)',
+                            950: 'rgb(var(--color-secondary-950) / <alpha-value>)',
+                        },
+                        bg: 'rgb(var(--color-bg) / <alpha-value>)',
+                        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+                        tx: 'rgb(var(--color-text) / <alpha-value>)',
+                        muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
+                        bordercolor: 'rgb(var(--color-border) / <alpha-value>)',
+                        /* Semantic Colors */
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B',
+                        info: '#3B82F6',
+                    },
+                    borderRadius: {
+                        'theme': 'var(--radius-theme)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="flex flex-col md:flex-row h-screen overflow-hidden antialiased">
+
+    <!-- Sidebar: Control Panel -->
+    <aside
+        class="w-full md:w-80 h-auto md:h-screen flex-shrink-0 bg-surface border-b md:border-b-0 md:border-r border-bordercolor flex flex-col z-20 shadow-sm theme-transition">
+        <!-- Header -->
+        <div class="p-6 border-b border-bordercolor flex justify-between items-center theme-transition">
+            <div>
+                <h1 class="text-lg font-bold flex items-center gap-2">
+                    <i class="ph-fill ph-palette text-primary text-2xl theme-transition"></i>
+                    SysCraft
+                </h1>
+                <p class="text-xs text-muted mt-1">Design System Simulator</p>
+            </div>
+            <button id="themeToggle" class="p-2 rounded-theme hover:bg-bg theme-transition" title="Toggle Dark Mode">
+                <i id="themeIcon" class="ph ph-moon text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Controls container (Scrollable) -->
+        <div class="p-6 flex-1 overflow-y-auto space-y-8">
+
+            <!-- Randomize Action -->
+            <button onclick="randomizeTheme()"
+                class="w-full py-3 px-4 bg-primary text-white font-semibold rounded-theme shadow-md shadow-primary/20 hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 theme-transition">
+                <i class="ph-bold ph-dice-three text-xl"></i>
+                Randomize Theme
+            </button>
+
+            <!-- Colors Section -->
+            <div class="space-y-4">
+                <h2
+                    class="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
+                    <i class="ph ph-paint-brush"></i> Brand Colors
+                </h2>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-sm font-medium">Primary</label>
+                        <div
+                            class="relative w-8 h-8 rounded-full overflow-hidden border border-bordercolor theme-transition shadow-sm cursor-pointer">
+                            <input type="color" id="primaryPicker" value="#4f46e5"
+                                class="absolute -top-2 -left-2 w-16 h-16 cursor-pointer">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <label class="text-sm font-medium">Secondary</label>
+                        <div
+                            class="relative w-8 h-8 rounded-full overflow-hidden border border-bordercolor theme-transition shadow-sm cursor-pointer">
+                            <input type="color" id="secondaryPicker" value="#ec4899"
+                                class="absolute -top-2 -left-2 w-16 h-16 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-bordercolor theme-transition">
+
+            <!-- Shapes Section -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2
+                        class="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
+                        <i class="ph ph-bounding-box"></i> Shape & Radius
+                    </h2>
+                    <span id="radiusVal"
+                        class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-theme theme-transition">8px</span>
+                </div>
+
+                <input type="range" id="radiusSlider" min="0" max="24" value="8" class="w-full accent-primary">
+                <div class="flex justify-between text-xs text-muted theme-transition">
+                    <span>Sharp</span>
+                    <span>Rounded</span>
+                    <span>Pill</span>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- Main Canvas Area -->
+    <main class="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
+        <!-- Canvas Header -->
+        <header
+            class="sticky top-0 z-10 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
+            <h2 class="font-medium">Live Canvas</h2>
+            <div class="flex gap-2">
+                <span
+                    class="text-xs px-3 py-1.5 bg-surface border border-bordercolor rounded-theme theme-transition font-medium">Phase
+                    1 Preview</span>
+            </div>
+        </header>
+
+        <div class="p-8 max-w-6xl mx-auto space-y-12 pb-24">
+
+            <!-- SECTION 0: Color Palette Scale -->
+            <section>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold">Color Palette Scale</h3>
+                    <p class="text-sm text-muted mt-1 theme-transition">Auto-generated 11-step color scales based on
+                        your color selections.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Primary Scale -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Primary (50-950)</p>
+                        </div>
+                        <div class="flex h-12 w-full rounded-theme overflow-hidden border border-bordercolor shadow-sm">
+                            <div class="flex-1 bg-primary-50 theme-transition" title="50"></div>
+                            <div class="flex-1 bg-primary-100 theme-transition" title="100"></div>
+                            <div class="flex-1 bg-primary-200 theme-transition" title="200"></div>
+                            <div class="flex-1 bg-primary-300 theme-transition" title="300"></div>
+                            <div class="flex-1 bg-primary-400 theme-transition" title="400"></div>
+                            <div class="flex-1 bg-primary-500 theme-transition" title="500 (Base)"></div>
+                            <div class="flex-1 bg-primary-600 theme-transition" title="600"></div>
+                            <div class="flex-1 bg-primary-700 theme-transition" title="700"></div>
+                            <div class="flex-1 bg-primary-800 theme-transition" title="800"></div>
+                            <div class="flex-1 bg-primary-900 theme-transition" title="900"></div>
+                            <div class="flex-1 bg-primary-950 theme-transition" title="950"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-muted mt-1 px-1">
+                            <span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span
+                                class="font-bold text-primary">500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 1: Dashboard Mini-Mockups -->
+            <section>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold">Dashboard Mockups</h3>
+                    <p class="text-sm text-muted mt-1 theme-transition">How components look when assembled together.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Widget 1: Stats -->
+                    <div
+                        class="bg-surface border border-bordercolor rounded-theme p-6 shadow-sm theme-transition flex flex-col gap-4">
+                        <div class="flex justify-between items-start">
+                            <div
+                                class="w-12 h-12 rounded-theme bg-primary/10 text-primary flex items-center justify-center text-2xl theme-transition">
+                                <i class="ph-fill ph-users"></i>
+                            </div>
+                            <span
+                                class="bg-success/10 text-success text-xs font-bold px-2 py-1 rounded-theme flex items-center gap-1 theme-transition">
+                                <i class="ph-bold ph-arrow-up-right"></i> 12.5%
+                            </span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-muted font-medium theme-transition">Total Active Users</p>
+                            <h4 class="text-3xl font-bold mt-1">24,592</h4>
+                        </div>
+                    </div>
+
+                    <!-- Widget 2: Action Card -->
+                    <div
+                        class="bg-surface border border-bordercolor rounded-theme p-6 shadow-sm theme-transition flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold flex items-center gap-2"><i
+                                    class="ph-fill ph-rocket-launch text-secondary"></i> Upgrade Plan</h4>
+                            <p class="text-sm text-muted mt-2 theme-transition">Get access to premium design system
+                                features.</p>
+                        </div>
+                        <button
+                            class="w-full mt-4 bg-secondary text-white py-2 rounded-theme font-medium hover:bg-secondary/90 theme-transition transition-colors">
+                            Upgrade Now
+                        </button>
+                    </div>
+
+                    <!-- Widget 3: Login Modal Form -->
+                    <div class="bg-surface border border-bordercolor rounded-theme p-6 shadow-sm theme-transition">
+                        <h4 class="font-bold text-center mb-4">Admin Login</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-xs font-medium text-muted block mb-1 theme-transition">Email</label>
+                                <input type="email" value="admin@syscraft.io"
+                                    class="w-full bg-bg border border-bordercolor text-tx rounded-theme px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 theme-transition">
+                            </div>
+                            <div>
+                                <label
+                                    class="text-xs font-medium text-muted block mb-1 theme-transition">Password</label>
+                                <input type="password" value="password123"
+                                    class="w-full bg-bg border border-bordercolor text-tx rounded-theme px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 theme-transition">
+                            </div>
+                            <button
+                                class="w-full bg-primary text-white py-2 rounded-theme font-medium hover:opacity-90 theme-transition">
+                                Sign In
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table Mockup -->
+                <div
+                    class="mt-6 bg-surface border border-bordercolor rounded-theme shadow-sm overflow-hidden theme-transition">
+                    <div
+                        class="p-4 border-b border-bordercolor flex justify-between items-center bg-surface theme-transition">
+                        <h4 class="font-bold">Recent Signups</h4>
+                        <button class="text-sm text-primary font-medium hover:underline theme-transition">View
+                            All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="text-xs text-muted uppercase bg-bg/50 border-b border-bordercolor theme-transition">
+                                <tr>
+                                    <th class="px-6 py-3 font-medium">User</th>
+                                    <th class="px-6 py-3 font-medium">Role</th>
+                                    <th class="px-6 py-3 font-medium">Status</th>
+                                    <th class="px-6 py-3 font-medium text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-bordercolor theme-transition">
+                                <tr class="hover:bg-bg/50 theme-transition">
+                                    <td class="px-6 py-4 flex items-center gap-3">
+                                        <img src="https://placehold.co/40x40/7946e5/ffffff?text=JD"
+                                            class="w-8 h-8 rounded-theme object-cover theme-transition" alt="Avatar">
+                                        <div>
+                                            <p class="font-medium text-tx theme-transition">John Doe</p>
+                                            <p class="text-xs text-muted theme-transition">john@example.com</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-muted theme-transition">Admin</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-theme bg-success/10 text-success theme-transition">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button class="text-muted hover:text-primary theme-transition"><i
+                                                class="ph ph-dots-three-outline-vertical text-lg"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-bg/50 theme-transition">
+                                    <td class="px-6 py-4 flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-theme bg-secondary text-white flex items-center justify-center font-bold text-xs theme-transition">
+                                            AS</div>
+                                        <div>
+                                            <p class="font-medium text-tx theme-transition">Alice Smith</p>
+                                            <p class="text-xs text-muted theme-transition">alice@example.com</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-muted theme-transition">Editor</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-theme bg-warning/10 text-warning theme-transition">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button class="text-muted hover:text-primary theme-transition"><i
+                                                class="ph ph-dots-three-outline-vertical text-lg"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-bordercolor theme-transition">
+
+            <!-- SECTION 2: Forms & Actions -->
+            <section>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold">Forms & Actions</h3>
+                    <p class="text-sm text-muted mt-1 theme-transition">Buttons, Inputs, and interactive elements.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Buttons -->
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-semibold uppercase text-muted theme-transition">Buttons</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <button
+                                class="bg-primary text-white px-4 py-2 rounded-theme font-medium hover:opacity-90 active:scale-95 theme-transition">Primary</button>
+                            <button
+                                class="bg-secondary text-white px-4 py-2 rounded-theme font-medium hover:opacity-90 active:scale-95 theme-transition">Secondary</button>
+                            <button
+                                class="border-2 border-primary text-primary px-4 py-2 rounded-theme font-medium hover:bg-primary/5 active:scale-95 theme-transition">Outline</button>
+                            <button
+                                class="bg-transparent text-muted hover:text-tx hover:bg-bordercolor px-4 py-2 rounded-theme font-medium active:scale-95 theme-transition">Ghost</button>
+                        </div>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button
+                                class="bg-primary/50 text-white px-4 py-2 rounded-theme font-medium cursor-not-allowed theme-transition flex items-center gap-2">
+                                <i class="ph ph-spinner animate-spin"></i> Loading
+                            </button>
+                            <button
+                                class="bg-danger text-white px-4 py-2 rounded-theme font-medium hover:opacity-90 active:scale-95 theme-transition">Danger</button>
+                        </div>
+                    </div>
+
+                    <!-- Inputs -->
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-semibold uppercase text-muted theme-transition">Input Fields</h4>
+                        <div class="space-y-3">
+                            <div class="relative">
+                                <i
+                                    class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted theme-transition"></i>
+                                <input type="text" placeholder="Search components..."
+                                    class="w-full bg-surface border border-bordercolor text-tx rounded-theme pl-10 pr-4 py-2 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 theme-transition shadow-sm">
+                            </div>
+                            <div>
+                                <input type="text" value="Invalid input"
+                                    class="w-full bg-surface border border-danger text-danger rounded-theme px-4 py-2 focus:outline-none focus:ring-2 focus:ring-danger/20 theme-transition shadow-sm">
+                                <p class="text-xs text-danger mt-1 theme-transition"><i
+                                        class="ph-fill ph-warning-circle"></i> This field is required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Toggles & Selections -->
+                    <div class="space-y-4 md:col-span-2">
+                        <h4 class="text-sm font-semibold uppercase text-muted theme-transition">Selections</h4>
+                        <div
+                            class="flex flex-wrap items-center gap-8 p-4 bg-surface border border-bordercolor rounded-theme theme-transition">
+                            <!-- Toggle -->
+                            <label class="flex items-center cursor-pointer">
+                                <div class="relative">
+                                    <input type="checkbox" class="sr-only" checked>
+                                    <div class="block bg-primary w-10 h-6 rounded-full theme-transition"></div>
+                                    <div
+                                        class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform transform translate-x-4">
+                                    </div>
+                                </div>
+                                <div class="ml-3 text-sm font-medium theme-transition">Active Feature</div>
+                            </label>
+
+                            <!-- Checkbox -->
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <div
+                                    class="w-5 h-5 rounded-theme bg-primary text-white flex items-center justify-center theme-transition">
+                                    <i class="ph-bold ph-check text-xs"></i>
+                                </div>
+                                <span class="text-sm font-medium theme-transition">Checkbox</span>
+                            </label>
+
+                            <!-- Radio -->
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center theme-transition">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-primary theme-transition"></div>
+                                </div>
+                                <span class="text-sm font-medium theme-transition">Radio Option</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Feedback & Status -->
+            <section>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold">Feedback & Status</h3>
+                    <p class="text-sm text-muted mt-1 theme-transition">Alerts, Badges, and loading states.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Alerts -->
+                    <div class="space-y-3">
+                        <div
+                            class="bg-success/10 border border-success/20 text-success px-4 py-3 rounded-theme flex items-start gap-3 theme-transition">
+                            <i class="ph-fill ph-check-circle text-xl mt-0.5"></i>
+                            <div>
+                                <h5 class="font-semibold text-sm">Success!</h5>
+                                <p class="text-xs opacity-90">Your settings have been saved completely.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-warning/10 border border-warning/20 text-warning px-4 py-3 rounded-theme flex items-start gap-3 theme-transition">
+                            <i class="ph-fill ph-warning text-xl mt-0.5"></i>
+                            <div>
+                                <h5 class="font-semibold text-sm">Warning</h5>
+                                <p class="text-xs opacity-90">Please check your network connection.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-info/10 border border-info/20 text-info px-4 py-3 rounded-theme flex items-start gap-3 theme-transition">
+                            <i class="ph-fill ph-info text-xl mt-0.5"></i>
+                            <div>
+                                <h5 class="font-semibold text-sm">New Update</h5>
+                                <p class="text-xs opacity-90">Version 2.0 is now available to download.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress & Badges & Avatars -->
+                    <div class="space-y-6">
+                        <!-- Progress -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1 theme-transition">
+                                <span class="font-medium">Storage Usage</span>
+                                <span class="text-muted">75%</span>
+                            </div>
+                            <div class="w-full bg-bordercolor rounded-theme h-2 overflow-hidden theme-transition">
+                                <div class="bg-primary h-2 rounded-theme theme-transition" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skeleton -->
+                        <div class="space-y-2 pt-2">
+                            <h4 class="text-sm font-semibold uppercase text-muted theme-transition mb-2">Skeleton Loader
+                            </h4>
+                            <div class="flex gap-3 items-center">
+                                <div class="w-10 h-10 rounded-theme bg-bordercolor animate-pulse theme-transition">
+                                </div>
+                                <div class="space-y-2 flex-1">
+                                    <div class="h-4 bg-bordercolor rounded-theme w-3/4 animate-pulse theme-transition">
+                                    </div>
+                                    <div class="h-3 bg-bordercolor rounded-theme w-1/2 animate-pulse theme-transition">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Avatars Group -->
+                        <div class="pt-2">
+                            <h4 class="text-sm font-semibold uppercase text-muted theme-transition mb-2">Avatar Group
+                            </h4>
+                            <div class="flex -space-x-3">
+                                <img class="w-10 h-10 rounded-theme border-2 border-surface theme-transition object-cover"
+                                    src="https://placehold.co/40x40/4f46e5/ffffff?text=1" alt="">
+                                <img class="w-10 h-10 rounded-theme border-2 border-surface theme-transition object-cover"
+                                    src="https://placehold.co/40x40/ec4899/ffffff?text=2" alt="">
+                                <img class="w-10 h-10 rounded-theme border-2 border-surface theme-transition object-cover"
+                                    src="https://placehold.co/40x40/10b981/ffffff?text=3" alt="">
+                                <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-bordercolor border-2 border-surface rounded-theme hover:bg-muted theme-transition"
+                                    href="#">+5</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation / Tabs -->
+            <section class="pb-12">
+                <div class="border-b border-bordercolor theme-transition">
+                    <nav class="-mb-px flex gap-6">
+                        <a href="#"
+                            class="border-b-2 border-primary text-primary py-3 px-1 text-sm font-medium theme-transition">
+                            Overview
+                        </a>
+                        <a href="#"
+                            class="border-b-2 border-transparent text-muted hover:text-tx hover:border-bordercolor py-3 px-1 text-sm font-medium theme-transition">
+                            Analytics
+                        </a>
+                        <a href="#"
+                            class="border-b-2 border-transparent text-muted hover:text-tx hover:border-bordercolor py-3 px-1 text-sm font-medium theme-transition">
+                            Settings
+                        </a>
+                    </nav>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // DOM Elements
+        const root = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        const primaryPicker = document.getElementById('primaryPicker');
+        const secondaryPicker = document.getElementById('secondaryPicker');
+
+        const radiusSlider = document.getElementById('radiusSlider');
+        const radiusVal = document.getElementById('radiusVal');
+
+        // Utility: Convert HEX to RGB space-separated string for Tailwind
+        function hexToRgbString(hex) {
+            let r = 0, g = 0, b = 0;
+            // 3 digits
+            if (hex.length == 4) {
+                r = "0x" + hex[1] + hex[1];
+                g = "0x" + hex[2] + hex[2];
+                b = "0x" + hex[3] + hex[3];
+                // 6 digits
+            } else if (hex.length == 7) {
+                r = "0x" + hex[1] + hex[2];
+                g = "0x" + hex[3] + hex[4];
+                b = "0x" + hex[5] + hex[6];
+            }
+            return `${+r} ${+g} ${+b}`;
+        }
+
+        // Utility: Convert RGB to HEX
+        function rgbToHex(r, g, b) {
+            return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+        }
+
+        // --- NEW: Color Mixing Function for 11 Steps (Tint / Shade) ---
+        function mixColors(color1, color2, weight) {
+            const w1 = weight;
+            const w2 = 1 - w1;
+            return [
+                Math.round(color1[0] * w1 + color2[0] * w2),
+                Math.round(color1[1] * w1 + color2[1] * w2),
+                Math.round(color1[2] * w1 + color2[2] * w2)
+            ];
+        }
+
+        // --- NEW: Generate full scale 50-950 ---
+        function generateScale(baseRgbArray) {
+            const white = [255, 255, 255];
+            const black = [0, 0, 0];
+
+            return {
+                50: mixColors(white, baseRgbArray, 0.9), // 90% white
+                100: mixColors(white, baseRgbArray, 0.8),
+                200: mixColors(white, baseRgbArray, 0.6),
+                300: mixColors(white, baseRgbArray, 0.4),
+                400: mixColors(white, baseRgbArray, 0.2),
+                500: baseRgbArray,                        // Base color
+                600: mixColors(black, baseRgbArray, 0.2), // 20% black
+                700: mixColors(black, baseRgbArray, 0.4),
+                800: mixColors(black, baseRgbArray, 0.6),
+                900: mixColors(black, baseRgbArray, 0.8),
+                950: mixColors(black, baseRgbArray, 0.9)
+            };
+        }
+
+        // --- NEW: Update Color Base and its 11-step scale ---
+        function updateColorAndScale(hex, name) {
+            // Get RGB Array [r, g, b]
+            let r = 0, g = 0, b = 0;
+            if (hex.length == 4) {
+                r = parseInt(hex[1] + hex[1], 16);
+                g = parseInt(hex[2] + hex[2], 16);
+                b = parseInt(hex[3] + hex[3], 16);
+            } else if (hex.length == 7) {
+                r = parseInt(hex[1] + hex[2], 16);
+                g = parseInt(hex[3] + hex[4], 16);
+                b = parseInt(hex[5] + hex[6], 16);
+            }
+
+            const rgbArray = [r, g, b];
+
+            // Set base color e.g., --color-primary
+            root.style.setProperty(`--color-${name}`, `${r} ${g} ${b}`);
+
+            // Generate and set scale e.g., --color-primary-50
+            const scale = generateScale(rgbArray);
+            for (const [step, rgb] of Object.entries(scale)) {
+                root.style.setProperty(`--color-${name}-${step}`, `${rgb[0]} ${rgb[1]} ${rgb[2]}`);
+            }
+        }
+
+        // Initialize scales on load
+        updateColorAndScale('#4f46e5', 'primary');
+        updateColorAndScale('#ec4899', 'secondary');
+
+        // Dark/Light Mode Toggle
+        let isDark = false;
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            if (isDark) {
+                root.classList.add('dark');
+                root.classList.remove('light');
+                themeIcon.classList.replace('ph-moon', 'ph-sun');
+            } else {
+                root.classList.add('light');
+                root.classList.remove('dark');
+                themeIcon.classList.replace('ph-sun', 'ph-moon');
+            }
+        });
+
+        // Update Primary Color
+        primaryPicker.addEventListener('input', (e) => {
+            updateColorAndScale(e.target.value, 'primary');
+        });
+
+        // Update Secondary Color
+        secondaryPicker.addEventListener('input', (e) => {
+            updateColorAndScale(e.target.value, 'secondary');
+        });
+
+        // Update Border Radius
+        radiusSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            // Map 0-24 slider to rems or pixels. (e.g. 8 = 0.5rem)
+            const pxVal = val + 'px';
+            const displayVal = val == 24 ? '999px' : pxVal;
+
+            root.style.setProperty('--radius-theme', displayVal);
+            radiusVal.textContent = val == 24 ? 'Pill' : pxVal;
+        });
+
+        // Randomize Theme Function
+        function randomizeTheme() {
+            // Generate Random Primary (Vibrant)
+            const pR = Math.floor(Math.random() * 150) + 50;
+            const pG = Math.floor(Math.random() * 150) + 50;
+            const pB = Math.floor(Math.random() * 200) + 55;
+
+            // Generate Random Secondary (Complementary or distinct)
+            const sR = Math.floor(Math.random() * 200) + 55;
+            const sG = Math.floor(Math.random() * 100) + 50;
+            const sB = Math.floor(Math.random() * 150) + 50;
+
+            const hexPrimary = rgbToHex(pR, pG, pB);
+            const hexSecondary = rgbToHex(sR, sG, sB);
+
+            // Update Pickers
+            primaryPicker.value = hexPrimary;
+            secondaryPicker.value = hexSecondary;
+
+            // Update CSS Vars & Scales
+            updateColorAndScale(hexPrimary, 'primary');
+            updateColorAndScale(hexSecondary, 'secondary');
+
+            // Randomize Border Radius (0 to 24px)
+            const randomRadius = Math.floor(Math.random() * 5) * 4; // steps of 4: 0, 4, 8, 12, 16, 20
+            radiusSlider.value = randomRadius;
+            const displayRadius = randomRadius + 'px';
+            root.style.setProperty('--radius-theme', displayRadius);
+            radiusVal.textContent = displayRadius;
+        }
+
+        // Initialize with smooth transitions disabled briefly to prevent flash, then enable
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('theme-transition');
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
