@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SysCraft - Design System Simulator 🎨✨
 
-## Getting Started
+**SysCraft** is a professional-grade Design System Simulator designed to help designers and developers visualize, experiment, and refine their UI design languages in real-time.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Smart Color Randomization**: Generate harmonious color palettes based on HSL logic (Vibrant, Minimal, Professional).
+- **Typography Control**: Live preview of Google Fonts with seamless bilingual support.
+- **Dynamic Elevation**: Adjust shadow styles globally (None, Soft, Medium, Deep).
+- **Component Showcase**: Explore how styles apply to a wide range of components including Cards, Buttons, Inputs, Tables, and Navigation.
+- **Live Code Inspection**: Hover over color scales to see exact hex codes and copy them instantly.
+- **Dark Mode Support**: Fully optimized for both light and dark aesthetics.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS 4
+- **Icons**: Phosphor Icons
+- **State Management**: React Context API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔒 License & Usage (สัญญาอนุญาตและการใช้งาน)
 
-To learn more about Next.js, take a look at the following resources:
+### English
+**All Rights Reserved.**
+This project is created strictly for **portfolio demonstration purposes only**. 
+- Copying, redistributing, or using the source code for any commercial or personal purpose is **strictly prohibited**.
+- Modification or derivative works are not allowed without explicit written permission from the author.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ภาษาไทย
+**สงวนลิขสิทธิ์ทั้งหมด**
+โปรเจกต์นี้จัดทำขึ้นเพื่อ **วัตถุประสงค์ในการแสดงผลงาน (Portfolio) เท่านั้น**
+- **ห้ามมิให้ผู้ใดคัดลอก** แจกจ่าย หรือนำโค้ดไปใช้ในเชิงพาณิชย์หรือส่วนตัวโดยเด็ดขาด
+- ห้ามดัดแปลงหรือนำไปพัฒนาต่อโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษรจากเจ้าของผลงาน
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Created with ❤️ by [Newtgelo](https://github.com/Newtgelo)
