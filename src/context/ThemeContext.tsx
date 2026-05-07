@@ -41,6 +41,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.style.setProperty(`--color-primary-${step}`, `rgb(${rgb[0]} ${rgb[1]} ${rgb[2]})`);
     });
 
+    // Calculate Contrast Foreground for Primary
+    const pLuminance = (0.299 * pRgb.r + 0.587 * pRgb.g + 0.114 * pRgb.b) / 255;
+    root.style.setProperty('--color-primary-foreground', pLuminance > 0.55 ? '#000000' : '#ffffff');
+
     // Update Secondary
     root.style.setProperty('--color-secondary', secondaryColor);
     const sRgb = hexToRgb(secondaryColor);
@@ -48,6 +52,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     Object.entries(sScale).forEach(([step, rgb]) => {
       root.style.setProperty(`--color-secondary-${step}`, `rgb(${rgb[0]} ${rgb[1]} ${rgb[2]})`);
     });
+
+    // Calculate Contrast Foreground for Secondary
+    const sLuminance = (0.299 * sRgb.r + 0.587 * sRgb.g + 0.114 * sRgb.b) / 255;
+    root.style.setProperty('--color-secondary-foreground', sLuminance > 0.55 ? '#000000' : '#ffffff');
 
     // Update Radius
     const displayRadius = borderRadius === 24 ? '999px' : `${borderRadius}px`;

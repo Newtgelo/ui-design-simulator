@@ -111,7 +111,7 @@ export const Canvas: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.id 
-                  ? 'bg-primary text-white shadow-[var(--shadow-theme)]' 
+                  ? 'bg-primary text-[var(--color-primary-foreground)] shadow-[var(--shadow-theme)]' 
                   : 'bg-transparent text-muted hover:bg-bordercolor hover:text-tx'
                 }`}
               >
@@ -351,7 +351,7 @@ export const Canvas: React.FC = () => {
                           {[1, 2, 3].map((i) => (
                             <div
                               key={i}
-                              className="w-10 h-10 rounded-full border-2 border-surface bg-primary text-white flex items-center justify-center font-bold text-sm theme-transition shadow-sm z-10"
+                              className="w-10 h-10 rounded-full border-2 border-surface bg-primary text-[var(--color-primary-foreground)] flex items-center justify-center font-bold text-sm theme-transition shadow-sm z-10"
                             >
                               {i}
                             </div>

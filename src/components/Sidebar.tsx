@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Swatch, Copy, Check } from '@phosphor-icons/react';
+import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check } from '@phosphor-icons/react';
 import { Button } from './ui/Button';
 import { COLOR_PALETTES } from '@/lib/utils';
 
@@ -246,7 +246,7 @@ export const Sidebar: React.FC = () => {
                 onClick={() => setShadowStyle(style)}
                 className={`px-3 py-2 text-xs font-medium rounded-lg border theme-transition capitalize ${
                   shadowStyle === style 
-                  ? 'bg-primary text-white border-primary shadow-md' 
+                  ? 'bg-primary text-[var(--color-primary-foreground)] border-primary shadow-md' 
                   : 'bg-surface text-tx border-bordercolor hover:border-primary/50'
                 }`}
               >

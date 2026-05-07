@@ -14,8 +14,8 @@ export const Button: React.FC<ButtonProps> = ({
   ...props 
 }) => {
   const variants = {
-    primary: 'bg-primary text-white hover:opacity-90 shadow-[var(--shadow-theme)] shadow-primary/20',
-    secondary: 'bg-secondary text-white hover:opacity-90 shadow-[var(--shadow-theme)] shadow-secondary/20',
+    primary: 'bg-primary text-[var(--color-primary-foreground)] hover:opacity-90 shadow-[var(--shadow-theme)] shadow-primary/20',
+    secondary: 'bg-secondary text-[var(--color-secondary-foreground)] hover:opacity-90 shadow-[var(--shadow-theme)] shadow-secondary/20',
     outline: 'border-2 border-primary text-primary hover:bg-primary/5',
     ghost: 'bg-transparent text-muted hover:text-tx hover:bg-bordercolor',
     danger: 'bg-danger text-white hover:opacity-90 shadow-[var(--shadow-theme)] shadow-danger/20',
