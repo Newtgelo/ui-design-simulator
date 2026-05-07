@@ -177,7 +177,7 @@ export const Canvas: React.FC = () => {
                   <div className="group bg-surface rounded-[var(--radius-theme)] border border-bordercolor overflow-hidden shadow-[var(--shadow-theme)] theme-transition hover:translate-y-[-4px] transition-all duration-300">
                     <div className="aspect-square bg-bg overflow-hidden relative">
                       <img 
-                        src="https://images.unsplash.com/photo-1714418641975-47021e16428c?auto=format&fit=crop&q=80&w=800" 
+                        src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800" 
                         alt="Product" 
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
