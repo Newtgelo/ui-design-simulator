@@ -22,6 +22,10 @@ export const Sidebar: React.FC = () => {
     borderRadius,
     shadowStyle,
     fontFamily,
+    fontSizeBase,
+    setFontSizeBase,
+    fontScale,
+    setFontScale,
     isDarkMode,
     setPrimaryColor,
     setSecondaryColor,
@@ -138,6 +142,47 @@ export const Sidebar: React.FC = () => {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
+            </div>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <div className="flex justify-between items-center">
+              <label className="text-sm font-medium">Base Size</label>
+              <span className="text-xs font-mono text-primary font-bold">{fontSizeBase}px</span>
+            </div>
+            <input 
+              type="range" 
+              min="12" 
+              max="20" 
+              step="1"
+              value={fontSizeBase} 
+              onChange={(e) => setFontSizeBase(parseInt(e.target.value))}
+              className="w-full accent-primary" 
+            />
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <label className="text-sm font-medium">Scale Ratio</label>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { name: 'Major Second', val: 1.125 },
+                { name: 'Minor Third', val: 1.200 },
+                { name: 'Major Third', val: 1.250 },
+                { name: 'Perfect Fourth', val: 1.333 },
+              ].map((ratio) => (
+                <button
+                  key={ratio.name}
+                  onClick={() => setFontScale(ratio.val)}
+                  className={cn(
+                    "px-3 py-2 text-[10px] font-bold rounded-lg border theme-transition",
+                    fontScale === ratio.val 
+                    ? "bg-primary text-white border-primary" 
+                    : "bg-surface border-bordercolor hover:border-primary/50"
+                  )}
+                >
+                  {ratio.name} ({ratio.val})
+                </button>
+              ))}
             </div>
           </div>
         </div>

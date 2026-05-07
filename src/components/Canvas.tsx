@@ -186,20 +186,20 @@ export const Canvas: React.FC = () => {
                       <label className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] block mb-4">Headings (หัวข้อ)</label>
                       <div className="space-y-8">
                         <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
-                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H1 / 48px</span>
-                           <h1 className="text-5xl font-bold leading-tight flex-1">Design is the silent ambassador of your brand.</h1>
+                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H1 / var(--font-size-h1)</span>
+                           <h1 className="font-bold leading-tight flex-1" style={{ fontSize: 'var(--font-size-h1)' }}>Design is the silent ambassador of your brand.</h1>
                         </div>
                         <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
-                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H2 / 36px</span>
-                           <h2 className="text-4xl font-bold leading-tight flex-1">The details are not the details. They make the design.</h2>
+                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H2 / var(--font-size-h2)</span>
+                           <h2 className="font-bold leading-tight flex-1" style={{ fontSize: 'var(--font-size-h2)' }}>The details are not the details. They make the design.</h2>
                         </div>
                         <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
-                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H3 / 30px</span>
-                           <h3 className="text-3xl font-bold leading-tight flex-1">Simplicity is the ultimate sophistication.</h3>
+                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H3 / var(--font-size-h3)</span>
+                           <h3 className="font-bold leading-tight flex-1" style={{ fontSize: 'var(--font-size-h3)' }}>Simplicity is the ultimate sophistication.</h3>
                         </div>
                         <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
-                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H4 / 24px</span>
-                           <h4 className="text-2xl font-bold leading-tight flex-1">Everything is designed. Few things are designed well.</h4>
+                           <span className="w-16 text-[10px] font-mono text-muted flex-shrink-0">H4 / var(--font-size-h4)</span>
+                           <h4 className="font-bold leading-tight flex-1" style={{ fontSize: 'var(--font-size-h4)' }}>Everything is designed. Few things are designed well.</h4>
                         </div>
                       </div>
                     </div>
@@ -212,16 +212,16 @@ export const Canvas: React.FC = () => {
                         <label className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] block">Body Text (เนื้อหา)</label>
                         <div className="space-y-6">
                           <div className="space-y-1">
-                             <p className="text-[10px] font-mono text-muted mb-1">Body Large / 18px</p>
-                             <p className="text-lg leading-relaxed">SysCraft helps you visualize your design system in real-time, providing a bridge between design and code.</p>
+                             <p className="text-[10px] font-mono text-muted mb-1">Body Large / Base * 1.1</p>
+                             <p className="leading-relaxed" style={{ fontSize: 'calc(var(--font-size-base) * 1.1)' }}>SysCraft helps you visualize your design system in real-time, providing a bridge between design and code.</p>
                           </div>
                           <div className="space-y-1">
-                             <p className="text-[10px] font-mono text-muted mb-1">Body Base / 16px</p>
-                             <p className="text-base leading-relaxed text-tx/80">Design systems are the foundation of modern digital products. They ensure consistency, speed up development, and improve the user experience across all platforms.</p>
+                             <p className="text-[10px] font-mono text-muted mb-1">Body Base / var(--font-size-base)</p>
+                             <p className="leading-relaxed text-tx/80" style={{ fontSize: 'var(--font-size-base)' }}>Design systems are the foundation of modern digital products. They ensure consistency, speed up development, and improve the user experience across all platforms.</p>
                           </div>
                           <div className="space-y-1">
-                             <p className="text-[10px] font-mono text-muted mb-1">Body Small / 14px</p>
-                             <p className="text-sm leading-relaxed text-muted">A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.</p>
+                             <p className="text-[10px] font-mono text-muted mb-1">Body Small / var(--font-size-sm)</p>
+                             <p className="leading-relaxed text-muted" style={{ fontSize: 'var(--font-size-sm)' }}>A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.</p>
                           </div>
                         </div>
                       </div>
@@ -236,12 +236,12 @@ export const Canvas: React.FC = () => {
                              </div>
                              <div className="flex-1">
                                <p className="text-[10px] font-mono text-muted mb-1">Link Label</p>
-                               <span className="text-sm font-bold text-primary underline cursor-pointer">Learn More &rarr;</span>
+                               <span className="font-bold text-primary underline cursor-pointer" style={{ fontSize: 'var(--font-size-sm)' }}>Learn More &rarr;</span>
                              </div>
                           </div>
                           <div className="space-y-1">
-                             <p className="text-[10px] font-mono text-muted mb-1">Caption / 12px</p>
-                             <p className="text-xs text-muted/60 font-medium">Last updated: Oct 24, 2024 • Version 2.0.4</p>
+                             <p className="text-[10px] font-mono text-muted mb-1">Caption / var(--font-size-xs)</p>
+                             <p className="text-muted/60 font-medium" style={{ fontSize: 'var(--font-size-xs)' }}>Last updated: Oct 24, 2024 • Version 2.0.4</p>
                           </div>
                           <div className="space-y-1">
                              <p className="text-[10px] font-mono text-muted mb-1">Overline / 10px</p>

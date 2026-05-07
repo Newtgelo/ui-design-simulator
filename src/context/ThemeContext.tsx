@@ -10,12 +10,16 @@ interface ThemeContextType {
   shadowStyle: string;
   isDarkMode: boolean;
   fontFamily: string;
+  fontSizeBase: number;
+  fontScale: number;
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
   setPalette: (primary: string, secondary: string) => void;
   setBorderRadius: (radius: number) => void;
   setShadowStyle: (style: string) => void;
   setFontFamily: (font: string) => void;
+  setFontSizeBase: (size: number) => void;
+  setFontScale: (scale: number) => void;
   toggleDarkMode: () => void;
   randomizeTheme: () => void;
 }
@@ -28,6 +32,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [borderRadius, setBorderRadius] = useState(8);
   const [shadowStyle, setShadowStyle] = useState('soft');
   const [fontFamily, setFontFamily] = useState('var(--font-inter)');
+  const [fontSizeBase, setFontSizeBase] = useState(16);
+  const [fontScale, setFontScale] = useState(1.25);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const updateCssVariables = useCallback(() => {
@@ -58,8 +64,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     root.style.setProperty('--color-secondary-foreground', sLuminance > 0.55 ? '#000000' : '#ffffff');
 
     // Update Radius
-    const displayRadius = borderRadius === 24 ? '999px' : `${borderRadius}px`;
-    root.style.setProperty('--radius-theme', displayRadius);
+    root.style.setProperty('--radius-theme', `${borderRadius}px`);
+    root.style.setProperty('--font-theme', fontFamily);
+    
+    // Typography Scale
+    root.style.setProperty('--font-size-base', `${fontSizeBase}px`);
+    root.style.setProperty('--font-size-h1', `${Math.round(fontSizeBase * Math.pow(fontScale, 4))}px`);
+    root.style.setProperty('--font-size-h2', `${Math.round(fontSizeBase * Math.pow(fontScale, 3))}px`);
+    root.style.setProperty('--font-size-h3', `${Math.round(fontSizeBase * Math.pow(fontScale, 2))}px`);
+    root.style.setProperty('--font-size-h4', `${Math.round(fontSizeBase * Math.pow(fontScale, 1.2))}px`);
+    root.style.setProperty('--font-size-sm', `${Math.round(fontSizeBase / 1.1)}px`);
+    root.style.setProperty('--font-size-xs', `${Math.round(fontSizeBase / 1.3)}px`);
 
     // Update Dark Mode Class
     if (isDarkMode) {
@@ -67,9 +82,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } else {
       root.classList.remove('dark');
     }
-
-    // Update Font Family
-    root.style.setProperty('--font-sans', fontFamily);
 
     // Update Shadows
     const shadows: Record<string, string> = {
@@ -80,11 +92,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
     root.style.setProperty('--shadow-theme', shadows[shadowStyle] || shadows.soft);
 
-  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, isDarkMode]);
+  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode]);
 
   useEffect(() => {
     updateCssVariables();
-  }, [updateCssVariables]);
+  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode]);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
@@ -94,13 +106,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const randomizeTheme = () => {
-    // Truly Random but vibrant/clean colors using HSL
-    const randomHue1 = Math.floor(Math.random() * 360);
-    const randomHue2 = (randomHue1 + 180 + (Math.random() * 60 - 30)) % 360; // Complementary-ish
-    
-    setPrimaryColor(hslToHex(randomHue1, 70, 50));
-    setSecondaryColor(hslToHex(randomHue2, 60, 60));
-    setBorderRadius(Math.floor(Math.random() * 5) * 4);
+    const randomPrimary = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+    const randomSecondary = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+    setPrimaryColor(randomPrimary);
+    setSecondaryColor(randomSecondary);
+    setBorderRadius(Math.floor(Math.random() * 24));
   };
 
   return (
@@ -110,6 +120,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       borderRadius,
       shadowStyle,
       fontFamily,
+      fontSizeBase,
+      fontScale,
       isDarkMode,
       setPrimaryColor,
       setSecondaryColor,
@@ -117,6 +129,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setBorderRadius,
       setShadowStyle,
       setFontFamily,
+      setFontSizeBase,
+      setFontScale,
       toggleDarkMode,
       randomizeTheme
     }}>
