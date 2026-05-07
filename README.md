@@ -1,17 +1,30 @@
 # SysCraft - Design System Simulator 🎨✨
+### เครื่องมือจำลองระบบดีไซน์อัจฉริยะ
 
 **SysCraft** is a professional-grade Design System Simulator designed to help designers and developers visualize, experiment, and refine their UI design languages in real-time.
+**SysCraft** คือเครื่องมือจำลองระบบดีไซน์ระดับโปร ที่ช่วยให้ดีไซเนอร์และนักพัฒนาสามารถทดลองและปรับแต่งสไตล์ UI ได้แบบ Real-time
 
-## 🚀 Features
+---
 
-- **Smart Color Randomization**: Generate harmonious color palettes based on HSL logic (Vibrant, Minimal, Professional).
+## 🚀 Features (ฟีเจอร์เด่น)
+
+### English
+- **Smart Color Randomization**: Generate harmonious color palettes based on HSL logic.
 - **Typography Control**: Live preview of Google Fonts with seamless bilingual support.
 - **Dynamic Elevation**: Adjust shadow styles globally (None, Soft, Medium, Deep).
-- **Component Showcase**: Explore how styles apply to a wide range of components including Cards, Buttons, Inputs, Tables, and Navigation.
-- **Live Code Inspection**: Hover over color scales to see exact hex codes and copy them instantly.
-- **Dark Mode Support**: Fully optimized for both light and dark aesthetics.
+- **Component Showcase**: Categorized preview of Cards, Buttons, Inputs, Tables, and Navigation.
+- **Live Code Inspection**: Hover or click to copy exact hex codes from auto-generated scales.
 
-## 🛠 Tech Stack
+### ภาษาไทย
+- **ระบบสุ่มสีอัจฉริยะ**: สร้างพาเลทสีที่เข้ากันโดยอัตโนมัติด้วยตรรกะ HSL (Vibrant, Minimal, Professional)
+- **ควบคุมระบบตัวอักษร**: พรีวิว Google Fonts ได้ทันที รองรับทั้งภาษาไทยและอังกฤษแบบสมบูรณ์
+- **ระบบเงาไดนามิก**: ปรับสไตล์เงาได้ทั้งระบบ (เรียบแบน, นุ่มนวล, ชัดเจน, มีมิติสูง)
+- **คลังส่วนประกอบ UI**: แยกหมวดหมู่ชัดเจน ทั้งแดชบอร์ด, ฟอร์ม, การนำทาง และการแสดงผลข้อมูล
+- **คัดลอกโค้ดทันที**: แสดงรหัสสี Hex ในทุกระดับความสว่าง และคลิกเพื่อคัดลอกไปใช้งานได้ทันที
+
+---
+
+## 🛠 Tech Stack (เทคโนโลยีที่ใช้)
 
 - **Framework**: Next.js 15 (App Router)
 - **Styling**: Tailwind CSS 4
