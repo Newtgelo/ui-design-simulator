@@ -2,9 +2,18 @@
 
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check } from '@phosphor-icons/react';
+import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle } from '@phosphor-icons/react';
 import { Button } from './ui/Button';
-import { COLOR_PALETTES } from '@/lib/utils';
+import { COLOR_PALETTES, cn } from '@/lib/utils';
+
+const PRESETS = [
+  { name: 'SysCraft', primary: '#6366f1', secondary: '#8b5cf6', radius: 8, font: 'var(--font-inter)' },
+  { name: 'Midnight', primary: '#4f46e5', secondary: '#1e293b', radius: 8, font: 'var(--font-inter)' },
+  { name: 'Sunset', primary: '#f43f5e', secondary: '#fb923c', radius: 24, font: 'var(--font-outfit)' },
+  { name: 'Ocean', primary: '#0ea5e9', secondary: '#0f172a', radius: 4, font: 'var(--font-roboto)' },
+  { name: 'Cyber', primary: '#f0abfc', secondary: '#818cf8', radius: 0, font: 'var(--font-jetbrains-mono)' },
+  { name: 'Forest', primary: '#10b981', secondary: '#064e3b', radius: 12, font: 'var(--font-outfit)' },
+];
 
 export const Sidebar: React.FC = () => {
   const { 
@@ -25,6 +34,13 @@ export const Sidebar: React.FC = () => {
   } = useTheme();
 
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
+
+  const applyPreset = (preset: typeof PRESETS[0]) => {
+    setPrimaryColor(preset.primary);
+    setSecondaryColor(preset.secondary);
+    setBorderRadius(preset.radius);
+    setFontFamily(preset.font);
+  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -54,6 +70,40 @@ export const Sidebar: React.FC = () => {
 
       {/* Controls container */}
       <div className="p-6 flex-1 overflow-y-auto space-y-8">
+        
+        {/* Quick Themes Section */}
+        <div className="space-y-4">
+          <h2 className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] flex items-center gap-2">
+            <Sparkle size={14} weight="fill" className="text-primary" /> Quick Themes (ธีมสำเร็จรูป)
+          </h2>
+          <div className="grid grid-cols-2 gap-2">
+            {PRESETS.map((preset) => {
+              const isActive = primaryColor.toLowerCase() === preset.primary.toLowerCase() && 
+                              secondaryColor.toLowerCase() === preset.secondary.toLowerCase();
+              return (
+                <button
+                  key={preset.name}
+                  onClick={() => applyPreset(preset)}
+                  className={cn(
+                    "p-3 rounded-xl border text-left theme-transition group hover:border-primary/50 transition-all duration-300",
+                    isActive ? "border-primary bg-primary/5 shadow-sm" : "border-bordercolor bg-surface/50"
+                  )}
+                >
+                  <div className="flex gap-1 mb-2">
+                    <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: preset.primary }}></div>
+                    <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: preset.secondary }}></div>
+                  </div>
+                  <p className={cn(
+                    "text-[10px] font-bold theme-transition",
+                    isActive ? "text-primary" : "text-tx"
+                  )}>{preset.name}</p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <hr className="border-bordercolor theme-transition" />
         
         <Button onClick={randomizeTheme} className="w-full">
           <DiceThree weight="bold" size={20} />
