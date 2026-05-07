@@ -7,12 +7,12 @@ import { Button } from './ui/Button';
 import { COLOR_PALETTES, cn } from '@/lib/utils';
 
 const PRESETS = [
-  { name: 'SysCraft', primary: '#6366f1', secondary: '#8b5cf6', radius: 8, font: 'var(--font-inter)' },
-  { name: 'Midnight', primary: '#4f46e5', secondary: '#1e293b', radius: 8, font: 'var(--font-inter)' },
-  { name: 'Sunset', primary: '#f43f5e', secondary: '#fb923c', radius: 24, font: 'var(--font-outfit)' },
-  { name: 'Ocean', primary: '#0ea5e9', secondary: '#0f172a', radius: 4, font: 'var(--font-roboto)' },
-  { name: 'Cyber', primary: '#f0abfc', secondary: '#818cf8', radius: 0, font: 'var(--font-jetbrains-mono)' },
-  { name: 'Forest', primary: '#10b981', secondary: '#064e3b', radius: 12, font: 'var(--font-outfit)' },
+  { name: 'สุขุม (Professional)', primary: '#4f46e5', secondary: '#1e293b', radius: 8, font: 'var(--font-inter)' },
+  { name: 'วัยรุ่น (Vibrant)', primary: '#f43f5e', secondary: '#fb923c', radius: 12, font: 'var(--font-prompt)' },
+  { name: 'มินิมอล (Minimal)', primary: '#18181b', secondary: '#71717a', radius: 4, font: 'var(--font-inter)' },
+  { name: 'น่ารัก (Playful)', primary: '#ec4899', secondary: '#f9a8d4', radius: 24, font: 'var(--font-outfit)' },
+  { name: 'ดุดัน (Bold)', primary: '#000000', secondary: '#ef4444', radius: 0, font: 'var(--font-jetbrains-mono)' },
+  { name: 'ธรรมชาติ (Natural)', primary: '#10b981', secondary: '#064e3b', radius: 12, font: 'var(--font-prompt)' },
 ];
 
 export const Sidebar: React.FC = () => {
