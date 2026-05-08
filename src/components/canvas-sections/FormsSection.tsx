@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { Checkbox } from '../ui/Checkbox';
 import { Users, RocketLaunch, Envelope, CaretRight, MagnifyingGlass } from '@phosphor-icons/react';
 
 export const FormsSection: React.FC = () => {
@@ -102,6 +103,91 @@ export const FormsSection: React.FC = () => {
                 </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="pt-12">
+        <label className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-6 block border-b border-bordercolor pb-2">Component State Matrix (ตารางแสดงสถานะคอมโพเนนต์)</label>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-[10px] text-muted uppercase tracking-wider">
+                <th className="pb-4 pr-4 font-bold">Component</th>
+                <th className="pb-4 px-4 font-bold">Default</th>
+                <th className="pb-4 px-4 font-bold">Hover</th>
+                <th className="pb-4 px-4 font-bold">Active / Focus</th>
+                <th className="pb-4 px-4 font-bold">Disabled</th>
+                <th className="pb-4 pl-4 font-bold">Error</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-bordercolor">
+              {/* Buttons Row */}
+              <tr className="theme-transition">
+                <td className="py-6 pr-4 align-middle">
+                  <span className="text-xs font-bold">Button (Primary)</span>
+                </td>
+                <td className="py-6 px-4">
+                  <Button size="sm">Button</Button>
+                </td>
+                <td className="py-6 px-4">
+                  <Button size="sm" className="opacity-90">Button</Button>
+                </td>
+                <td className="py-6 px-4">
+                  <Button size="sm" className="scale-95">Button</Button>
+                </td>
+                <td className="py-6 px-4">
+                  <Button size="sm" disabled>Button</Button>
+                </td>
+                <td className="py-6 pl-4">
+                  <Button size="sm" variant="danger">Button</Button>
+                </td>
+              </tr>
+
+              {/* Inputs Row */}
+              <tr className="theme-transition">
+                <td className="py-6 pr-4 align-middle">
+                  <span className="text-xs font-bold">Input Field</span>
+                </td>
+                <td className="py-6 px-4">
+                  <div className="w-32"><Input placeholder="Placeholder" /></div>
+                </td>
+                <td className="py-6 px-4">
+                  <div className="w-32"><Input placeholder="Hover..." className="border-primary/50" /></div>
+                </td>
+                <td className="py-6 px-4">
+                  <div className="w-32"><Input defaultValue="Focused" className="ring-2 ring-primary/20 border-primary" /></div>
+                </td>
+                <td className="py-6 px-4">
+                  <div className="w-32"><Input placeholder="Disabled" disabled /></div>
+                </td>
+                <td className="py-6 pl-4">
+                  <div className="w-32"><Input defaultValue="Error" className="border-danger text-danger" /></div>
+                </td>
+              </tr>
+
+              {/* Checkboxes Row */}
+              <tr className="theme-transition">
+                <td className="py-6 pr-4 align-middle">
+                  <span className="text-xs font-bold">Checkbox</span>
+                </td>
+                <td className="py-6 px-4">
+                  <Checkbox checked={false} />
+                </td>
+                <td className="py-6 px-4">
+                  <Checkbox checked={false} className="opacity-80" />
+                </td>
+                <td className="py-6 px-4">
+                  <Checkbox checked={true} />
+                </td>
+                <td className="py-6 px-4">
+                  <Checkbox checked={true} disabled />
+                </td>
+                <td className="py-6 pl-4">
+                  <Checkbox checked={false} error />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
