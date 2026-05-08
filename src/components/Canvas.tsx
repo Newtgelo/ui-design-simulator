@@ -18,6 +18,7 @@ import { FormsSection } from './canvas-sections/FormsSection';
 import { NavigationSection } from './canvas-sections/NavigationSection';
 import { FeedbackSection } from './canvas-sections/FeedbackSection';
 import { DataSection } from './canvas-sections/DataSection';
+import { AccessibilitySection } from './canvas-sections/AccessibilitySection';
 
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale } = useTheme();
@@ -45,7 +46,7 @@ export const Canvas: React.FC = () => {
   return (
     <main className="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
       {/* Canvas Header */}
-      <header className="sticky top-0 z-10 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
+      <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
         <h2 className="font-medium">Live Canvas</h2>
         <div className="flex gap-2">
           <span className="text-xs px-3 py-1.5 bg-surface border border-bordercolor rounded-[var(--radius-theme)] theme-transition font-medium">
@@ -104,6 +105,9 @@ export const Canvas: React.FC = () => {
             ))}
           </div>
         </section>
+
+        {/* Accessibility Checker */}
+        <AccessibilitySection />
 
         {/* Component Showcase Tabs */}
         <section className="mt-8 pt-8 border-t border-bordercolor theme-transition">

@@ -93,3 +93,30 @@ export const COLOR_PALETTES = [
     ]
   }
 ];
+
+export function getLuminance(hex: string) {
+  const { r, g, b } = hexToRgb(hex);
+  const a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+export function getContrastRatio(hex1: string, hex2: string) {
+  const lum1 = getLuminance(hex1);
+  const lum2 = getLuminance(hex2);
+  const brightest = Math.max(lum1, lum2);
+  const darkest = Math.min(lum1, lum2);
+  return (brightest + 0.05) / (darkest + 0.05);
+}
+
+export function checkWCAG(ratio: number) {
+  return {
+    normalAA: ratio >= 4.5,
+    normalAAA: ratio >= 7,
+    largeAA: ratio >= 3,
+    largeAAA: ratio >= 4.5,
+    uiComponent: ratio >= 3,
+  };
+}

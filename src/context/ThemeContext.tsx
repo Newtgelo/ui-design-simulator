@@ -12,8 +12,10 @@ interface ThemeContextType {
   fontFamily: string;
   fontSizeBase: number;
   fontScale: number;
+  bgColor: string;
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
+  setBgColor: (color: string) => void;
   setPalette: (primary: string, secondary: string) => void;
   setBorderRadius: (radius: number) => void;
   setShadowStyle: (style: string) => void;
@@ -35,6 +37,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [fontSizeBase, setFontSizeBase] = useState(16);
   const [fontScale, setFontScale] = useState(1.25);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [bgColor, setBgColor] = useState('#fafafa');
 
   const updateCssVariables = useCallback(() => {
     const root = document.documentElement;
@@ -76,11 +79,36 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     root.style.setProperty('--font-size-sm', `${Math.round(fontSizeBase / 1.1)}px`);
     root.style.setProperty('--font-size-xs', `${Math.round(fontSizeBase / 1.3)}px`);
 
-    // Update Dark Mode Class
+    // Update Dark Mode Class & Backgrounds
     if (isDarkMode) {
       root.classList.add('dark');
+      // Remove inline overrides to let .dark class from globals.css take over
+      root.style.removeProperty('--color-bg');
+      root.style.removeProperty('--color-surface');
+      root.style.removeProperty('--color-tx');
+      root.style.removeProperty('--color-muted');
     } else {
       root.classList.remove('dark');
+      root.style.setProperty('--color-bg', bgColor);
+      
+      const bgRgb = hexToRgb(bgColor);
+      const bgLum = (0.299 * bgRgb.r + 0.587 * bgRgb.g + 0.114 * bgRgb.b) / 255;
+      
+      // If BG is light, surface is pure white. If BG is darker, surface is slightly lighter than BG.
+      if (bgLum > 0.92) {
+        root.style.setProperty('--color-surface', '#ffffff');
+      } else {
+        const surfaceRgb = {
+          r: Math.min(255, bgRgb.r + 8),
+          g: Math.min(255, bgRgb.g + 8),
+          b: Math.min(255, bgRgb.b + 8),
+        };
+        root.style.setProperty('--color-surface', rgbToHex(surfaceRgb.r, surfaceRgb.g, surfaceRgb.b));
+      }
+      
+      // Update Text Color based on BG luminance
+      root.style.setProperty('--color-tx', bgLum > 0.5 ? '#09090b' : '#fafafa');
+      root.style.setProperty('--color-muted', bgLum > 0.5 ? '#71717a' : '#a1a1aa');
     }
 
     // Update Shadows
@@ -92,7 +120,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
     root.style.setProperty('--shadow-theme', shadows[shadowStyle] || shadows.soft);
 
-  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode]);
+  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode, bgColor]);
 
   useEffect(() => {
     updateCssVariables();
@@ -131,6 +159,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setFontFamily,
       setFontSizeBase,
       setFontScale,
+      bgColor,
+      setBgColor,
       toggleDarkMode,
       randomizeTheme
     }}>

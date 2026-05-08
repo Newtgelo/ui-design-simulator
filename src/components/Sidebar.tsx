@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle } from '@phosphor-icons/react';
+import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle, ArrowCounterClockwise } from '@phosphor-icons/react';
 import { Button } from './ui/Button';
 import { COLOR_PALETTES, cn } from '@/lib/utils';
 
@@ -27,8 +27,10 @@ export const Sidebar: React.FC = () => {
     fontScale,
     setFontScale,
     isDarkMode,
+    bgColor,
     setPrimaryColor,
     setSecondaryColor,
+    setBgColor,
     setPalette,
     setBorderRadius,
     setShadowStyle,
@@ -117,76 +119,6 @@ export const Sidebar: React.FC = () => {
 
         <hr className="border-bordercolor theme-transition" />
 
-        {/* Typography Section */}
-        <div className="space-y-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
-            <TextAa /> Typography
-          </h2>
-
-          <div className="space-y-3">
-            <label className="text-sm font-medium">Font Family</label>
-            <div className="relative">
-              <select
-                value={fontFamily}
-                onChange={(e) => setFontFamily(e.target.value)}
-                className="w-full bg-surface border border-bordercolor text-tx rounded-[var(--radius-theme)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 theme-transition shadow-sm appearance-none cursor-pointer"
-              >
-                <option value="var(--font-inter)">Inter (Default)</option>
-                <option value="var(--font-noto-sans-thai)">Noto Sans Thai (ทางการ)</option>
-                <option value="var(--font-prompt)">Prompt (โมเดิร์น)</option>
-                <option value="var(--font-kanit)">Kanit (แข็งแรง)</option>
-                <option value="var(--font-sarabun)">Sarabun (ราชการ)</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-muted">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3 pt-2">
-            <div className="flex justify-between items-center">
-              <label className="text-sm font-medium">Base Size</label>
-              <span className="text-xs font-mono text-primary font-bold">{fontSizeBase}px</span>
-            </div>
-            <input 
-              type="range" 
-              min="12" 
-              max="20" 
-              step="1"
-              value={fontSizeBase} 
-              onChange={(e) => setFontSizeBase(parseInt(e.target.value))}
-              className="w-full accent-primary" 
-            />
-          </div>
-
-          <div className="space-y-3 pt-2">
-            <label className="text-sm font-medium">Scale Ratio</label>
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { name: 'Major Second', val: 1.125 },
-                { name: 'Minor Third', val: 1.200 },
-                { name: 'Major Third', val: 1.250 },
-                { name: 'Perfect Fourth', val: 1.333 },
-              ].map((ratio) => (
-                <button
-                  key={ratio.name}
-                  onClick={() => setFontScale(ratio.val)}
-                  className={cn(
-                    "px-3 py-2 text-[10px] font-bold rounded-lg border theme-transition",
-                    fontScale === ratio.val 
-                    ? "bg-primary text-white border-primary" 
-                    : "bg-surface border-bordercolor hover:border-primary/50"
-                  )}
-                >
-                  {ratio.name} ({ratio.val})
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Colors Section */}
         <div className="space-y-4">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
@@ -268,6 +200,52 @@ export const Sidebar: React.FC = () => {
                 </div>
               </div>
             </div>
+            <div className="flex justify-between items-center">
+              <label className="text-sm font-medium">Background</label>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => copyToClipboard(bgColor)}
+                  className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-bg border border-bordercolor text-[10px] font-mono text-muted hover:text-tx transition-colors group"
+                  title="Copy Hex Code"
+                >
+                  {bgColor.toUpperCase()}
+                  {copiedColor === bgColor ? <Check size={12} className="text-success" /> : <Copy size={12} className="group-hover:scale-110 transition-transform" />}
+                </button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    className="p-1 h-auto"
+                    onClick={() => setBgColor('#fafafa')}
+                    title="Reset Background"
+                  >
+                    <ArrowCounterClockwise size={16} />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="p-1 h-auto"
+                    onClick={() => {
+                      // Generate random color in the very light range (235-255)
+                      const r = Math.floor(235 + Math.random() * 20);
+                      const g = Math.floor(235 + Math.random() * 20);
+                      const b = Math.floor(235 + Math.random() * 20);
+                      const { rgbToHex } = require('@/lib/utils');
+                      setBgColor(rgbToHex(r, g, b));
+                    }}
+                    title="Random Light Background"
+                  >
+                    <DiceThree size={16} />
+                  </Button>
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-bordercolor theme-transition shadow-sm cursor-pointer">
+                    <input
+                      type="color"
+                      value={bgColor}
+                      onChange={(e) => setBgColor(e.target.value)}
+                      className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Quick Palettes */}
@@ -313,6 +291,80 @@ export const Sidebar: React.FC = () => {
             )}
           </div>
         </div>
+
+        <hr className="border-bordercolor theme-transition" />
+
+        {/* Typography Section */}
+        <div className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
+            <TextAa /> Typography
+          </h2>
+
+          <div className="space-y-3">
+            <label className="text-sm font-medium">Font Family</label>
+            <div className="relative">
+              <select
+                value={fontFamily}
+                onChange={(e) => setFontFamily(e.target.value)}
+                className="w-full bg-surface border border-bordercolor text-tx rounded-[var(--radius-theme)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 theme-transition shadow-sm appearance-none cursor-pointer"
+              >
+                <option value="var(--font-inter)">Inter (Default)</option>
+                <option value="var(--font-noto-sans-thai)">Noto Sans Thai (ทางการ)</option>
+                <option value="var(--font-prompt)">Prompt (โมเดิร์น)</option>
+                <option value="var(--font-kanit)">Kanit (แข็งแรง)</option>
+                <option value="var(--font-sarabun)">Sarabun (ราชการ)</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-muted">
+                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <div className="flex justify-between items-center">
+              <label className="text-sm font-medium">Base Size</label>
+              <span className="text-xs font-mono text-primary font-bold">{fontSizeBase}px</span>
+            </div>
+            <input 
+              type="range" 
+              min="12" 
+              max="20" 
+              step="1"
+              value={fontSizeBase} 
+              onChange={(e) => setFontSizeBase(parseInt(e.target.value))}
+              className="w-full accent-primary" 
+            />
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <label className="text-sm font-medium">Scale Ratio</label>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { name: 'Major Second', val: 1.125 },
+                { name: 'Minor Third', val: 1.200 },
+                { name: 'Major Third', val: 1.250 },
+                { name: 'Perfect Fourth', val: 1.333 },
+              ].map((ratio) => (
+                <button
+                  key={ratio.name}
+                  onClick={() => setFontScale(ratio.val)}
+                  className={cn(
+                    "px-3 py-2 text-[10px] font-bold rounded-lg border theme-transition",
+                    fontScale === ratio.val 
+                    ? "bg-primary text-white border-primary" 
+                    : "bg-surface border-bordercolor hover:border-primary/50"
+                  )}
+                >
+                  {ratio.name} ({ratio.val})
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+
 
         <hr className="border-bordercolor theme-transition" />
 
