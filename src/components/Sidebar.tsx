@@ -2,17 +2,147 @@
 
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle, ArrowCounterClockwise } from '@phosphor-icons/react';
+import { Card } from './ui/Card';
+import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle, ArrowCounterClockwise, X } from '@phosphor-icons/react';
 import { Button } from './ui/Button';
 import { COLOR_PALETTES, cn } from '@/lib/utils';
 
-const PRESETS = [
-  { name: 'SysCraft', primary: '#6366f1', secondary: '#8b5cf6', radius: 8, font: 'var(--font-inter)' },
-  { name: 'Midnight', primary: '#4f46e5', secondary: '#1e293b', radius: 8, font: 'var(--font-inter)' },
-  { name: 'Sunset', primary: '#f43f5e', secondary: '#fb923c', radius: 16, font: 'var(--font-outfit)' },
-  { name: 'Ocean', primary: '#0ea5e9', secondary: '#0f172a', radius: 4, font: 'var(--font-roboto)' },
-  { name: 'Cyber', primary: '#f0abfc', secondary: '#818cf8', radius: 0, font: 'var(--font-jetbrains-mono)' },
-  { name: 'Forest', primary: '#10b981', secondary: '#064e3b', radius: 12, font: 'var(--font-outfit)' },
+const ARCHETYPES = [
+  { 
+    name: 'Apple Minimal', 
+    primary: '#0071e3', 
+    secondary: '#86868b', 
+    radius: 12, 
+    shadow: 'soft',
+    font: 'var(--font-inter)',
+    description: 'Clean & Premium'
+  },
+  { 
+    name: 'Linear Pro', 
+    primary: '#5e6ad2', 
+    secondary: '#f472b6', 
+    radius: 8, 
+    shadow: 'deep',
+    font: 'var(--font-inter)',
+    description: 'Sleek & Deep'
+  },
+  { 
+    name: 'Cyberpunk', 
+    primary: '#ff0055', 
+    secondary: '#f0f000', 
+    radius: 0, 
+    shadow: 'none',
+    font: 'var(--font-mono)',
+    description: 'Raw & Futuristic'
+  },
+  { 
+    name: 'Soft Nature', 
+    primary: '#10b981', 
+    secondary: '#06b6d4', 
+    radius: 24, 
+    shadow: 'soft',
+    font: 'var(--font-inter)',
+    description: 'Gentle & Organic'
+  },
+  { 
+    name: 'Classic Corp', 
+    primary: '#1e3a8a', 
+    secondary: '#3b82f6', 
+    radius: 4, 
+    shadow: 'medium',
+    font: 'var(--font-inter)',
+    description: 'Solid & Reliable'
+  },
+  { 
+    name: 'Playful UI', 
+    primary: '#f59e0b', 
+    secondary: '#ec4899', 
+    radius: 16, 
+    shadow: 'medium',
+    font: 'var(--font-inter)',
+    description: 'Vibrant & Fun'
+  },
+  { 
+    name: 'Midnight', 
+    primary: '#334155', 
+    secondary: '#94a3b8', 
+    radius: 8, 
+    shadow: 'deep',
+    font: 'var(--font-inter)',
+    description: 'Dark & Deep'
+  },
+  { 
+    name: 'Bubblegum', 
+    primary: '#f472b6', 
+    secondary: '#a855f7', 
+    radius: 30, 
+    shadow: 'soft',
+    font: 'var(--font-inter)',
+    description: 'Sweet & Round'
+  },
+  { 
+    name: 'Eco Green', 
+    primary: '#15803d', 
+    secondary: '#84cc16', 
+    radius: 12, 
+    shadow: 'soft',
+    font: 'var(--font-inter)',
+    description: 'Fresh & Natural'
+  },
+  { 
+    name: 'Industrial', 
+    primary: '#4b5563', 
+    secondary: '#f97316', 
+    radius: 0, 
+    shadow: 'none',
+    font: 'var(--font-mono)',
+    description: 'Raw & Solid'
+  },
+  { 
+    name: 'Royal', 
+    primary: '#581c87', 
+    secondary: '#eab308', 
+    radius: 8, 
+    shadow: 'deep',
+    font: 'var(--font-inter)',
+    description: 'Purple & Gold'
+  },
+  { 
+    name: 'Sunset', 
+    primary: '#ea580c', 
+    secondary: '#fbbf24', 
+    radius: 16, 
+    shadow: 'medium',
+    font: 'var(--font-inter)',
+    description: 'Warm & Bright'
+  },
+  { 
+    name: 'Vivid Berry', 
+    primary: '#be185d', 
+    secondary: '#4338ca', 
+    radius: 12, 
+    shadow: 'medium',
+    font: 'var(--font-inter)',
+    description: 'Bold & Deep'
+  },
+  { 
+    name: 'Sandy', 
+    primary: '#92400e', 
+    secondary: '#0ea5e9', 
+    radius: 8, 
+    shadow: 'soft',
+    font: 'var(--font-inter)',
+    description: 'Earth & Sea'
+  },
+  { 
+    name: 'Night Forest', 
+    primary: '#064e3b', 
+    secondary: '#10b981', 
+    radius: 12, 
+    shadow: 'deep',
+    font: 'var(--font-inter)',
+    description: 'Dark & Natural'
+  },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -43,12 +173,14 @@ export const Sidebar: React.FC = () => {
 
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [isPalettesExpanded, setIsPalettesExpanded] = React.useState(false);
+  const [isPresetsExpanded, setIsPresetsExpanded] = React.useState(false);
 
-  const applyPreset = (preset: typeof PRESETS[0]) => {
-    setPrimaryColor(preset.primary);
-    setSecondaryColor(preset.secondary);
-    setBorderRadius(preset.radius);
-    setFontFamily(preset.font);
+  const applyArchetype = (type: typeof ARCHETYPES[0]) => {
+    setPrimaryColor(type.primary);
+    setSecondaryColor(type.secondary);
+    setBorderRadius(type.radius);
+    setShadowStyle(type.shadow);
+    setFontFamily(type.font);
   };
 
   const copyToClipboard = (text: string) => {
@@ -80,32 +212,45 @@ export const Sidebar: React.FC = () => {
       {/* Controls container */}
       <div className="p-6 flex-1 overflow-y-auto space-y-8">
 
-        {/* Quick Themes Section */}
+        {/* Presets Section */}
         <div className="space-y-4">
-          <h2 className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] flex items-center gap-2">
-            <Sparkle size={14} weight="fill" className="text-primary" /> Quick Themes (ธีมสำเร็จรูป)
-          </h2>
-          <div className="grid grid-cols-2 gap-2">
-            {PRESETS.map((preset) => {
-              const isActive = primaryColor.toLowerCase() === preset.primary.toLowerCase() &&
-                secondaryColor.toLowerCase() === preset.secondary.toLowerCase();
+          <div className="flex justify-between items-center">
+            <h2 className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] flex items-center gap-2">
+              <Sparkle size={14} weight="fill" className="text-primary" /> Presets (สไตล์สำเร็จรูป)
+            </h2>
+            <button 
+              onClick={() => setIsPresetsExpanded(!isPresetsExpanded)}
+              className="text-[10px] font-bold text-primary hover:underline underline-offset-4 flex items-center gap-1"
+            >
+              {isPresetsExpanded ? 'Show Less' : 'View All'}
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {(isPresetsExpanded ? ARCHETYPES : ARCHETYPES.slice(0, 6)).map((type) => {
+              const isActive = primaryColor.toLowerCase() === type.primary.toLowerCase() &&
+                borderRadius === type.radius && shadowStyle === type.shadow;
               return (
                 <button
-                  key={preset.name}
-                  onClick={() => applyPreset(preset)}
+                  key={type.name}
+                  onClick={() => applyArchetype(type)}
                   className={cn(
-                    "p-3 rounded-xl border text-left theme-transition group hover:border-primary/50 transition-all duration-300",
-                    isActive ? "border-primary bg-primary/5 shadow-sm" : "border-bordercolor bg-surface/50"
+                    "p-2.5 rounded-xl border flex flex-col items-center gap-2 theme-transition group hover:border-primary transition-all duration-300 relative overflow-hidden",
+                    isActive ? "border-primary bg-primary/5 shadow-sm" : "border-bordercolor bg-surface/50 hover:bg-bg"
                   )}
                 >
-                  <div className="flex gap-1 mb-2">
-                    <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: preset.primary }}></div>
-                    <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: preset.secondary }}></div>
+                  <div className="flex -space-x-1">
+                    <div className="w-3 h-3 rounded-full border border-surface shadow-xs" style={{ backgroundColor: type.primary }}></div>
+                    <div className="w-3 h-3 rounded-full border border-surface shadow-xs" style={{ backgroundColor: type.secondary }}></div>
                   </div>
-                  <p className={cn(
-                    "text-[10px] font-bold theme-transition",
+                  <span className={cn(
+                    "text-[8px] font-bold text-center leading-tight theme-transition",
                     isActive ? "text-primary" : "text-tx"
-                  )}>{preset.name}</p>
+                  )}>{type.name}</span>
+                  {isActive && (
+                    <div className="absolute top-0 right-0 p-0.5">
+                       <Check size={8} className="text-primary" weight="bold" />
+                    </div>
+                  )}
                 </button>
               );
             })}
