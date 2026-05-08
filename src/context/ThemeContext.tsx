@@ -128,7 +128,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     updateCssVariables();
-  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode]);
+  }, [primaryColor, secondaryColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode, bgColor]);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
