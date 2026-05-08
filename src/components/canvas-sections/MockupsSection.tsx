@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { Lightning, Barbell, Fire, Timer, Trophy, Calendar, CaretRight } from '@phosphor-icons/react';
 
 export const MockupsSection: React.FC = () => {
   return (
@@ -15,28 +16,28 @@ export const MockupsSection: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card className="flex flex-col items-center p-6 space-y-2 text-center">
             <div className="w-10 h-10 rounded-xl bg-success/10 text-success flex items-center justify-center">
-               <i className="ph-fill ph-lightning text-xl"></i>
+               <Lightning size={20} />
             </div>
             <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Workout done</p>
             <p className="text-2xl font-bold">567</p>
           </Card>
           <Card className="flex flex-col items-center p-6 space-y-2 text-center">
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-               <i className="ph-fill ph-barbell text-xl"></i>
+               <Barbell size={20} />
             </div>
             <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Max added weight</p>
             <p className="text-2xl font-bold">85 <span className="text-sm font-normal text-muted">kg</span></p>
           </Card>
           <Card className="flex flex-col items-center p-6 space-y-2 text-center">
             <div className="w-10 h-10 rounded-xl bg-warning/10 text-warning flex items-center justify-center">
-               <i className="ph-fill ph-fire text-xl"></i>
+               <Fire size={20} />
             </div>
             <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Calories Burnt</p>
             <p className="text-2xl font-bold">12.4k</p>
           </Card>
           <Card className="flex flex-col items-center p-6 space-y-2 text-center">
             <div className="w-10 h-10 rounded-xl bg-info/10 text-info flex items-center justify-center">
-               <i className="ph-fill ph-timer text-xl"></i>
+               <Timer size={20} />
             </div>
             <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Total Hours</p>
             <p className="text-2xl font-bold">142</p>
@@ -59,7 +60,7 @@ export const MockupsSection: React.FC = () => {
               </div>
             </div>
             <div className="absolute top-8 right-8 opacity-20">
-               <i className="ph ph-trophy text-8xl"></i>
+               <Trophy size={96} />
             </div>
           </div>
 
@@ -98,14 +99,14 @@ export const MockupsSection: React.FC = () => {
                <div>
                  <h4 className="font-bold text-2xl">Dumbbell Press</h4>
                  <p className="text-xs text-muted mt-1 flex items-center gap-1">
-                   <i className="ph ph-calendar"></i> 10 May 2024 - 17 May 2024
+                   <Calendar size={14} /> 10 May 2024 - 17 May 2024
                  </p>
                </div>
                <Badge variant="success">Active</Badge>
              </div>
              <div className="bg-bg rounded-[var(--radius-theme)] p-4 flex items-center gap-4 border border-bordercolor theme-transition">
                <div className="w-16 h-16 bg-surface rounded-lg flex items-center justify-center text-primary text-2xl border border-bordercolor shadow-sm">
-                  <i className="ph ph-barbell"></i>
+                  <Barbell size={32} />
                </div>
                <div>
                   <p className="font-bold">Dumbbell Press</p>

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { hexToRgb, generateScale, rgbToHex, hslToHex, COLOR_PALETTES } from '@/lib/utils';
+import { IconContext, IconWeight } from '@phosphor-icons/react';
 
 interface ThemeContextType {
   primaryColor: string;
@@ -13,6 +14,7 @@ interface ThemeContextType {
   fontSizeBase: number;
   fontScale: number;
   bgColor: string;
+  iconWeight: IconWeight;
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
   setBgColor: (color: string) => void;
@@ -22,6 +24,7 @@ interface ThemeContextType {
   setFontFamily: (font: string) => void;
   setFontSizeBase: (size: number) => void;
   setFontScale: (scale: number) => void;
+  setIconWeight: (weight: IconWeight) => void;
   toggleDarkMode: () => void;
   randomizeTheme: () => void;
 }
@@ -38,6 +41,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [fontScale, setFontScale] = useState(1.25);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [bgColor, setBgColor] = useState('#fafafa');
+  const [iconWeight, setIconWeight] = useState<IconWeight>('regular');
 
   const updateCssVariables = useCallback(() => {
     const root = document.documentElement;
@@ -161,10 +165,21 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setFontScale,
       bgColor,
       setBgColor,
+      iconWeight,
+      setIconWeight,
       toggleDarkMode,
       randomizeTheme
     }}>
-      {children}
+      <IconContext.Provider
+        value={{
+          color: "currentColor",
+          size: "1em",
+          weight: iconWeight,
+          mirrored: false,
+        }}
+      >
+        {children}
+      </IconContext.Provider>
     </ThemeContext.Provider>
   );
 };

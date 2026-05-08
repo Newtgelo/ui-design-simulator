@@ -14,7 +14,7 @@ export const DashboardSection: React.FC = () => {
         <Card className="flex flex-col gap-4">
           <div className="flex justify-between items-start">
             <div className="w-12 h-12 rounded-[var(--radius-theme)] bg-primary/10 text-primary flex items-center justify-center text-2xl theme-transition">
-              <Users weight="fill" />
+              <Users />
             </div>
             <span className="bg-success/10 text-success text-xs font-bold px-2 py-1 rounded-[var(--radius-theme)] flex items-center gap-1 theme-transition">
               +12.5%
@@ -29,7 +29,7 @@ export const DashboardSection: React.FC = () => {
         <Card className="flex flex-col justify-between">
           <div>
             <h4 className="font-bold flex items-center gap-2">
-              <RocketLaunch weight="fill" className="text-secondary" /> Upgrade Plan (อัปเกรดแผน)
+              <RocketLaunch className="text-secondary" /> Upgrade Plan (อัปเกรดแผน)
             </h4>
             <p className="text-sm text-muted mt-2 theme-transition">Get access to premium features. (เข้าถึงฟีเจอร์พรีเมียมแบบครบครัน)</p>
           </div>

@@ -28,6 +28,7 @@ export const Sidebar: React.FC = () => {
     setFontScale,
     isDarkMode,
     bgColor,
+    iconWeight,
     setPrimaryColor,
     setSecondaryColor,
     setBgColor,
@@ -35,6 +36,7 @@ export const Sidebar: React.FC = () => {
     setBorderRadius,
     setShadowStyle,
     setFontFamily,
+    setIconWeight,
     toggleDarkMode,
     randomizeTheme
   } = useTheme();
@@ -413,6 +415,34 @@ export const Sidebar: React.FC = () => {
                   }`}
               >
                 {style}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <hr className="border-bordercolor theme-transition" />
+
+        {/* Icon Style Section */}
+        <div className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2 theme-transition">
+            <Sparkle /> Icon Style
+          </h2>
+          <div className="grid grid-cols-3 gap-2">
+            {['thin', 'light', 'regular', 'bold', 'fill', 'duotone'].map((weight) => (
+              <button
+                key={weight}
+                onClick={() => setIconWeight(weight as any)}
+                className={cn(
+                  "p-2 rounded-lg border flex flex-col items-center gap-1 theme-transition transition-all",
+                  iconWeight === weight 
+                    ? "bg-primary text-white border-primary shadow-sm scale-105" 
+                    : "bg-surface border-bordercolor hover:border-primary/50"
+                )}
+              >
+                <div className="w-6 h-6 flex items-center justify-center">
+                   <Sparkle weight={weight as any} size={20} />
+                </div>
+                <span className="text-[8px] font-bold uppercase tracking-tighter">{weight}</span>
               </button>
             ))}
           </div>

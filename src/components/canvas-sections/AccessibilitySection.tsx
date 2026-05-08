@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card } from '../ui/Card';
-import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
 import { useTheme } from '@/context/ThemeContext';
-import { getContrastRatio, checkWCAG, getLuminance, cn, hexToRgb, rgbToHex } from '@/lib/utils';
-import { CheckCircle, XCircle, Info, Sun, Moon, TextAa } from '@phosphor-icons/react';
+import { getContrastRatio, checkWCAG, getLuminance, cn, hexToRgb, rgbToHex, findCompliantColor } from '@/lib/utils';
+import { CheckCircle, XCircle, Info, Sun, Moon, TextAa, Sparkle } from '@phosphor-icons/react';
 
 export const AccessibilitySection: React.FC = () => {
-  const { primaryColor, bgColor: themeBgColor } = useTheme();
+  const { primaryColor, setPrimaryColor, bgColor: themeBgColor } = useTheme();
   
   // --- Light Mode Calculations ---
   const lightBgColor = themeBgColor;
@@ -37,16 +37,28 @@ export const AccessibilitySection: React.FC = () => {
   const contrastFg = getContrastRatio(fgColor, primaryColor);
   const wcagFg = checkWCAG(contrastFg);
 
-  const ScoreCard = ({ title, bgHex, fgHex, contrast, wcag, description }: any) => (
+  const ScoreCard = ({ title, bgHex, fgHex, contrast, wcag, description, onFix }: any) => (
     <Card className="flex flex-col gap-2 p-3">
       <div className="flex justify-between items-center">
-        <div>
+        <div className="flex-1">
           <h4 className="font-bold text-xs">{title}</h4>
           <p className="text-[9px] text-muted leading-tight">{description}</p>
         </div>
-        <div className="text-right flex-shrink-0 bg-bg/50 px-2 py-0.5 rounded border border-bordercolor">
-          <span className="text-base font-bold block leading-none">{contrast.toFixed(2)}:1</span>
-          <span className="text-[8px] text-muted font-mono uppercase tracking-widest">Ratio</span>
+        <div className="flex items-center gap-2">
+          {contrast < 4.5 && onFix && (
+            <Button 
+              variant="ghost" 
+              className="h-7 px-2 text-[9px] bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 animate-pulse-subtle"
+              onClick={onFix}
+              title="Click to find a compliant color"
+            >
+              <Sparkle weight="fill" size={10} className="mr-1" /> Fix Color
+            </Button>
+          )}
+          <div className="text-right flex-shrink-0 bg-bg/50 px-2 py-0.5 rounded border border-bordercolor">
+            <span className="text-base font-bold block leading-none">{contrast.toFixed(2)}:1</span>
+            <span className="text-[8px] text-muted font-mono uppercase tracking-widest">Ratio</span>
+          </div>
         </div>
       </div>
 
@@ -133,6 +145,7 @@ export const AccessibilitySection: React.FC = () => {
               fgHex={primaryColor} 
               contrast={lightContrastBg} 
               wcag={wcagLightBg} 
+              onFix={() => setPrimaryColor(findCompliantColor(primaryColor, lightBgColor))}
             />
             <ScoreCard 
               title="Primary on Light Surface" 
@@ -141,6 +154,7 @@ export const AccessibilitySection: React.FC = () => {
               fgHex={primaryColor} 
               contrast={lightContrastSurface} 
               wcag={wcagLightSurface} 
+              onFix={() => setPrimaryColor(findCompliantColor(primaryColor, lightSurfaceColor))}
             />
           </div>
         </div>
@@ -155,6 +169,7 @@ export const AccessibilitySection: React.FC = () => {
               fgHex={primaryColor} 
               contrast={darkContrastBg} 
               wcag={wcagDarkBg} 
+              onFix={() => setPrimaryColor(findCompliantColor(primaryColor, darkBgColor))}
             />
             <ScoreCard 
               title="Primary on Dark Surface" 
@@ -163,6 +178,7 @@ export const AccessibilitySection: React.FC = () => {
               fgHex={primaryColor} 
               contrast={darkContrastSurface} 
               wcag={wcagDarkSurface} 
+              onFix={() => setPrimaryColor(findCompliantColor(primaryColor, darkSurfaceColor))}
             />
           </div>
         </div>

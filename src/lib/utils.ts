@@ -120,3 +120,48 @@ export function checkWCAG(ratio: number) {
     uiComponent: ratio >= 3,
   };
 }
+
+export function hexToHsl(hex: string) {
+  let { r, g, b } = hexToRgb(hex);
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0; 
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  return { h: h * 360, s: s * 100, l: l * 100 };
+}
+
+export function findCompliantColor(fgHex: string, bgHex: string, targetRatio: number = 4.5): string {
+  const fgHsl = hexToHsl(fgHex);
+  const bgLum = getLuminance(bgHex);
+  
+  // If background is light, try making foreground darker. If background is dark, try lighter.
+  const directions = bgLum > 0.5 ? [-1, 1] : [1, -1]; 
+  
+  for (const dir of directions) {
+    let currentL = fgHsl.l;
+    // Iterate in 0.5% steps for precision
+    while (currentL >= 0 && currentL <= 100) {
+      const currentHex = hslToHex(fgHsl.h, fgHsl.s, currentL);
+      if (getContrastRatio(currentHex, bgHex) >= targetRatio) {
+        return currentHex;
+      }
+      currentL += dir * 0.5;
+    }
+  }
+  
+  return bgLum > 0.5 ? '#000000' : '#ffffff'; 
+}
+

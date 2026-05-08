@@ -164,7 +164,10 @@ export const DataSection: React.FC = () => {
         <div className="xl:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8">
            <Card className="p-6 space-y-6">
               <div className="flex justify-between items-center">
-                 <h4 className="font-bold">Monthly Usage</h4>
+                 <div>
+                    <h4 className="font-bold">Monthly Usage</h4>
+                    <p className="text-[10px] text-muted font-bold uppercase tracking-widest mt-0.5">Performance Metrics</p>
+                 </div>
                  <Badge variant="primary">+12%</Badge>
               </div>
               <div className="h-48 flex items-end gap-2 px-2">
@@ -174,9 +177,10 @@ export const DataSection: React.FC = () => {
                      className="flex-1 group relative cursor-pointer"
                      style={{ height: `${h}%` }}
                    >
-                      <div className="absolute inset-0 bg-primary rounded-t-sm opacity-20 group-hover:opacity-100 transition-all theme-transition"></div>
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-tx text-surface text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                         {h}k req
+                      <div className="absolute inset-0 bg-primary rounded-t-sm opacity-20 group-hover:opacity-100 transition-all theme-transition group-hover:scale-x-110"></div>
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-tx text-surface text-[10px] p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap z-10 shadow-xl border border-white/10 translate-y-2 group-hover:translate-y-0">
+                         <p className="font-bold">{h}k requests</p>
+                         <p className="text-[8px] opacity-60">May {i + 1}, 2024</p>
                       </div>
                    </div>
                  ))}
@@ -188,47 +192,61 @@ export const DataSection: React.FC = () => {
               </div>
            </Card>
 
-           <Card className="p-0 overflow-hidden">
-              <div className="p-5 border-b border-bordercolor flex justify-between items-center">
-                 <h4 className="font-bold">Recent Activities</h4>
-                 <i className="ph ph-clock text-muted"></i>
+           <Card className="p-6 flex flex-col items-center justify-center">
+              <div className="w-full mb-6">
+                 <h4 className="font-bold">System Health</h4>
+                 <p className="text-[10px] text-muted font-bold uppercase tracking-widest mt-0.5">Real-time Status</p>
               </div>
-              <div className="p-6 space-y-6">
-                 {[
-                   { title: 'Project Updated', desc: 'Design system tokens were updated', time: '2m ago', icon: 'ph-paint-brush' },
-                   { title: 'Member Invited', desc: 'Sarah Chen joined the team', time: '1h ago', icon: 'ph-user-plus' },
-                   { title: 'Release v2.4', desc: 'New components were published', time: '5h ago', icon: 'ph-rocket-launch' },
-                 ].map((item, i) => (
-                   <div key={i} className="flex gap-4 relative">
-                      {i !== 2 && <div className="absolute left-[11px] top-7 bottom-[-24px] w-0.5 bg-bordercolor theme-transition"></div>}
-                      <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 z-10 border border-surface theme-transition">
-                         <i className={`ph ${item.icon} text-xs`}></i>
-                      </div>
-                      <div>
-                         <p className="text-xs font-bold leading-none">{item.title}</p>
-                         <p className="text-[10px] text-muted mt-1">{item.desc}</p>
-                         <p className="text-[9px] text-muted/60 mt-1 uppercase font-bold">{item.time}</p>
-                      </div>
-                   </div>
-                 ))}
+              
+              <div className="relative flex items-center justify-center">
+                {/* Custom CSS Pie Chart */}
+                <div 
+                  className="w-36 h-36 rounded-full shadow-inner relative group transition-transform duration-500 hover:rotate-12"
+                  style={{ 
+                    background: `conic-gradient(var(--color-primary) 0% 65%, var(--color-secondary) 65% 85%, #e2e8f0 85% 100%)` 
+                  }}
+                >
+                  <div className="absolute inset-6 bg-surface rounded-full flex flex-col items-center justify-center border border-bordercolor theme-transition shadow-sm z-10">
+                     <span className="text-2xl font-bold">98%</span>
+                     <span className="text-[8px] text-muted font-bold uppercase tracking-widest">Uptime</span>
+                  </div>
+                </div>
               </div>
-              <div className="p-4 bg-bg/30 text-center border-t border-bordercolor">
-                 <span className="text-[10px] font-bold text-primary uppercase tracking-widest cursor-pointer hover:underline">View All History</span>
+
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3 mt-8 w-full">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary shadow-sm"></div>
+                  <div>
+                    <p className="text-[10px] font-bold leading-none">Healthy</p>
+                    <p className="text-[8px] text-muted mt-0.5">65% Active</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-secondary shadow-sm"></div>
+                  <div>
+                    <p className="text-[10px] font-bold leading-none">Standby</p>
+                    <p className="text-[8px] text-muted mt-0.5">20% Ready</p>
+                  </div>
+                </div>
               </div>
            </Card>
 
-           <Card className="bg-tx text-surface flex flex-col justify-center items-center text-center p-8 space-y-4">
-              <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-3xl shadow-xl shadow-primary/20 rotate-3">
+           <Card className="bg-tx text-surface flex flex-col justify-center items-center text-center p-8 space-y-4 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <i className="ph-fill ph-crown text-9xl -mr-8 -mt-8 rotate-12"></i>
+              </div>
+              <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-3xl shadow-xl shadow-primary/20 rotate-3 group-hover:rotate-12 transition-transform duration-500">
                  <i className="ph-fill ph-crown"></i>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1 relative z-10">
                  <h4 className="text-xl font-bold">Premium Plan</h4>
-                 <p className="text-xs text-surface/60">Unlock advanced data analytics and unlimited team members.</p>
+                 <p className="text-xs text-surface/60 leading-relaxed">Unlock advanced data analytics and unlimited team members.</p>
               </div>
-              <Button className="w-full bg-surface text-tx border-none hover:bg-surface/90 mt-2">Upgrade Now</Button>
+              <Button className="w-full bg-surface text-tx border-none hover:bg-surface/90 mt-2 relative z-10">Upgrade Now</Button>
            </Card>
         </div>
       </div>
     </section>
   );
 };
+
