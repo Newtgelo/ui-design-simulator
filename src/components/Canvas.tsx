@@ -20,12 +20,13 @@ import { FeedbackSection } from './canvas-sections/FeedbackSection';
 import { DataSection } from './canvas-sections/DataSection';
 import { AccessibilitySection } from './canvas-sections/AccessibilitySection';
 import { DesignTokenSection } from './canvas-sections/DesignTokenSection';
+import { DesignSystemExportSection } from './canvas-sections/DesignSystemExportSection';
 
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [activeTab, setActiveTab] = React.useState('all');
-  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens'>('canvas');
+  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system'>('canvas');
 
   const pRgb = hexToRgb(primaryColor);
   const pScale = generateScale(pRgb);
@@ -66,11 +67,21 @@ export const Canvas: React.FC = () => {
           >
             Design Tokens
           </button>
+          <button
+            onClick={() => setViewMode('system')}
+            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
+              viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+            }`}
+          >
+            🔵 Design System
+          </button>
         </div>
       </header>
 
       <div className="p-8 max-w-6xl mx-auto space-y-12 pb-24">
-        {viewMode === 'tokens' ? (
+        {viewMode === 'system' ? (
+          <DesignSystemExportSection />
+        ) : viewMode === 'tokens' ? (
           <DesignTokenSection />
         ) : (
           <>
