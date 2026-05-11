@@ -21,12 +21,18 @@ import { DataSection } from './canvas-sections/DataSection';
 import { AccessibilitySection } from './canvas-sections/AccessibilitySection';
 import { DesignTokenSection } from './canvas-sections/DesignTokenSection';
 import { DesignSystemExportSection } from './canvas-sections/DesignSystemExportSection';
+import { BrandingSection } from './canvas-sections/BrandingSection';
+import { InteractionSection } from './canvas-sections/InteractionSection';
+import { GridLayoutSection } from './canvas-sections/GridLayoutSection';
+import { PageTemplatesSection } from './canvas-sections/PageTemplatesSection';
+import { GridFour, DeviceMobile } from '@phosphor-icons/react';
 
 export const Canvas: React.FC = () => {
-  const { primaryColor, fontFamily, fontSizeBase, fontScale } = useTheme();
+  const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [activeTab, setActiveTab] = React.useState('all');
-  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system'>('canvas');
+  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates'>('canvas');
+  const [showGrid, setShowGrid] = React.useState(false);
 
   const pRgb = hexToRgb(primaryColor);
   const pScale = generateScale(pRgb);
@@ -48,6 +54,17 @@ export const Canvas: React.FC = () => {
 
   return (
     <main className="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
+      {/* Grid Overlay Rendering */}
+      {showGrid && viewMode === 'canvas' && (
+        <div className="absolute inset-0 pointer-events-none z-50 flex h-full min-h-screen" style={{ padding: `0 ${gridMargin}px` }}>
+          <div className="w-full h-full flex" style={{ gap: `${gridGutter}px` }}>
+            {Array.from({ length: gridColumns }).map((_, i) => (
+              <div key={i} className="h-full flex-1 bg-primary/[0.03] border-x border-primary/[0.07]" />
+            ))}
+          </div>
+        </div>
+      )}
+
       <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
         <h2 className="font-medium">Live Canvas</h2>
         <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm">
@@ -68,12 +85,35 @@ export const Canvas: React.FC = () => {
             Design Tokens
           </button>
           <button
+            onClick={() => setViewMode('templates')}
+            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
+              viewMode === 'templates' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+            }`}
+          >
+            🖼️ Templates
+          </button>
+          <button
             onClick={() => setViewMode('system')}
             className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
               viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
             }`}
           >
             🔵 Design System
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowGrid(!showGrid)}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300",
+              showGrid 
+                ? "bg-primary text-white shadow-lg shadow-primary/25" 
+                : "bg-surface border border-bordercolor text-muted hover:text-primary"
+            )}
+          >
+            <GridFour weight={showGrid ? "fill" : "regular"} size={16} />
+            {showGrid ? "Grid On" : "Show Grid"}
           </button>
         </div>
       </header>
@@ -83,6 +123,8 @@ export const Canvas: React.FC = () => {
           <DesignSystemExportSection />
         ) : viewMode === 'tokens' ? (
           <DesignTokenSection />
+        ) : viewMode === 'templates' ? (
+          <PageTemplatesSection />
         ) : (
           <>
             {/* Color Palette Scale */}
@@ -149,6 +191,9 @@ export const Canvas: React.FC = () => {
               <div className="flex flex-wrap gap-2 border-b border-bordercolor pb-4 mb-8 theme-transition">
                 {[
                   { id: 'all', label: 'All (ภาพรวม)' },
+                  { id: 'branding', label: 'Branding (แบรนด์)' },
+                  { id: 'layout', label: 'Layout & Grid (เลย์เอาต์)' },
+                  { id: 'interactions', label: 'Interactions (การตอบสนอง)' },
                   { id: 'dashboard', label: 'Dashboard (แดชบอร์ด)' },
                   { id: 'mockups', label: 'Mockups (ม็อคอัพ)' },
                   { id: 'typography', label: 'Typography (ตัวอักษร)' },
@@ -174,6 +219,9 @@ export const Canvas: React.FC = () => {
               <div className="space-y-16">
                 
                 {/* Sections */}
+                {(activeTab === 'all' || activeTab === 'branding') && <BrandingSection />}
+                {(activeTab === 'all' || activeTab === 'layout') && <GridLayoutSection />}
+                {(activeTab === 'all' || activeTab === 'interactions') && <InteractionSection />}
                 {(activeTab === 'all' || activeTab === 'dashboard') && <DashboardSection />}
                 {(activeTab === 'all' || activeTab === 'typography') && <TypographySection />}
                 {(activeTab === 'all' || activeTab === 'mockups') && <MockupsSection />}

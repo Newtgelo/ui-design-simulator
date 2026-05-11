@@ -13,6 +13,9 @@ interface ThemeContextType {
   fontFamily: string;
   fontSizeBase: number;
   fontScale: number;
+  gridColumns: number;
+  gridGutter: number;
+  gridMargin: number;
   bgColor: string;
   iconWeight: IconWeight;
   setPrimaryColor: (color: string) => void;
@@ -24,6 +27,9 @@ interface ThemeContextType {
   setFontFamily: (font: string) => void;
   setFontSizeBase: (size: number) => void;
   setFontScale: (scale: number) => void;
+  setGridColumns: (cols: number) => void;
+  setGridGutter: (gutter: number) => void;
+  setGridMargin: (margin: number) => void;
   setIconWeight: (weight: IconWeight) => void;
   toggleDarkMode: () => void;
   randomizeTheme: () => void;
@@ -39,6 +45,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [fontFamily, setFontFamily] = useState('var(--font-inter)');
   const [fontSizeBase, setFontSizeBase] = useState(16);
   const [fontScale, setFontScale] = useState(1.25);
+  const [gridColumns, setGridColumns] = useState(12);
+  const [gridGutter, setGridGutter] = useState(24);
+  const [gridMargin, setGridMargin] = useState(32);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [bgColor, setBgColor] = useState('#fafafa');
   const [iconWeight, setIconWeight] = useState<IconWeight>('regular');
@@ -154,6 +163,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       fontFamily,
       fontSizeBase,
       fontScale,
+      gridColumns,
+      gridGutter,
+      gridMargin,
       isDarkMode,
       setPrimaryColor,
       setSecondaryColor,
@@ -163,6 +175,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setFontFamily,
       setFontSizeBase,
       setFontScale,
+      setGridColumns,
+      setGridGutter,
+      setGridMargin,
       bgColor,
       setBgColor,
       iconWeight,
