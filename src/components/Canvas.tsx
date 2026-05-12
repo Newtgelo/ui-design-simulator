@@ -188,32 +188,35 @@ export const Canvas: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2 border-b border-bordercolor pb-4 mb-8 theme-transition">
-                {[
-                  { id: 'all', label: 'All (ภาพรวม)' },
-                  { id: 'branding', label: 'Branding (แบรนด์)' },
-                  { id: 'layout', label: 'Layout & Grid (เลย์เอาต์)' },
-                  { id: 'interactions', label: 'Interactions (การตอบสนอง)' },
-                  { id: 'dashboard', label: 'Dashboard (แดชบอร์ด)' },
-                  { id: 'mockups', label: 'Mockups (ม็อคอัพ)' },
-                  { id: 'typography', label: 'Typography (ตัวอักษร)' },
-                  { id: 'forms', label: 'Forms (ฟอร์ม & ปุ่ม)' },
-                  { id: 'navigation', label: 'Navigation (การนำทาง)' },
-                  { id: 'data', label: 'Data Display (ข้อมูล)' },
-                  { id: 'feedback', label: 'Feedback (สถานะ)' }
-                ].map(tab => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                      activeTab === tab.id 
-                      ? 'bg-primary text-[var(--color-primary-foreground)] shadow-[var(--shadow-theme)]' 
-                      : 'bg-transparent text-muted hover:bg-bordercolor hover:text-tx'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
+              {/* Sticky Tabs Container */}
+              <div className="sticky top-[64px] z-30 -mx-8 px-8 py-4 bg-bg/80 backdrop-blur-md border-b border-bordercolor/50 mb-8 theme-transition">
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'all', label: 'All (ภาพรวม)' },
+                    { id: 'branding', label: 'Branding (แบรนด์)' },
+                    { id: 'layout', label: 'Layout & Grid (เลย์เอาต์)' },
+                    { id: 'interactions', label: 'Interactions (การตอบสนอง)' },
+                    { id: 'dashboard', label: 'Dashboard (แดชบอร์ด)' },
+                    { id: 'mockups', label: 'Mockups (ม็อคอัพ)' },
+                    { id: 'typography', label: 'Typography (ตัวอักษร)' },
+                    { id: 'forms', label: 'Forms (ฟอร์ม & ปุ่ม)' },
+                    { id: 'navigation', label: 'Navigation (การนำทาง)' },
+                    { id: 'data', label: 'Data Display (ข้อมูล)' },
+                    { id: 'feedback', label: 'Feedback (สถานะ)' }
+                  ].map(tab => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        activeTab === tab.id 
+                        ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
+                        : 'bg-surface/50 text-muted hover:bg-bordercolor hover:text-tx'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-16">
