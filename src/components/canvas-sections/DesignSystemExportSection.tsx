@@ -28,7 +28,7 @@ export const DesignSystemExportSection: React.FC = () => {
   const primaryRgb = hexToRgb(primaryColor);
   const secondaryRgb = hexToRgb(secondaryColor);
   const bgRgb = hexToRgb(bgColor);
-  
+
   const scales = {
     primary: generateScale(primaryRgb),
     secondary: generateScale(secondaryRgb),
@@ -42,7 +42,7 @@ export const DesignSystemExportSection: React.FC = () => {
   };
 
   const getFontSize = (level: number) => Math.round(fontSizeBase * Math.pow(fontScale, level));
-  
+
   const typographyTokens = {
     headings: [
       { name: 'H1. Headline', thName: 'H1. หัวข้อใหญ่', weight: 'Semi Bold', size: getFontSize(4), line: Math.round(getFontSize(4) * 1.2), spacing: 0 },
@@ -138,15 +138,15 @@ export const DesignSystemExportSection: React.FC = () => {
 
     // Populate Typography
     Object.entries(typographyTokens).forEach(([category, tokens]) => {
-        tokens.forEach(token => {
-            const tokenName = token.name.split('.')[0].trim();
-            json.typography[category][tokenName] = {
-                fontSize: { $value: `${token.size}px`, $type: "dimension" },
-                fontWeight: { $value: token.weight, $type: "fontWeight" },
-                lineHeight: { $value: `${token.line}px`, $type: "dimension" },
-                letterSpacing: { $value: `${token.spacing}px`, $type: "dimension" }
-            };
-        });
+      tokens.forEach(token => {
+        const tokenName = token.name.split('.')[0].trim();
+        json.typography[category][tokenName] = {
+          fontSize: { $value: `${token.size}px`, $type: "dimension" },
+          fontWeight: { $value: token.weight, $type: "fontWeight" },
+          lineHeight: { $value: `${token.line}px`, $type: "dimension" },
+          letterSpacing: { $value: `${token.spacing}px`, $type: "dimension" }
+        };
+      });
     });
 
     // Populate Spacing & Radius
@@ -166,17 +166,17 @@ export const DesignSystemExportSection: React.FC = () => {
     if (part === 'spacing') return JSON.stringify({ spacing: json.spacing }, null, 2);
     if (part === 'radius') return JSON.stringify({ radius: json.radius }, null, 2);
     if (part === 'interactions') return JSON.stringify({
-      durations: { 
+      durations: {
         $type: "duration",
-        fast: { $value: "150ms" }, 
-        normal: { $value: "300ms" }, 
-        slow: { $value: "500ms" } 
+        fast: { $value: "150ms" },
+        normal: { $value: "300ms" },
+        slow: { $value: "500ms" }
       },
-      states: { 
+      states: {
         $type: "number",
-        hover: { $value: 0.9 }, 
-        active: { $value: 0.95 }, 
-        disabled: { $value: 0.5 } 
+        hover: { $value: 0.9 },
+        active: { $value: 0.95 },
+        disabled: { $value: 0.5 }
       }
     }, null, 2);
 
@@ -213,10 +213,10 @@ export const DesignSystemExportSection: React.FC = () => {
           const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
           const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
           const textColor = luminance > 0.5 ? 'text-black/60' : 'text-white/80';
-          
+
           return (
-            <div 
-              key={step} 
+            <div
+              key={step}
               className="flex-1 flex flex-col items-center justify-end pb-2 hover:flex-[2] transition-all duration-300 relative cursor-pointer"
               style={{ backgroundColor: hex }}
               onClick={() => {
@@ -255,10 +255,10 @@ export const DesignSystemExportSection: React.FC = () => {
           const opacity = step / 100;
           const rgba = `rgba(${color === 'black' ? '0,0,0' : '255,255,255'}, ${opacity})`;
           const textColor = color === 'black' && step > 40 ? 'text-white/80' : 'text-black/60';
-          
+
           return (
-            <div 
-              key={step} 
+            <div
+              key={step}
               className="flex-1 flex flex-col items-center justify-end pb-2 hover:flex-[2] transition-all duration-300 relative cursor-pointer"
               style={{ backgroundColor: rgba }}
               onClick={() => {
@@ -296,7 +296,7 @@ export const DesignSystemExportSection: React.FC = () => {
           <div className="col-span-2 text-center">Size / Line</div>
           <div className="col-span-2 text-center">Spacing</div>
         </div>
-        
+
         {groups.map((group, groupIdx) => (
           <React.Fragment key={groupIdx}>
             {group.map((token: any, idx: number) => {
@@ -304,9 +304,9 @@ export const DesignSystemExportSection: React.FC = () => {
               return (
                 <div key={idx} className="grid grid-cols-12 gap-4 py-3 border-b border-bordercolor/30 items-center last:border-0 group/item">
                   <div className="col-span-6 flex items-center justify-between gap-4">
-                    <div 
-                      className="truncate" 
-                      style={{ 
+                    <div
+                      className="truncate"
+                      style={{
                         fontSize: `${token.size}px`,
                         lineHeight: '1.2',
                         fontWeight: fontWeight,
@@ -319,7 +319,7 @@ export const DesignSystemExportSection: React.FC = () => {
                       <span className="text-[9px] text-muted font-mono bg-bg px-1.5 py-0.5 rounded border border-bordercolor/50 whitespace-nowrap">
                         {token.name.split('.')[0]}/{fontFamily.replace('var(--font-', '').replace(')', '')}/{token.size}/{token.weight}
                       </span>
-                      <button 
+                      <button
                         onClick={() => {
                           const name = token.name.split('.')[0];
                           const font = fontFamily.replace('var(--font-', '').replace(')', '');
@@ -379,7 +379,7 @@ export const DesignSystemExportSection: React.FC = () => {
     const blur = level === 'low' ? 4 : level === 'md' ? 12 : 24;
     const spread = level === 'low' ? 0 : level === 'md' ? -2 : -4;
     const y = level === 'low' ? 2 : level === 'md' ? 6 : 12;
-    
+
     if (shadowStyle === 'Sharp') return `${y}px ${y}px 0px ${color}`;
     if (shadowStyle === 'Glass') return `0 8px 32px 0 rgba(31, 38, 135, 0.15)`;
     return `0 ${y}px ${blur}px ${spread} ${color}`;
@@ -389,19 +389,17 @@ export const DesignSystemExportSection: React.FC = () => {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold flex items-center gap-3">
-            <span className="text-4xl">🔵</span> Design System Export
-          </h2>
+          <h2 className="text-3xl font-bold">Design System Export</h2>
           <p className="text-muted mt-2">Export your design system variables for Figma and Tokens Studio.</p>
         </div>
         <div className="flex gap-2 bg-surface p-1 rounded-xl border border-bordercolor">
-          <button 
+          <button
             onClick={() => setActiveView('preview')}
             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeView === 'preview' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'}`}
           >
             Visual Preview
           </button>
-          <button 
+          <button
             onClick={() => setActiveView('json')}
             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeView === 'json' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'}`}
           >
@@ -415,7 +413,7 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Colors Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4">
-                <h3 className="text-2xl font-bold">Colors</h3>
+              <h3 className="text-2xl font-bold">Colors</h3>
             </div>
             <ColorRow label="Primary" scale={scales.primary} />
             <ColorRow label="Secondary" scale={scales.secondary} />
@@ -435,52 +433,52 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Typography Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                    <h3 className="text-2xl font-bold">Typography</h3>
-                    <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full border border-primary/20">
-                        <span className="text-[10px] font-bold text-primary/60 uppercase tracking-tight">Preview:</span>
-                        <div className="flex gap-1">
-                            <button 
-                              onClick={() => setLang('en')} 
-                              className={cn(
-                                "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all", 
-                                lang === 'en' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
-                              )}
-                            >
-                              English
-                            </button>
-                            <button 
-                              onClick={() => setLang('th')} 
-                              className={cn(
-                                "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all", 
-                                lang === 'th' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
-                              )}
-                            >
-                              ภาษาไทย
-                            </button>
-                        </div>
-                    </div>
+              <div className="flex items-center gap-4">
+                <h3 className="text-2xl font-bold">Typography</h3>
+                <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full border border-primary/20">
+                  <span className="text-[10px] font-bold text-primary/60 uppercase tracking-tight">Preview:</span>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setLang('en')}
+                      className={cn(
+                        "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all",
+                        lang === 'en' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
+                      )}
+                    >
+                      English
+                    </button>
+                    <button
+                      onClick={() => setLang('th')}
+                      className={cn(
+                        "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all",
+                        lang === 'th' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
+                      )}
+                    >
+                      ภาษาไทย
+                    </button>
+                  </div>
                 </div>
-                <Badge variant="outline" className="font-mono">{fontFamily.replace('var(--font-', '').replace(')', '')}</Badge>
+              </div>
+              <Badge variant="outline" className="font-mono">{fontFamily.replace('var(--font-', '').replace(')', '')}</Badge>
             </div>
-            
-            <TypographyTable 
-              title="Text Font" 
-              groups={[typographyTokens.headings, typographyTokens.subtitles, typographyTokens.body, typographyTokens.captions]} 
+
+            <TypographyTable
+              title="Text Font"
+              groups={[typographyTokens.headings, typographyTokens.subtitles, typographyTokens.body, typographyTokens.captions]}
             />
-            
+
             <div className="pt-8">
-                <TypographyTable 
-                  title="Button Font" 
-                  groups={[typographyTokens.buttons]} 
-                />
+              <TypographyTable
+                title="Button Font"
+                groups={[typographyTokens.buttons]}
+              />
             </div>
           </Card>
 
           {/* Grid System Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4">
-                <h3 className="text-2xl font-bold">Grid System</h3>
+              <h3 className="text-2xl font-bold">Grid System</h3>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between items-center text-[10px] font-mono text-muted uppercase">
@@ -490,7 +488,7 @@ export const DesignSystemExportSection: React.FC = () => {
               <div className="grid grid-cols-12 gap-6 h-32 w-full bg-bg/30 border border-bordercolor rounded-xl p-8 relative overflow-hidden">
                 {[...Array(12)].map((_, i) => (
                   <div key={i} className="bg-primary/10 border-x border-primary/20 h-full flex items-center justify-center">
-                    <span className="text-[10px] font-bold text-primary/30">{i+1}</span>
+                    <span className="text-[10px] font-bold text-primary/30">{i + 1}</span>
                   </div>
                 ))}
               </div>
@@ -502,15 +500,15 @@ export const DesignSystemExportSection: React.FC = () => {
             {/* Spacing */}
             <Card className="p-8 space-y-6">
               <div className="border-b border-bordercolor pb-4">
-                  <h3 className="text-2xl font-bold">Spacing Scale</h3>
+                <h3 className="text-2xl font-bold">Spacing Scale</h3>
               </div>
               <div className="space-y-4">
                 {spacingScale.map((s) => (
                   <div key={s.label} className="flex items-center gap-6 group">
                     <div className="w-16 text-[10px] font-mono text-muted uppercase">{s.label}</div>
                     <div className="flex-1 flex items-center gap-4">
-                        <div className="bg-primary/20 border border-primary/30 rounded-sm" style={{ width: s.value, height: 12 }}></div>
-                        <span className="text-xs font-mono text-muted">{s.value}px</span>
+                      <div className="bg-primary/20 border border-primary/30 rounded-sm" style={{ width: s.value, height: 12 }}></div>
+                      <span className="text-xs font-mono text-muted">{s.value}px</span>
                     </div>
                   </div>
                 ))}
@@ -520,13 +518,13 @@ export const DesignSystemExportSection: React.FC = () => {
             {/* Radius */}
             <Card className="p-8 space-y-6">
               <div className="border-b border-bordercolor pb-4">
-                  <h3 className="text-2xl font-bold">Radius Scale</h3>
+                <h3 className="text-2xl font-bold">Radius Scale</h3>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {radiusScale.map((r) => (
                   <div key={r.label} className="space-y-2">
-                    <div 
-                      className="h-16 bg-bg border border-bordercolor shadow-sm transition-all" 
+                    <div
+                      className="h-16 bg-bg border border-bordercolor shadow-sm transition-all"
                       style={{ borderRadius: r.value }}
                     ></div>
                     <div className="flex justify-between items-center px-1">
@@ -542,11 +540,11 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Elevation Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4">
-                <h3 className="text-2xl font-bold">Elevation & Shadows</h3>
+              <h3 className="text-2xl font-bold">Elevation & Shadows</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-4">
               <div className="space-y-4 text-center">
-                <div 
+                <div
                   className="aspect-square bg-surface border border-bordercolor flex items-center justify-center"
                   style={{ borderRadius: borderRadius * 2, boxShadow: getShadowValue('low') }}
                 >
@@ -555,7 +553,7 @@ export const DesignSystemExportSection: React.FC = () => {
                 <p className="text-[10px] text-muted font-mono uppercase">Elevation 1</p>
               </div>
               <div className="space-y-4 text-center">
-                <div 
+                <div
                   className="aspect-square bg-surface border border-bordercolor flex items-center justify-center"
                   style={{ borderRadius: borderRadius * 2, boxShadow: getShadowValue('md') }}
                 >
@@ -564,7 +562,7 @@ export const DesignSystemExportSection: React.FC = () => {
                 <p className="text-[10px] text-muted font-mono uppercase">Elevation 2</p>
               </div>
               <div className="space-y-4 text-center">
-                <div 
+                <div
                   className="aspect-square bg-surface border border-bordercolor flex items-center justify-center"
                   style={{ borderRadius: borderRadius * 2, boxShadow: getShadowValue('hi') }}
                 >
@@ -578,7 +576,7 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Branding & Logo Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4">
-                <h3 className="text-2xl font-bold">Branding & Logo</h3>
+              <h3 className="text-2xl font-bold">Branding & Logo</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="space-y-3">
@@ -623,52 +621,52 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Interaction Tokens Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4">
-                <h3 className="text-2xl font-bold">Interaction Tokens</h3>
+              <h3 className="text-2xl font-bold">Interaction Tokens</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-               <div className="space-y-4">
-                  <h4 className="text-xs font-bold text-muted uppercase">Duration Scale</h4>
-                  <div className="space-y-3">
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Fast</span>
-                        <span className="text-[10px] font-mono text-muted">150ms</span>
-                     </div>
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Normal</span>
-                        <span className="text-[10px] font-mono text-muted">300ms</span>
-                     </div>
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Slow</span>
-                        <span className="text-[10px] font-mono text-muted">500ms</span>
-                     </div>
+              <div className="space-y-4">
+                <h4 className="text-xs font-bold text-muted uppercase">Duration Scale</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Fast</span>
+                    <span className="text-[10px] font-mono text-muted">150ms</span>
                   </div>
-               </div>
-               <div className="space-y-4">
-                  <h4 className="text-xs font-bold text-muted uppercase">Interactive Opacity</h4>
-                  <div className="space-y-3">
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Hover State</span>
-                        <span className="text-[10px] font-mono text-muted">0.9 / 90%</span>
-                     </div>
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Active / Pressed</span>
-                        <span className="text-[10px] font-mono text-muted">Scale 0.95</span>
-                     </div>
-                     <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
-                        <span className="text-xs font-medium">Disabled State</span>
-                        <span className="text-[10px] font-mono text-muted">0.5 / 50%</span>
-                     </div>
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Normal</span>
+                    <span className="text-[10px] font-mono text-muted">300ms</span>
                   </div>
-               </div>
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Slow</span>
+                    <span className="text-[10px] font-mono text-muted">500ms</span>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-xs font-bold text-muted uppercase">Interactive Opacity</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Hover State</span>
+                    <span className="text-[10px] font-mono text-muted">0.9 / 90%</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Active / Pressed</span>
+                    <span className="text-[10px] font-mono text-muted">Scale 0.95</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-bg border border-bordercolor rounded-lg">
+                    <span className="text-xs font-medium">Disabled State</span>
+                    <span className="text-[10px] font-mono text-muted">0.5 / 50%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </Card>
 
           {/* Export Prompt */}
           <div className="flex items-center justify-center p-8 bg-primary/5 border border-dashed border-primary/30 rounded-2xl">
-              <div className="text-center space-y-2">
-                  <p className="text-sm font-medium">Ready to export?</p>
-                  <Button onClick={() => setActiveView('json')} variant="outline" size="sm">Switch to JSON Tab</Button>
-              </div>
+            <div className="text-center space-y-2">
+              <p className="text-sm font-medium">Ready to export?</p>
+              <Button onClick={() => setActiveView('json')} variant="outline" size="sm">Switch to JSON Tab</Button>
+            </div>
           </div>
         </div>
       ) : (
@@ -685,17 +683,16 @@ export const DesignSystemExportSection: React.FC = () => {
               <button
                 key={part.id}
                 onClick={() => setJsonPart(part.id as any)}
-                className={`flex-1 min-w-[100px] py-2 px-3 rounded-lg text-xs font-bold transition-all ${
-                  jsonPart === part.id 
-                  ? 'bg-primary text-white shadow-sm' 
-                  : 'text-muted hover:bg-bg'
-                }`}
+                className={`flex-1 min-w-[100px] py-2 px-3 rounded-lg text-xs font-bold transition-all ${jsonPart === part.id
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'text-muted hover:bg-bg'
+                  }`}
               >
                 {part.label}
               </button>
             ))}
           </div>
-          
+
           <div className="flex gap-4">
             <Button onClick={handleCopy} className="flex-1 h-12">
               {copied ? <Check weight="bold" className="text-success" /> : <Copy weight="bold" />}
@@ -708,7 +705,7 @@ export const DesignSystemExportSection: React.FC = () => {
           </div>
           <div className="relative group">
             <div className="absolute top-4 right-4 z-10">
-                <Badge variant="outline" className="bg-surface/80 backdrop-blur">JSON Format: {jsonPart}</Badge>
+              <Badge variant="outline" className="bg-surface/80 backdrop-blur">JSON Format: {jsonPart}</Badge>
             </div>
             <pre className="bg-surface p-8 rounded-2xl border border-bordercolor overflow-x-auto text-sm font-mono leading-relaxed max-h-[600px] shadow-inner">
               {generateFigmaJson(jsonPart)}

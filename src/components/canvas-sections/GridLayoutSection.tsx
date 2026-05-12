@@ -16,9 +16,7 @@ export const GridLayoutSection: React.FC = () => {
   return (
     <div className="space-y-12 animate-in fade-in duration-500">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold flex items-center gap-3">
-          <span className="text-primary">📐</span> Layout & Grid
-        </h2>
+        <h2 className="text-3xl font-bold">Layout & Grid</h2>
         <p className="text-muted mt-2">Standardized grid system and spatial definitions for consistent layout architecture.</p>
       </div>
 

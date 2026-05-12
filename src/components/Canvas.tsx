@@ -66,7 +66,7 @@ export const Canvas: React.FC = () => {
       )}
 
       <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
-        <h2 className="font-medium">Live Canvas</h2>
+        <div />
         <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm">
           <button
             onClick={() => setViewMode('canvas')}
@@ -90,7 +90,7 @@ export const Canvas: React.FC = () => {
               viewMode === 'templates' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
             }`}
           >
-            🖼️ Templates
+            Page Templates
           </button>
           <button
             onClick={() => setViewMode('system')}
@@ -98,7 +98,7 @@ export const Canvas: React.FC = () => {
               viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
             }`}
           >
-            🔵 Design System
+            Design System Export
           </button>
         </div>
 

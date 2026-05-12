@@ -34,9 +34,7 @@ export const PageTemplatesSection: React.FC = () => {
   const TemplateHeader = () => (
     <div className="mb-8 flex items-center justify-between">
       <div>
-        <h2 className="text-3xl font-bold flex items-center gap-3">
-          <span className="text-primary">🖼️</span> Page Templates
-        </h2>
+        <h2 className="text-3xl font-bold">Page Templates</h2>
         <p className="text-muted mt-2">See your design system applied to full-page layouts and real-world scenarios.</p>
       </div>
       <div className="flex bg-surface border border-bordercolor rounded-2xl p-1 shadow-sm">
@@ -356,8 +354,12 @@ export const PageTemplatesSection: React.FC = () => {
       
       <div className="p-8 space-y-12">
         <div className="relative h-64 rounded-3xl overflow-hidden group">
-          <div className="absolute inset-0 bg-primary/20 group-hover:scale-105 transition-transform duration-700"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-tx/80 to-transparent flex flex-col justify-center p-12 text-surface">
+          <img 
+            src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            alt="Hero"
+          />
+          <div className="absolute inset-0 bg-tx/40 flex flex-col justify-center p-12 text-surface">
             <Badge className="w-fit mb-4 bg-primary text-white border-none">Limited Edition</Badge>
             <h3 className="text-4xl font-black mb-2 tracking-tight">Style Meets Comfort.</h3>
             <p className="text-sm opacity-80 max-w-sm mb-6">Experience the new summer collection designed for urban explorers.</p>
@@ -367,14 +369,15 @@ export const PageTemplatesSection: React.FC = () => {
 
         <div className="grid grid-cols-4 gap-6">
           {[
-            { name: 'Minimalist Chair', price: '$240.00', tag: 'Hot' },
-            { name: 'Ceramic Vase', price: '$45.00' },
-            { name: 'Wall Clock', price: '$120.00' },
-            { name: 'Wool Rug', price: '$350.00', tag: 'Sale' },
+            { name: 'Minimalist Chair', price: '$240.00', tag: 'Hot', img: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=600&q=80' },
+            { name: 'Ceramic Vase', price: '$45.00', img: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?auto=format&fit=crop&w=600&q=80' },
+            { name: 'Wall Clock', price: '$120.00', img: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=600&q=80' },
+            { name: 'Wool Rug', price: '$350.00', tag: 'Sale', img: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=600&q=80' },
           ].map((item, i) => (
             <div key={i} className="group space-y-3">
               <div className="aspect-[3/4] bg-surface rounded-2xl border border-bordercolor relative overflow-hidden">
-                <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
+                <img src={item.img} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-90 group-hover:opacity-100" alt={item.name} />
+                <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors"></div>
                 {item.tag && <Badge className="absolute top-3 left-3 bg-tx text-surface text-[8px]">{item.tag}</Badge>}
                 <button className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface border border-bordercolor shadow-sm flex items-center justify-center text-muted hover:text-primary hover:scale-110 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0">
                   <Plus weight="bold" />
@@ -454,14 +457,15 @@ export const PageTemplatesSection: React.FC = () => {
 
         <div className="grid grid-cols-2 gap-12">
           {[
-            { category: 'Mobile App', name: 'Zentask Management' },
-            { category: 'Brand Identity', name: 'Flux Energy' },
-            { category: 'Interaction', name: 'Motion System v2' },
-            { category: 'Product Design', name: 'Echo Speaker' },
+            { category: 'Mobile App', name: 'Zentask Management', img: 'https://images.unsplash.com/photo-1551288049-bbbda536ad37?auto=format&fit=crop&w=800&q=80' },
+            { category: 'Brand Identity', name: 'Flux Energy', img: 'https://images.unsplash.com/photo-1586717791821-3f44a563cc4c?auto=format&fit=crop&w=800&q=80' },
+            { category: 'Interaction', name: 'Motion System v2', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80' },
+            { category: 'Product Design', name: 'Echo Speaker', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80' },
           ].map((project, i) => (
             <div key={i} className="group cursor-pointer">
               <div className="aspect-video bg-surface rounded-2xl border border-bordercolor overflow-hidden relative mb-4">
-                <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/20 transition-colors duration-500"></div>
+                <img src={project.img} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100" alt={project.name} />
+                <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors duration-500"></div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="w-12 h-12 rounded-full bg-tx text-surface flex items-center justify-center scale-75 group-hover:scale-100 transition-transform">
                     <CaretRight weight="bold" size={24} />

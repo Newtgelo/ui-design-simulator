@@ -58,9 +58,7 @@ export const BrandingSection: React.FC = () => {
   return (
     <div className="space-y-12 animate-in fade-in duration-500">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold flex items-center gap-3">
-          <span className="text-primary">✨</span> Branding & Logo
-        </h2>
+        <h2 className="text-3xl font-bold">Branding & Logo</h2>
         <p className="text-muted mt-2">Visual representation of your brand across different contexts and backgrounds.</p>
       </div>
 
