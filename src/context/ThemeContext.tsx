@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { hexToRgb, generateScale, rgbToHex, hslToHex, COLOR_PALETTES } from '@/lib/utils';
-import { IconContext, IconWeight } from '@phosphor-icons/react';
+import { IconContext, IconWeight, X, CheckCircle } from '@phosphor-icons/react';
 
 interface ThemeContextType {
   primaryColor: string;
@@ -33,6 +33,7 @@ interface ThemeContextType {
   setIconWeight: (weight: IconWeight) => void;
   toggleDarkMode: () => void;
   randomizeTheme: () => void;
+  showSnackbar: (message: string) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -51,6 +52,21 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [bgColor, setBgColor] = useState('#fafafa');
   const [iconWeight, setIconWeight] = useState<IconWeight>('regular');
+
+  const [snackbar, setSnackbar] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
+
+  const showSnackbar = useCallback((message: string) => {
+    setSnackbar({ message, visible: true });
+  }, []);
+
+  useEffect(() => {
+    if (snackbar.visible) {
+      const timer = setTimeout(() => {
+        setSnackbar(prev => ({ ...prev, visible: false }));
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [snackbar.visible]);
 
   const updateCssVariables = useCallback(() => {
     const root = document.documentElement;
@@ -183,7 +199,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       iconWeight,
       setIconWeight,
       toggleDarkMode,
-      randomizeTheme
+      randomizeTheme,
+      showSnackbar
     }}>
       <IconContext.Provider
         value={{
@@ -194,6 +211,18 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }}
       >
         {children}
+        {snackbar.visible && (
+          <div className="fixed bottom-6 right-6 bg-surface/95 backdrop-blur-md text-tx border border-bordercolor shadow-2xl p-4 rounded-2xl flex items-center gap-3 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 font-sans text-sm font-semibold max-w-sm">
+            <CheckCircle size={20} weight="fill" className="text-success" />
+            <span className="flex-1">{snackbar.message}</span>
+            <button 
+              onClick={() => setSnackbar(prev => ({ ...prev, visible: false }))}
+              className="text-muted hover:text-tx transition-colors"
+            >
+              <X size={16} weight="bold" />
+            </button>
+          </div>
+        )}
       </IconContext.Provider>
     </ThemeContext.Provider>
   );

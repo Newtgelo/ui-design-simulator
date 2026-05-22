@@ -28,7 +28,7 @@ import { PageTemplatesSection } from './canvas-sections/PageTemplatesSection';
 import { GridFour, DeviceMobile } from '@phosphor-icons/react';
 
 export const Canvas: React.FC = () => {
-  const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin } = useTheme();
+  const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [activeTab, setActiveTab] = React.useState('all');
   const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates'>('canvas');
@@ -40,6 +40,7 @@ export const Canvas: React.FC = () => {
   const copyToClipboard = (hex: string) => {
     navigator.clipboard.writeText(hex);
     setCopiedColor(hex);
+    showSnackbar(`copy ค่าสี ${hex.toUpperCase()} แล้ว`);
     setTimeout(() => setCopiedColor(null), 2000);
   };
 
@@ -160,12 +161,7 @@ export const Canvas: React.FC = () => {
                   );
                 })}
 
-                {/* Copied Toast */}
-                {copiedColor && (
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-tx text-surface px-3 py-1.5 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 animate-in slide-in-from-bottom-2 fade-in duration-200 z-50">
-                    <Check className="text-success" weight="bold" /> Copied: {copiedColor.toUpperCase()}
-                  </div>
-                )}
+
               </div>
               <div className="flex justify-between text-[10px] text-muted mt-1 px-1">
                 {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((step) => (

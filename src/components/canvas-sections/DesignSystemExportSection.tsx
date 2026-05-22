@@ -19,7 +19,7 @@ const SEMANTIC_BASES = {
 const ALPHA_STEPS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
 export const DesignSystemExportSection: React.FC = () => {
-  const { primaryColor, secondaryColor, bgColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode } = useTheme();
+  const { primaryColor, secondaryColor, bgColor, borderRadius, shadowStyle, fontFamily, fontSizeBase, fontScale, isDarkMode, showSnackbar } = useTheme();
   const [activeView, setActiveView] = React.useState<'preview' | 'json'>('preview');
   const [jsonPart, setJsonPart] = React.useState<'all' | 'colors' | 'typography' | 'spacing' | 'radius' | 'interactions'>('all');
   const [copied, setCopied] = React.useState(false);
@@ -221,6 +221,7 @@ export const DesignSystemExportSection: React.FC = () => {
               style={{ backgroundColor: hex }}
               onClick={() => {
                 navigator.clipboard.writeText(hex);
+                showSnackbar(`copy ค่าสี ${hex.toUpperCase()} แล้ว`);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
@@ -263,6 +264,7 @@ export const DesignSystemExportSection: React.FC = () => {
               style={{ backgroundColor: rgba }}
               onClick={() => {
                 navigator.clipboard.writeText(rgba);
+                showSnackbar(`copy ค่าสี ${rgba} แล้ว`);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
