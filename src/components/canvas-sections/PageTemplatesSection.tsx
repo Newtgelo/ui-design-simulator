@@ -32,16 +32,16 @@ export const PageTemplatesSection: React.FC = () => {
   const { primaryColor, secondaryColor, borderRadius, fontFamily, isDarkMode } = useTheme();
 
   const TemplateHeader = () => (
-    <div className="mb-8 flex items-center justify-between">
+    <div className="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
       <div>
         <h2 className="text-3xl font-bold">Page Templates</h2>
         <p className="text-muted mt-2">See your design system applied to full-page layouts and real-world scenarios.</p>
       </div>
-      <div className="flex bg-surface border border-bordercolor rounded-2xl p-1 shadow-sm">
+      <div className="flex bg-surface border border-bordercolor rounded-2xl p-1 shadow-sm overflow-x-auto scrollbar-none flex-nowrap shrink-0 max-w-full">
         <button 
           onClick={() => setActiveTemplate('dashboard')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'dashboard' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -50,7 +50,7 @@ export const PageTemplatesSection: React.FC = () => {
         <button 
           onClick={() => setActiveTemplate('landing')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'landing' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -59,7 +59,7 @@ export const PageTemplatesSection: React.FC = () => {
         <button 
           onClick={() => setActiveTemplate('ecommerce')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'ecommerce' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -68,7 +68,7 @@ export const PageTemplatesSection: React.FC = () => {
         <button 
           onClick={() => setActiveTemplate('saas')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'saas' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -77,7 +77,7 @@ export const PageTemplatesSection: React.FC = () => {
         <button 
           onClick={() => setActiveTemplate('portfolio')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'portfolio' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -86,7 +86,7 @@ export const PageTemplatesSection: React.FC = () => {
         <button 
           onClick={() => setActiveTemplate('mobile')}
           className={cn(
-            "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+            "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
             activeTemplate === 'mobile' ? "bg-primary text-white shadow-lg" : "text-muted hover:text-tx"
           )}
         >
@@ -97,9 +97,9 @@ export const PageTemplatesSection: React.FC = () => {
   );
 
   const DashboardTemplate = () => (
-    <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden flex bg-bg shadow-2xl animate-in zoom-in-95 duration-500">
+    <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden flex flex-col lg:flex-row bg-bg shadow-2xl animate-in zoom-in-95 duration-500">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-bordercolor flex flex-col p-6 space-y-8 bg-surface">
+      <aside className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-bordercolor flex flex-col p-6 space-y-8 bg-surface shrink-0">
         <div className="flex items-center gap-2 font-black text-xl italic tracking-tighter">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white not-italic">S</div>
           SysCraft
@@ -132,8 +132,8 @@ export const PageTemplatesSection: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0 bg-bg/50">
-        <header className="h-16 border-b border-bordercolor px-8 flex items-center justify-between bg-surface/50 backdrop-blur-md">
-          <div className="relative w-72">
+        <header className="h-auto min-h-16 py-3 border-b border-bordercolor px-4 md:px-8 flex flex-col sm:flex-row gap-4 items-center justify-between bg-surface/50 backdrop-blur-md">
+          <div className="relative w-full sm:w-72">
             <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={16} />
             <Input className="pl-10 h-9 text-xs" placeholder="Search anything..." />
           </div>
@@ -143,18 +143,18 @@ export const PageTemplatesSection: React.FC = () => {
           </div>
         </header>
 
-        <div className="p-8 space-y-8 overflow-y-auto">
-          <div className="flex items-center justify-between">
+        <div className="p-4 md:p-8 space-y-8 overflow-y-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h3 className="text-2xl font-bold">Dashboard Overview</h3>
               <p className="text-sm text-muted">Welcome back! Here's what's happening today.</p>
             </div>
-            <Button className="flex items-center gap-2">
+            <Button className="flex items-center justify-center gap-2 w-full sm:w-auto">
               <Plus weight="bold" /> Create New
             </Button>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {[
               { label: 'Total Revenue', value: '$45,231.89', change: '+20.1%', icon: <CurrencyDollar /> },
               { label: 'Active Users', value: '+2,350', change: '+180.1%', icon: <Users /> },
@@ -204,12 +204,12 @@ export const PageTemplatesSection: React.FC = () => {
 
   const LandingTemplate = () => (
     <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden bg-bg shadow-2xl flex flex-col animate-in slide-in-from-bottom-8 duration-500">
-      <nav className="px-12 h-20 flex items-center justify-between border-b border-bordercolor/50">
+      <nav className="px-4 md:px-12 h-auto py-4 md:h-20 flex flex-col md:flex-row gap-4 items-center justify-between border-b border-bordercolor/50 bg-surface/30">
         <div className="flex items-center gap-2 font-black text-2xl italic tracking-tighter">
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white not-italic text-lg">S</div>
           SysCraft
         </div>
-        <div className="flex items-center gap-8 text-sm font-medium">
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
           <button className="hover:text-primary transition-colors">Product</button>
           <button className="hover:text-primary transition-colors">Solutions</button>
           <button className="hover:text-primary transition-colors">Pricing</button>
@@ -221,23 +221,23 @@ export const PageTemplatesSection: React.FC = () => {
         </div>
       </nav>
 
-      <section className="flex-1 flex flex-col items-center justify-center p-20 text-center space-y-8 relative overflow-hidden">
+      <section className="flex-1 flex flex-col items-center justify-center p-6 md:p-20 text-center space-y-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full -top-1/2 left-1/2 -translate-x-1/2 w-full h-full -z-10"></div>
         <Badge variant="outline" className="text-primary border-primary/20 px-4 py-1">New Feature: Variable Support ✨</Badge>
-        <h1 className="text-6xl md:text-7xl font-black tracking-tighter leading-[0.9] max-w-4xl">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] max-w-4xl">
           Build <span className="text-primary">Beautiful</span> Design Systems <span className="italic font-serif text-secondary">Faster.</span>
         </h1>
-        <p className="text-xl text-muted max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base md:text-xl text-muted max-w-2xl mx-auto leading-relaxed">
           The all-in-one platform to simulate, validate, and export production-ready design tokens to your favorite tools.
         </p>
-        <div className="flex items-center justify-center gap-4 pt-4">
-          <Button size="lg" className="h-14 px-8 text-lg flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full sm:w-auto">
+          <Button size="lg" className="h-14 px-8 text-lg flex items-center justify-center gap-2 w-full sm:w-auto">
             Start Designing <ArrowRight weight="bold" />
           </Button>
-          <Button variant="outline" size="lg" className="h-14 px-8 text-lg">Watch Demo</Button>
+          <Button variant="outline" size="lg" className="h-14 px-8 text-lg w-full sm:w-auto">Watch Demo</Button>
         </div>
 
-        <div className="grid grid-cols-4 gap-8 pt-20 w-full max-w-5xl">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-10 md:pt-20 w-full max-w-5xl">
             {[
               { icon: <CheckCircle />, title: 'W3C Compliant' },
               { icon: <Plus />, title: 'Variable Export' },
@@ -338,7 +338,7 @@ export const PageTemplatesSection: React.FC = () => {
 
   const EcommerceTemplate = () => (
     <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden bg-bg shadow-2xl flex flex-col animate-in zoom-in-95 duration-500">
-      <nav className="px-8 h-16 flex items-center justify-between border-b border-bordercolor bg-surface/50 backdrop-blur-md">
+      <nav className="px-4 md:px-8 py-3 md:py-0 md:h-16 flex flex-col sm:flex-row gap-4 items-center justify-between border-b border-bordercolor bg-surface/50 backdrop-blur-md">
         <div className="flex items-center gap-2 font-black text-xl italic tracking-tighter">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white not-italic text-sm">S</div>
           Store
@@ -357,22 +357,22 @@ export const PageTemplatesSection: React.FC = () => {
         </div>
       </nav>
       
-      <div className="p-8 space-y-12">
-        <div className="relative h-64 rounded-3xl overflow-hidden group">
+      <div className="p-4 md:p-8 space-y-8 md:space-y-12">
+        <div className="relative h-48 md:h-64 rounded-2xl md:rounded-3xl overflow-hidden group">
           <img 
             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" 
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             alt="Hero"
           />
-          <div className="absolute inset-0 bg-tx/40 flex flex-col justify-center p-12 text-surface">
-            <Badge className="w-fit mb-4 bg-primary text-white border-none">Limited Edition</Badge>
-            <h3 className="text-4xl font-black mb-2 tracking-tight">Style Meets Comfort.</h3>
-            <p className="text-sm opacity-80 max-w-sm mb-6">Experience the new summer collection designed for urban explorers.</p>
-            <Button size="lg" className="w-fit">Shop Collection</Button>
+          <div className="absolute inset-0 bg-tx/40 flex flex-col justify-center p-6 md:p-12 text-surface">
+            <Badge className="w-fit mb-2 md:mb-4 bg-primary text-white border-none">Limited Edition</Badge>
+            <h3 className="text-2xl md:text-4xl font-black mb-2 tracking-tight">Style Meets Comfort.</h3>
+            <p className="text-xs opacity-80 max-w-sm mb-4 md:mb-6">Experience the new summer collection designed for urban explorers.</p>
+            <Button size="sm" className="w-fit">Shop Collection</Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { name: 'Minimalist Chair', price: '$240.00', tag: 'Hot', img: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=600&q=80' },
             { name: 'Ceramic Vase', price: '$45.00', img: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?auto=format&fit=crop&w=600&q=80' },
@@ -401,36 +401,36 @@ export const PageTemplatesSection: React.FC = () => {
 
   const SaaSLandingTemplate = () => (
     <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden bg-bg shadow-2xl flex flex-col animate-in slide-in-from-right-8 duration-500">
-      <div className="px-12 py-16 flex flex-col items-center text-center space-y-6">
+      <div className="px-6 md:px-12 py-10 md:py-16 flex flex-col items-center text-center space-y-6">
         <Badge variant="outline" className="border-primary/20 text-primary">Trusted by 2,000+ Teams</Badge>
-        <h2 className="text-5xl font-black tracking-tighter max-w-2xl leading-[1.1]">
+        <h2 className="text-3xl md:text-5xl font-black tracking-tighter max-w-2xl leading-[1.1]">
           The OS for <span className="text-primary underline decoration-primary/30 underline-offset-8">Modern Teams.</span>
         </h2>
-        <p className="text-lg text-muted max-w-xl">
+        <p className="text-sm md:text-lg text-muted max-w-xl">
           Streamline your workflow, manage your assets, and collaborate in real-time with one simple platform.
         </p>
-        <div className="flex gap-4 pt-4">
-           <Button size="lg" className="h-14 px-8 shadow-xl shadow-primary/20">Start Free Trial</Button>
-           <Button variant="outline" size="lg" className="h-14 px-8">Schedule Demo</Button>
+        <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
+           <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 shadow-xl shadow-primary/20 w-full sm:w-auto">Start Free Trial</Button>
+           <Button variant="outline" size="lg" className="h-12 md:h-14 px-6 md:px-8 w-full sm:w-auto">Schedule Demo</Button>
         </div>
       </div>
 
-      <div className="px-12 pb-20">
-         <div className="bg-surface rounded-3xl border border-bordercolor p-1 shadow-2xl relative">
-            <div className="h-[300px] bg-bg rounded-[calc(var(--radius-theme)+8px)] border border-bordercolor/50 flex flex-col">
+      <div className="px-6 md:px-12 pb-12 md:pb-20">
+         <div className="bg-surface rounded-3xl border border-bordercolor p-1 shadow-lg md:shadow-2xl relative">
+            <div className="h-[200px] md:h-[300px] bg-bg rounded-[calc(var(--radius-theme)+8px)] border border-bordercolor/50 flex flex-col">
                <div className="h-10 border-b border-bordercolor flex items-center px-4 gap-2">
                   <div className="w-2 h-2 rounded-full bg-danger/50"></div>
                   <div className="w-2 h-2 rounded-full bg-warning/50"></div>
                   <div className="w-2 h-2 rounded-full bg-success/50"></div>
                </div>
-               <div className="flex-1 p-6 grid grid-cols-4 gap-6">
-                  <div className="col-span-1 space-y-4">
+               <div className="flex-1 p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+                  <div className="hidden md:block col-span-1 space-y-4">
                      <div className="h-6 w-full bg-primary/10 rounded-lg"></div>
                      <div className="h-2 w-1/2 bg-muted/20 rounded-full"></div>
                      <div className="h-2 w-3/4 bg-muted/20 rounded-full"></div>
                   </div>
-                  <div className="col-span-3 bg-primary/5 rounded-2xl border border-primary/10 border-dashed flex items-center justify-center">
-                     <p className="text-xs text-primary/40 font-bold uppercase tracking-widest italic">Interface Preview</p>
+                  <div className="col-span-1 md:col-span-3 bg-primary/5 rounded-2xl border border-primary/10 border-dashed flex items-center justify-center">
+                     <p className="text-[10px] md:text-xs text-primary/40 font-bold uppercase tracking-widest italic">Interface Preview</p>
                   </div>
                </div>
             </div>
@@ -441,26 +441,26 @@ export const PageTemplatesSection: React.FC = () => {
 
   const PortfolioTemplate = () => (
     <div className="w-full min-h-[600px] border border-bordercolor rounded-2xl overflow-hidden bg-bg shadow-2xl flex flex-col animate-in fade-in duration-700">
-      <header className="px-12 h-24 flex items-center justify-between">
+      <header className="px-6 md:px-12 py-4 md:py-0 md:h-24 flex flex-col sm:flex-row gap-4 items-center justify-between">
         <span className="font-bold tracking-tighter text-lg">Alex.Designer</span>
-        <div className="flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-muted">
+        <div className="flex items-center gap-6 md:gap-8 text-xs font-bold uppercase tracking-widest text-muted">
           <button className="text-tx border-b border-tx pb-1">Work</button>
           <button className="hover:text-tx transition-colors">About</button>
           <button className="hover:text-tx transition-colors">Contact</button>
         </div>
       </header>
       
-      <main className="px-12 py-12 flex-1">
-        <div className="max-w-3xl mb-20">
-          <h1 className="text-6xl font-black tracking-tighter mb-6 leading-none">
+      <main className="px-6 md:px-12 py-8 md:py-12 flex-1">
+        <div className="max-w-3xl mb-12 md:mb-20">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-none">
             I craft <span className="italic text-primary">digital experiences</span> that people love.
           </h1>
-          <p className="text-muted text-lg leading-relaxed max-w-xl">
+          <p className="text-muted text-sm md:text-lg leading-relaxed max-w-xl">
             Currently designing future systems at <span className="text-tx font-bold underline decoration-primary underline-offset-4">CreativeLab.</span> Based in San Francisco.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {[
             { category: 'Mobile App', name: 'Zentask Management', img: 'https://images.unsplash.com/photo-1551288049-bbbda536ad37?auto=format&fit=crop&w=800&q=80' },
             { category: 'Brand Identity', name: 'Flux Energy', img: 'https://images.unsplash.com/photo-1586717791821-3f44a563cc4c?auto=format&fit=crop&w=800&q=80' },
@@ -478,13 +478,13 @@ export const PageTemplatesSection: React.FC = () => {
                 </div>
               </div>
               <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-1">{project.category}</p>
-              <h4 className="text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h4>
+              <h4 className="text-lg md:text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h4>
             </div>
           ))}
         </div>
       </main>
 
-      <footer className="px-12 py-12 border-t border-bordercolor/50 flex items-center justify-between">
+      <footer className="px-6 md:px-12 py-8 md:py-12 border-t border-bordercolor/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
         <p className="text-[10px] text-muted font-bold uppercase tracking-widest">© 2024 Alex Johnson</p>
         <div className="flex gap-6">
           {['LinkedIn', 'Dribbble', 'Twitter'].map(link => (

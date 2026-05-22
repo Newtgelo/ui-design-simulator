@@ -25,13 +25,14 @@ import { BrandingSection } from './canvas-sections/BrandingSection';
 import { InteractionSection } from './canvas-sections/InteractionSection';
 import { GridLayoutSection } from './canvas-sections/GridLayoutSection';
 import { PageTemplatesSection } from './canvas-sections/PageTemplatesSection';
+import { UserFlowsSection } from './canvas-sections/UserFlowsSection';
 import { GridFour, DeviceMobile } from '@phosphor-icons/react';
 
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [activeTab, setActiveTab] = React.useState('all');
-  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates'>('canvas');
+  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates' | 'flows'>('canvas');
   const [showGrid, setShowGrid] = React.useState(false);
 
   const pRgb = hexToRgb(primaryColor);
@@ -66,44 +67,53 @@ export const Canvas: React.FC = () => {
         </div>
       )}
 
-      <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-8 py-4 flex justify-between items-center theme-transition">
-        <div />
-        <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm">
-          <button
-            onClick={() => setViewMode('canvas')}
-            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
-              viewMode === 'canvas' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-            }`}
-          >
-            Live Canvas
-          </button>
-          <button
-            onClick={() => setViewMode('tokens')}
-            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
-              viewMode === 'tokens' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-            }`}
-          >
-            Design Tokens
-          </button>
-          <button
-            onClick={() => setViewMode('templates')}
-            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
-              viewMode === 'templates' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-            }`}
-          >
-            Page Templates
-          </button>
-          <button
-            onClick={() => setViewMode('system')}
-            className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 ${
-              viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-            }`}
-          >
-            Design System Export
-          </button>
+      <header className="sticky top-16 md:top-0 z-30 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-4 md:px-8 py-3 md:py-4 flex items-center justify-between gap-4 theme-transition">
+        <div className="flex-1 overflow-x-auto scrollbar-none py-1">
+          <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm w-max">
+            <button
+              onClick={() => setViewMode('canvas')}
+              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                viewMode === 'canvas' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+              }`}
+            >
+              Live Canvas
+            </button>
+            <button
+              onClick={() => setViewMode('tokens')}
+              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                viewMode === 'tokens' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+              }`}
+            >
+              Design Tokens
+            </button>
+            <button
+              onClick={() => setViewMode('templates')}
+              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                viewMode === 'templates' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+              }`}
+            >
+              Page Templates
+            </button>
+            <button
+              onClick={() => setViewMode('flows')}
+              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                viewMode === 'flows' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+              }`}
+            >
+              User Flows
+            </button>
+            <button
+              onClick={() => setViewMode('system')}
+              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+              }`}
+            >
+              Design System Export
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setShowGrid(!showGrid)}
             className={cn(
@@ -114,18 +124,20 @@ export const Canvas: React.FC = () => {
             )}
           >
             <GridFour weight={showGrid ? "fill" : "regular"} size={16} />
-            {showGrid ? "Grid On" : "Show Grid"}
+            <span className="hidden sm:inline">{showGrid ? "Grid On" : "Show Grid"}</span>
           </button>
         </div>
       </header>
 
-      <div className="p-8 max-w-6xl mx-auto space-y-12 pb-24">
+      <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-12 pb-24">
         {viewMode === 'system' ? (
           <DesignSystemExportSection />
         ) : viewMode === 'tokens' ? (
           <DesignTokenSection />
         ) : viewMode === 'templates' ? (
           <PageTemplatesSection />
+        ) : viewMode === 'flows' ? (
+          <UserFlowsSection />
         ) : (
           <>
             {/* Color Palette Scale */}

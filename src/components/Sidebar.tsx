@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { Card } from './ui/Card';
-import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle, ArrowCounterClockwise, X } from '@phosphor-icons/react';
+import { Palette, Moon, Sun, DiceThree, PaintBrush, BoundingBox, TextAa, Copy, Check, Sparkle, ArrowCounterClockwise, X, List } from '@phosphor-icons/react';
 import { Button } from './ui/Button';
 import { COLOR_PALETTES, cn } from '@/lib/utils';
 
@@ -174,6 +174,7 @@ export const Sidebar: React.FC = () => {
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [isPalettesExpanded, setIsPalettesExpanded] = React.useState(false);
   const [isPresetsExpanded, setIsPresetsExpanded] = React.useState(false);
+  const [isMobileOpen, setIsMobileOpen] = React.useState(false);
 
   const applyArchetype = (type: typeof ARCHETYPES[0]) => {
     setPrimaryColor(type.primary);
@@ -190,24 +191,72 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-full md:w-80 h-auto md:h-screen flex-shrink-0 bg-surface border-b md:border-b-0 md:border-r border-bordercolor flex flex-col z-20 shadow-sm theme-transition">
-      {/* Header */}
-      <div className="p-6 border-b border-bordercolor flex justify-between items-center theme-transition">
-        <div>
-          <h1 className="text-lg font-bold flex items-center gap-2">
-            <Palette weight="fill" className="text-primary text-2xl theme-transition" />
-            SysCraft
-          </h1>
-          <p className="text-xs text-muted mt-1">Design System Simulator</p>
+    <>
+      {/* Mobile Top Bar */}
+      <div className="flex md:hidden items-center justify-between w-full px-6 py-4 bg-surface border-b border-bordercolor h-16 shrink-0 z-30 theme-transition sticky top-0">
+        <div className="flex items-center gap-2">
+          <Palette weight="fill" className="text-primary text-2xl theme-transition" />
+          <span className="font-bold text-lg tracking-tight">SysCraft</span>
         </div>
-        <button
-          onClick={toggleDarkMode}
-          className="p-2 rounded-[var(--radius-theme)] hover:bg-bg theme-transition"
-          title="Toggle Dark Mode"
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleDarkMode}
+            className="p-2 rounded-[var(--radius-theme)] hover:bg-bg transition-colors"
+            title="Toggle Dark Mode"
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          <button
+            onClick={() => setIsMobileOpen(true)}
+            className="p-2 rounded-[var(--radius-theme)] bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
+            title="Open Design Tokens"
+          >
+            <List size={20} weight="bold" />
+          </button>
+        </div>
       </div>
+
+      {/* Drawer Overlay Backdrop */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 md:hidden animate-in fade-in duration-200"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* Settings Panel (Aside / Drawer) */}
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 w-80 max-w-[calc(100vw-3rem)] bg-surface border-r border-bordercolor flex flex-col z-50 shadow-2xl theme-transition transition-transform duration-300 transform md:translate-x-0 md:static md:h-screen md:w-80 md:border-b-0",
+          isMobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-bordercolor flex justify-between items-center theme-transition shrink-0">
+          <div>
+            <h1 className="text-lg font-bold flex items-center gap-2">
+              <Palette weight="fill" className="text-primary text-2xl theme-transition" />
+              SysCraft
+            </h1>
+            <p className="text-xs text-muted mt-1">Design System Simulator</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-[var(--radius-theme)] hover:bg-bg theme-transition md:flex hidden"
+              title="Toggle Dark Mode"
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              onClick={() => setIsMobileOpen(false)}
+              className="p-2 rounded-[var(--radius-theme)] hover:bg-bg theme-transition md:hidden"
+              title="Close Settings"
+            >
+              <X size={20} weight="bold" />
+            </button>
+          </div>
+        </div>
 
       {/* Controls container */}
       <div className="p-6 flex-1 overflow-y-auto space-y-8">
@@ -595,5 +644,6 @@ export const Sidebar: React.FC = () => {
 
       </div>
     </aside>
+    </>
   );
 };
