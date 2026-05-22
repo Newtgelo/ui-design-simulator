@@ -4,7 +4,7 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { hexToRgb, generateScale, rgbToHex, cn } from '@/lib/utils';
-import { Copy, Download, Check, FileJson } from '@phosphor-icons/react';
+import { Copy, Download, Check } from '@phosphor-icons/react';
 import { Logo } from './BrandingSection';
 
 const SEMANTIC_BASES = {

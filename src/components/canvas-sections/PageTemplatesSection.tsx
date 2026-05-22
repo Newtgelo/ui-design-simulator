@@ -318,12 +318,17 @@ export const PageTemplatesSection: React.FC = () => {
 
         {/* Tab Bar */}
         <div className="absolute bottom-6 left-6 right-6 h-16 bg-surface/90 backdrop-blur-md border border-bordercolor rounded-2xl shadow-xl flex items-center justify-around px-2">
-            {[<House weight="fill" />, <ChartPie />, <Users />, <Gear />].map((icon, i) => (
+            {[
+              <House weight="fill" size={20} key="house" />,
+              <ChartPie size={20} key="chart" />,
+              <Users size={20} key="users" />,
+              <Gear size={20} key="gear" />
+            ].map((icon, i) => (
                 <button key={i} className={cn(
                     "p-3 rounded-xl transition-all",
                     i === 0 ? "text-primary bg-primary/10" : "text-muted hover:text-tx"
                 )}>
-                    {React.cloneElement(icon as React.ReactElement, { size: 20 })}
+                    {icon}
                 </button>
             ))}
         </div>
