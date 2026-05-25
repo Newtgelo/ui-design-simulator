@@ -29,11 +29,9 @@ import { UserFlowsSection } from './canvas-sections/UserFlowsSection';
 import { GridFour, DeviceMobile } from '@phosphor-icons/react';
 
 export const Canvas: React.FC = () => {
-  const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar } = useTheme();
+  const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar, showGrid, setShowGrid } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
-  const [activeTab, setActiveTab] = React.useState('branding');
-  const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates' | 'flows'>('canvas');
-  const [showGrid, setShowGrid] = React.useState(false);
+  const [viewMode, setViewMode] = React.useState<'overview' | 'components' | 'templates' | 'flows' | 'tokens_export'>('overview');
 
   const pRgb = hexToRgb(primaryColor);
   const pScale = generateScale(pRgb);
@@ -57,7 +55,7 @@ export const Canvas: React.FC = () => {
   return (
     <main className="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
       {/* Grid Overlay Rendering */}
-      {showGrid && viewMode === 'canvas' && (
+      {showGrid && (viewMode === 'overview' || viewMode === 'components') && (
         <div className="absolute inset-0 pointer-events-none z-50 flex h-full min-h-screen" style={{ padding: `0 ${gridMargin}px` }}>
           <div className="w-full h-full flex" style={{ gap: `${gridGutter}px` }}>
             {Array.from({ length: gridColumns }).map((_, i) => (
@@ -69,87 +67,75 @@ export const Canvas: React.FC = () => {
 
       <header className="sticky top-16 md:top-0 z-30 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-4 md:px-8 py-3 md:py-4 flex items-center justify-between gap-4 theme-transition">
         <div className="flex-1 overflow-x-auto scrollbar-none py-1">
-          <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm w-max">
-            <button
-              onClick={() => setViewMode('canvas')}
-              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
-                viewMode === 'canvas' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-              }`}
-            >
-              Live Canvas
-            </button>
-            <button
-              onClick={() => setViewMode('tokens')}
-              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
-                viewMode === 'tokens' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-              }`}
-            >
-              Design Tokens
-            </button>
-            <button
-              onClick={() => setViewMode('templates')}
-              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
-                viewMode === 'templates' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-              }`}
-            >
-              Page Templates
-            </button>
-            <button
-              onClick={() => setViewMode('flows')}
-              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
-                viewMode === 'flows' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-              }`}
-            >
-              User Flows
-            </button>
-            <button
-              onClick={() => setViewMode('system')}
-              className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
-                viewMode === 'system' ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
-              }`}
-            >
-              Design System Export
-            </button>
+          <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm w-max overflow-x-auto scrollbar-none">
+            {[
+              { id: 'overview', label: 'Overview' },
+              { id: 'components', label: 'UI Components' },
+              { id: 'templates', label: 'Page Templates' },
+              { id: 'flows', label: 'User Flows' },
+              { id: 'tokens_export', label: 'Tokens & Export' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setViewMode(tab.id as any)}
+                className={`text-xs px-4 py-1.5 rounded-[calc(var(--radius-theme)*0.8)] font-medium transition-all duration-200 shrink-0 ${
+                  viewMode === tab.id ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-tx'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <button
-            onClick={() => setShowGrid(!showGrid)}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300",
-              showGrid 
-                ? "bg-primary text-white shadow-lg shadow-primary/25" 
-                : "bg-surface border border-bordercolor text-muted hover:text-primary"
-            )}
-          >
-            <GridFour weight={showGrid ? "fill" : "regular"} size={16} />
-            <span className="hidden sm:inline">{showGrid ? "Grid On" : "Show Grid"}</span>
-          </button>
-        </div>
       </header>
 
       <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-12 pb-24">
-        {viewMode === 'system' ? (
-          <DesignSystemExportSection />
-        ) : viewMode === 'tokens' ? (
-          <DesignTokenSection />
-        ) : viewMode === 'templates' ? (
+        {viewMode === 'templates' ? (
           <PageTemplatesSection />
         ) : viewMode === 'flows' ? (
           <UserFlowsSection />
+        ) : viewMode === 'tokens_export' ? (
+          <div className="space-y-12">
+            <DesignTokenSection />
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <DesignSystemExportSection />
+            </div>
+          </div>
+        ) : viewMode === 'components' ? (
+          <div className="space-y-16 animate-in fade-in duration-300">
+            <GridLayoutSection />
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <InteractionSection />
+            </div>
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <FormsSection />
+            </div>
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <NavigationSection />
+            </div>
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <FeedbackSection />
+            </div>
+            <div className="pt-8 border-t border-bordercolor theme-transition">
+              <DataSection />
+            </div>
+          </div>
         ) : (
-          <>
-            {/* Color Palette Scale */}
-            <section>
-              <div className="mb-6">
-                <h3 className="text-xl font-bold">Color Palette Scale</h3>
+          /* viewMode === 'overview' */
+          <div className="space-y-16 animate-in fade-in duration-300">
+            {/* 1. Color Palette Scale */}
+            <section className="space-y-6">
+              <div className="theme-transition">
+                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
+                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
+                  Color Palette Scale
+                </h3>
                 <p className="text-sm text-muted mt-1 theme-transition">Auto-generated 11-step color scales based on your color selections.</p>
               </div>
               <div className="flex h-12 w-full rounded-[var(--radius-theme)] overflow-hidden border border-bordercolor shadow-sm cursor-pointer relative group">
                 {Object.entries(pScale).map(([step, rgb]) => {
                   const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
-                  // Calculate luminance to decide text color (white or black)
                   const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
                   const textColor = luminance > 0.5 ? 'text-black/60' : 'text-white/80';
 
@@ -172,8 +158,6 @@ export const Canvas: React.FC = () => {
                     </div>
                   );
                 })}
-
-
               </div>
               <div className="flex justify-between text-[10px] text-muted mt-1 px-1">
                 {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((step) => (
@@ -182,67 +166,51 @@ export const Canvas: React.FC = () => {
                   </span>
                 ))}
               </div>
+              
+              {/* Accessibility Checker (Contrast checker - keep directly under color scale) */}
+              <AccessibilitySection />
             </section>
 
-            {/* Accessibility Checker */}
-            <AccessibilitySection />
-
-            {/* Component Showcase Tabs */}
-            <section className="mt-8 pt-8 border-t border-bordercolor theme-transition">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl font-bold">Component Showcase</h2>
-                  <p className="text-sm text-muted mt-1 theme-transition">Explore and test individual components with your design language.</p>
-                </div>
+            {/* 2. Mockup Variety */}
+            <section className="pt-8 border-t border-bordercolor theme-transition space-y-8">
+              <div className="theme-transition">
+                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
+                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
+                  Mockup Variety
+                </h3>
+                <p className="text-sm text-muted mt-1 theme-transition">A collection of responsive page layouts and live dashboard modules to preview your design system.</p>
               </div>
-
-              {/* Sticky Tabs Container */}
-              <div className="sticky top-[64px] z-30 -mx-8 px-8 py-4 bg-bg/80 backdrop-blur-md border-b border-bordercolor/50 mb-8 theme-transition">
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { id: 'all', label: 'All (ภาพรวม)' },
-                    { id: 'branding', label: 'Branding (แบรนด์)' },
-                    { id: 'layout', label: 'Layout & Grid (เลย์เอาต์)' },
-                    { id: 'interactions', label: 'Interactions (การตอบสนอง)' },
-                    { id: 'dashboard', label: 'Dashboard (แดชบอร์ด)' },
-                    { id: 'mockups', label: 'Mockups (ม็อคอัพ)' },
-                    { id: 'typography', label: 'Typography (ตัวอักษร)' },
-                    { id: 'forms', label: 'Forms (ฟอร์ม & ปุ่ม)' },
-                    { id: 'navigation', label: 'Navigation (การนำทาง)' },
-                    { id: 'data', label: 'Data Display (ข้อมูล)' },
-                    { id: 'feedback', label: 'Feedback (สถานะ)' }
-                  ].map(tab => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                        activeTab === tab.id 
-                        ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
-                        : 'bg-surface/50 text-muted hover:bg-bordercolor hover:text-tx'
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-16">
-                
-                {/* Sections */}
-                {(activeTab === 'all' || activeTab === 'branding') && <BrandingSection />}
-                {(activeTab === 'all' || activeTab === 'layout') && <GridLayoutSection />}
-                {(activeTab === 'all' || activeTab === 'interactions') && <InteractionSection />}
-                {(activeTab === 'all' || activeTab === 'dashboard') && <DashboardSection />}
-                {(activeTab === 'all' || activeTab === 'typography') && <TypographySection />}
-                {(activeTab === 'all' || activeTab === 'mockups') && <MockupsSection />}
-                {(activeTab === 'all' || activeTab === 'forms') && <FormsSection />}
-                {(activeTab === 'all' || activeTab === 'navigation') && <NavigationSection />}
-                {(activeTab === 'all' || activeTab === 'feedback') && <FeedbackSection />}
-                {(activeTab === 'all' || activeTab === 'data') && <DataSection />}
+              <MockupsSection />
+              <div className="pt-8 theme-transition space-y-6">
+                <h4 className="text-sm font-bold text-muted uppercase tracking-widest">Dashboard Widgets</h4>
+                <DashboardSection />
               </div>
             </section>
-          </>
+
+            {/* 3. Branding & Logo */}
+            <section className="pt-8 border-t border-bordercolor theme-transition space-y-6">
+              <div className="theme-transition">
+                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
+                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
+                  Branding & Logo
+                </h3>
+                <p className="text-sm text-muted mt-1 theme-transition">Visual representation of your brand across different contexts and backgrounds.</p>
+              </div>
+              <BrandingSection />
+            </section>
+
+            {/* 4. Typography Scale (ระบบตัวอักษร) */}
+            <section className="pt-8 border-t border-bordercolor theme-transition space-y-6">
+              <div className="theme-transition">
+                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
+                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
+                  Typography Scale (ระบบตัวอักษร)
+                </h3>
+                <p className="text-sm text-muted mt-1 theme-transition">Scale of font sizes, line heights, and weights for English and Thai typography.</p>
+              </div>
+              <TypographySection />
+            </section>
+          </div>
         )}
       </div>
     </main>

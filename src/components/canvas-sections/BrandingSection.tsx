@@ -56,50 +56,45 @@ export const BrandingSection: React.FC = () => {
   const { primaryColor, secondaryColor, bgColor, borderRadius } = useTheme();
 
   return (
-    <div className="space-y-12 animate-in fade-in duration-500">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold">Branding & Logo</h2>
-        <p className="text-muted mt-2">Visual representation of your brand across different contexts and backgrounds.</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Primary Variations */}
-        <Card className="p-8 space-y-8">
-          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-4">Main Variations</h3>
+        <Card className="p-5 space-y-4">
+          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Main Variations</h3>
           
-          <div className="space-y-12">
-            <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-xs font-medium text-muted">Primary Brand Logo (On Light)</p>
-              <div className="p-12 bg-white border border-bordercolor rounded-2xl flex items-center justify-center">
-                <Logo type="primary" size={64} />
+              <div className="p-6 bg-white border border-bordercolor rounded-xl flex items-center justify-center">
+                <Logo type="primary" size={48} />
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-xs font-medium text-muted">Secondary Brand Logo (On Light)</p>
-              <div className="p-12 bg-white border border-bordercolor rounded-2xl flex items-center justify-center">
-                <Logo type="secondary" size={64} />
+              <div className="p-6 bg-white border border-bordercolor rounded-xl flex items-center justify-center">
+                <Logo type="secondary" size={48} />
               </div>
             </div>
           </div>
         </Card>
 
         {/* Contextual Variations */}
-        <Card className="p-8 space-y-8">
-          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-4">Contextual Variations</h3>
+        <Card className="p-5 space-y-4">
+          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Contextual Variations</h3>
           
-          <div className="space-y-12">
-            <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-xs font-medium text-muted">On Brand Background (Primary)</p>
-              <div className="p-12 rounded-2xl flex items-center justify-center" style={{ backgroundColor: primaryColor }}>
-                <Logo type="white" size={64} />
+              <div className="p-6 rounded-xl flex items-center justify-center" style={{ backgroundColor: primaryColor }}>
+                <Logo type="white" size={48} />
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-xs font-medium text-muted">On Dark Background</p>
-              <div className="p-12 bg-slate-900 rounded-2xl flex items-center justify-center">
-                <Logo type="white" size={64} />
+              <div className="p-6 bg-slate-900 rounded-xl flex items-center justify-center">
+                <Logo type="white" size={48} />
               </div>
             </div>
           </div>
@@ -107,30 +102,30 @@ export const BrandingSection: React.FC = () => {
       </div>
 
       {/* Brand Marks & Symbols */}
-      <Card className="p-8 space-y-8">
-        <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-4">Brand Marks & Symbols</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-24 h-24 bg-surface border border-bordercolor rounded-2xl flex items-center justify-center shadow-sm">
-              <Logo type="primary" size={48} showText={false} />
+      <Card className="p-5 space-y-4">
+        <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Brand Marks & Symbols</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-16 h-16 bg-surface border border-bordercolor rounded-xl flex items-center justify-center shadow-sm">
+              <Logo type="primary" size={32} showText={false} />
             </div>
             <span className="text-[10px] font-bold text-muted uppercase">Primary Mark</span>
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-24 h-24 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center shadow-sm">
-              <Logo type="primary" size={48} showText={false} />
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-16 h-16 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center shadow-sm">
+              <Logo type="primary" size={32} showText={false} />
             </div>
             <span className="text-[10px] font-bold text-muted uppercase">On Alpha 10</span>
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-24 h-24 bg-primary border border-primary/20 rounded-2xl flex items-center justify-center shadow-xl">
-              <Logo type="white" size={48} showText={false} />
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-16 h-16 bg-primary border border-primary/20 rounded-xl flex items-center justify-center shadow-xl">
+              <Logo type="white" size={32} showText={false} />
             </div>
             <span className="text-[10px] font-bold text-muted uppercase">Inverted Mark</span>
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-24 h-24 bg-surface border border-bordercolor rounded-full flex items-center justify-center shadow-sm">
-              <Logo type="primary" size={40} showText={false} />
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-16 h-16 bg-surface border border-bordercolor rounded-full flex items-center justify-center shadow-sm">
+              <Logo type="primary" size={28} showText={false} />
             </div>
             <span className="text-[10px] font-bold text-muted uppercase">Circular Mark</span>
           </div>
@@ -138,21 +133,21 @@ export const BrandingSection: React.FC = () => {
       </Card>
 
       {/* Tagline & Slogan */}
-      <Card className="p-12 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-        <div className="relative z-10 space-y-6 text-center max-w-2xl mx-auto">
+      <Card className="p-8 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -mr-24 -mt-24 blur-3xl"></div>
+        <div className="relative z-10 space-y-4 text-center max-w-2xl mx-auto">
           <Badge variant="outline" className="text-primary border-primary/20">Brand Tagline</Badge>
           <h2 
-            className="text-4xl md:text-5xl font-black italic tracking-tighter leading-tight"
+            className="text-3xl md:text-4xl font-black italic tracking-tighter leading-tight"
             style={{ fontFamily: 'var(--font-theme)' }}
           >
             Crafting Digital <span className="text-primary">Excellence</span> through Design.
           </h2>
-          <p className="text-muted text-lg">Where sophisticated aesthetics meet powerful functionality.</p>
-          <div className="flex items-center justify-center gap-6 pt-4">
-            <div className="flex -space-x-4">
+          <p className="text-muted">Where sophisticated aesthetics meet powerful functionality.</p>
+          <div className="flex items-center justify-center gap-4 pt-2">
+            <div className="flex -space-x-3">
               {[1, 2, 3].map(i => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-surface bg-bg flex items-center justify-center overflow-hidden">
+                <div key={i} className="w-8 h-8 rounded-full border-2 border-surface bg-bg flex items-center justify-center overflow-hidden">
                    <div className="w-full h-full bg-primary/20"></div>
                 </div>
               ))}

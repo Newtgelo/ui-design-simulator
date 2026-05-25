@@ -8,10 +8,6 @@ export const MockupsSection: React.FC = () => {
   return (
     <section className="space-y-12">
       <div className="space-y-4">
-        <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
-          <span className="w-2 h-6 bg-primary rounded-full"></span> Mockup Variety (ความหลากหลายของส่วนประกอบ)
-        </h3>
-        
         {/* Stats & Mini Cards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card className="flex flex-col items-center p-6 space-y-2 text-center">

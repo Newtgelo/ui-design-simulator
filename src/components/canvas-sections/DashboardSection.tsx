@@ -6,11 +6,7 @@ import { Users, RocketLaunch } from '@phosphor-icons/react';
 
 export const DashboardSection: React.FC = () => {
   return (
-    <section className="space-y-4">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
-        <span className="w-2 h-6 bg-primary rounded-full"></span> Dashboard Widgets
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="flex flex-col gap-4">
           <div className="flex justify-between items-start">
             <div className="w-12 h-12 rounded-[var(--radius-theme)] bg-primary/10 text-primary flex items-center justify-center text-2xl theme-transition">
@@ -44,6 +40,5 @@ export const DashboardSection: React.FC = () => {
           </div>
         </Card>
       </div>
-    </section>
   );
 };

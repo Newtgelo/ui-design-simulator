@@ -34,6 +34,8 @@ interface ThemeContextType {
   toggleDarkMode: () => void;
   randomizeTheme: () => void;
   showSnackbar: (message: string) => void;
+  showGrid: boolean;
+  setShowGrid: (show: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -52,6 +54,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [bgColor, setBgColor] = useState('#fafafa');
   const [iconWeight, setIconWeight] = useState<IconWeight>('regular');
+  const [showGrid, setShowGrid] = useState(false);
 
   const [snackbar, setSnackbar] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
 
@@ -200,7 +203,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setIconWeight,
       toggleDarkMode,
       randomizeTheme,
-      showSnackbar
+      showSnackbar,
+      showGrid,
+      setShowGrid
     }}>
       <IconContext.Provider
         value={{

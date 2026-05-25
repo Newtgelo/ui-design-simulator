@@ -5,7 +5,7 @@ import { Button } from '../ui/Button';
 import { Columns, ArrowRight, Layout as LayoutIcon, ArrowsHorizontal, ArrowsInSimple } from '@phosphor-icons/react';
 
 export const GridLayoutSection: React.FC = () => {
-  const { gridColumns, setGridColumns, gridGutter, setGridGutter, gridMargin, setGridMargin, primaryColor } = useTheme();
+  const { gridColumns, setGridColumns, gridGutter, setGridGutter, gridMargin, setGridMargin, primaryColor, showGrid, setShowGrid } = useTheme();
 
   const handleAdjust = (type: 'cols' | 'gutter' | 'margin', delta: number) => {
     if (type === 'cols') setGridColumns(Math.max(1, Math.min(24, gridColumns + delta)));
@@ -74,16 +74,27 @@ export const GridLayoutSection: React.FC = () => {
       </div>
 
       <Card className="p-8 space-y-8 overflow-hidden relative">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
             <h3 className="text-lg font-bold flex items-center gap-2">
                 <LayoutIcon weight="bold" /> Grid Visualization
             </h3>
-            <div className="flex items-center gap-2 text-xs font-mono text-muted">
-                <span>{gridColumns} Cols</span>
-                <span>/</span>
-                <span>{gridGutter}px Gutter</span>
-                <span>/</span>
-                <span>{gridMargin}px Margin</span>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-muted">
+                <div className="flex items-center gap-2">
+                    <span>{gridColumns} Cols</span>
+                    <span>/</span>
+                    <span>{gridGutter}px Gutter</span>
+                    <span>/</span>
+                    <span>{gridMargin}px Margin</span>
+                </div>
+                <Button 
+                  onClick={() => setShowGrid(!showGrid)}
+                  variant={showGrid ? "primary" : "outline"}
+                  size="sm"
+                  className="h-8 text-[10px] px-3 font-bold uppercase tracking-wider flex items-center gap-1.5"
+                >
+                  <Columns weight={showGrid ? "fill" : "regular"} size={14} />
+                  {showGrid ? "Hide Grid Guide" : "Show Grid Guide"}
+                </Button>
             </div>
         </div>
         

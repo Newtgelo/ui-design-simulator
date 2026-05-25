@@ -47,10 +47,6 @@ export const TypographySection: React.FC = () => {
 
   return (
     <section className="space-y-8">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
-        <span className="w-2 h-6 bg-info rounded-full"></span> Typography Scale (ระบบตัวอักษร)
-      </h3>
-      
       <Card className="p-0 overflow-hidden">
         <div className="bg-bg/30 p-4 border-b border-bordercolor flex justify-between items-center theme-transition flex-wrap gap-4">
           <div className="flex items-center gap-4">
