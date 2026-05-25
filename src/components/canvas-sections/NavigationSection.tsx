@@ -5,7 +5,7 @@ import { House, ChartLineUp, Envelope, CaretRight } from '@phosphor-icons/react'
 export const NavigationSection: React.FC = () => {
   return (
     <section className="space-y-4">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
+      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
         <span className="w-2 h-6 bg-info rounded-full"></span> Navigation
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

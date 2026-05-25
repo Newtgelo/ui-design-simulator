@@ -39,6 +39,6 @@ export const DashboardSection: React.FC = () => {
             <Button className="w-full">Sign In (เข้าสู่ระบบ)</Button>
           </div>
         </Card>
-      </div>
+    </div>
   );
 };

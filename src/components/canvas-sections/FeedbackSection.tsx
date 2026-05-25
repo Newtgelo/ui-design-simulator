@@ -5,7 +5,7 @@ import { Badge } from '../ui/Badge';
 export const FeedbackSection: React.FC = () => {
   return (
     <section className="space-y-12">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
+      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
         <span className="w-2 h-6 bg-danger rounded-full"></span> Feedback & Alerts (การแจ้งเตือนและป้ายสถานะ)
       </h3>
 

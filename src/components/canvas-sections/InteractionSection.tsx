@@ -21,7 +21,7 @@ export const InteractionSection: React.FC = () => {
 
       {/* Button States Matrix */}
       <section className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-bordercolor pb-4">
+        <div className="flex items-center gap-2">
             <h3 className="text-xl font-bold">Button State Matrix</h3>
             <Badge variant="outline">Interactive</Badge>
         </div>
@@ -80,7 +80,7 @@ export const InteractionSection: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input States */}
         <Card className="p-8 space-y-6">
-          <h3 className="text-lg font-bold border-b border-bordercolor pb-4">Input & Form States</h3>
+          <h3 className="text-lg font-bold">Input & Form States</h3>
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
                <div className="space-y-2">
@@ -117,7 +117,7 @@ export const InteractionSection: React.FC = () => {
 
         {/* Motion Tokens */}
         <Card className="p-8 space-y-6">
-          <h3 className="text-lg font-bold border-b border-bordercolor pb-4 flex items-center justify-between">
+          <h3 className="text-lg font-bold flex items-center justify-between">
             Motion Tokens
             <Timer className="text-muted" size={20} />
           </h3>
@@ -160,7 +160,7 @@ export const InteractionSection: React.FC = () => {
 
       {/* Status & Feedback */}
       <section className="space-y-6">
-        <h3 className="text-xl font-bold border-b border-bordercolor pb-4">Feedback & Messaging</h3>
+        <h3 className="text-xl font-bold">Feedback & Messaging</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
            <div className="p-4 bg-success/10 border border-success/20 rounded-xl flex items-center gap-3">
               <CheckCircle className="text-success" size={24} weight="fill" />

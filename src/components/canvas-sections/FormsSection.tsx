@@ -7,7 +7,7 @@ import { Users, RocketLaunch, Envelope, CaretRight, MagnifyingGlass } from '@pho
 export const FormsSection: React.FC = () => {
   return (
     <section className="space-y-4">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
+      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
         <span className="w-2 h-6 bg-secondary rounded-full"></span> Forms & Buttons
       </h3>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

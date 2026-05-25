@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 export const DataSection: React.FC = () => {
   return (
     <section className="space-y-12">
-      <h3 className="text-xl font-bold border-b border-bordercolor pb-2 theme-transition flex items-center gap-2">
+      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
         <span className="w-2 h-6 bg-warning rounded-full"></span> Data & Information (การแสดงผลข้อมูล)
       </h3>
 
