@@ -34,15 +34,17 @@ export const Logo: React.FC<LogoProps> = ({ type = 'primary', size = 40, classNa
         className="theme-transition shrink-0" 
       />
       {showText && (
-        <span 
-          className={cn(
-            "font-bold tracking-tight",
-            type === 'white' ? "text-white" : type === 'dark' ? "text-tx" : "text-tx"
-          )}
-          style={{ 
-            fontSize: size * 0.5, 
+        <span
+          className="font-bold tracking-tight"
+          style={{
+            fontSize: size * 0.5,
             fontFamily: 'var(--font-theme)',
-            color: type === 'white' ? 'white' : type === 'dark' ? '#1A1A1A' : undefined
+            color:
+              type === 'white'
+                ? 'white'
+                : type === 'dark'
+                ? '#1A1A1A'
+                : '#111111', // pin สีดำตายตัว — กล่อง On Light ใช้ bg-white เสมอ
           }}
         >
           SysCraft

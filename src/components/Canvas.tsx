@@ -97,7 +97,7 @@ export const Canvas: React.FC = () => {
         </div>
       )}
 
-      <header className="sticky top-16 md:top-0 z-30 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-4 md:px-8 py-3 md:py-4 flex items-center justify-between gap-4 theme-transition">
+      <header className="sticky top-16 md:top-0 z-30 bg-bg/80 backdrop-blur-md border-b border-bordercolor px-4 md:px-8 h-16 flex items-center justify-between gap-4 theme-transition">
         <div className="flex-1 overflow-x-auto scrollbar-none py-1">
           <div className="flex bg-surface border border-bordercolor rounded-[var(--radius-theme)] p-1 theme-transition shadow-sm w-max overflow-x-auto scrollbar-none">
             {[
