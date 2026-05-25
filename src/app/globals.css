@@ -99,3 +99,127 @@ body {
     animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
+
+/* ─── Section Nav Overlay (Notion-style) ─────────────────────────────────── */
+.section-nav-overlay {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  /* invisible until user scrolls */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-nav-overlay[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.section-nav-track {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 10px 6px;
+  border-radius: 24px;
+  background: transparent;
+  transition: background 0.25s ease, box-shadow 0.25s ease, padding 0.25s ease;
+}
+
+.section-nav-overlay[data-expanded="true"] .section-nav-track {
+  background: var(--color-surface);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13), 0 1px 4px 0 rgba(0,0,0,0.07);
+  padding: 12px 10px 12px 14px;
+}
+
+/* Individual nav item */
+.section-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 2px 0;
+  outline: none;
+  flex-direction: row;
+}
+
+/* Dash indicator (horizontal line) */
+.section-nav-indicator {
+  display: block;
+  width: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-muted);
+  opacity: 0.35;
+  flex-shrink: 0;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.25s ease,
+              opacity 0.25s ease,
+              border-radius 0.25s ease;
+}
+
+.section-nav-item[data-sub="true"] .section-nav-indicator {
+  width: 5px;
+  opacity: 0.22;
+}
+
+.section-nav-item[data-active="true"] .section-nav-indicator {
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  opacity: 1;
+}
+
+.section-nav-item:hover .section-nav-indicator {
+  width: 14px;
+  opacity: 0.7;
+  background: var(--color-primary);
+}
+
+/* Label — hidden by default, slides in on expand */
+.section-nav-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.2s ease;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.section-nav-overlay[data-expanded="true"] .section-nav-label {
+  max-width: 160px;
+  opacity: 1;
+}
+
+.section-nav-item[data-active="true"] .section-nav-label {
+  color: var(--color-tx);
+  font-weight: 600;
+}
+
+.section-nav-item[data-sub="true"] .section-nav-label {
+  font-size: 10px;
+  padding-left: 8px;
+  color: var(--color-muted);
+}
+
+.section-nav-item:hover .section-nav-label {
+  color: var(--color-tx);
+}
+

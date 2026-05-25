@@ -27,11 +27,43 @@ import { GridLayoutSection } from './canvas-sections/GridLayoutSection';
 import { PageTemplatesSection } from './canvas-sections/PageTemplatesSection';
 import { UserFlowsSection } from './canvas-sections/UserFlowsSection';
 import { GridFour, DeviceMobile } from '@phosphor-icons/react';
+import { SectionNavOverlay, NavSection } from './SectionNavOverlay';
+
+// Section definitions per view mode
+const SECTION_MAP: Record<string, NavSection[]> = {
+  overview: [
+    { id: 'sec-color', label: 'Color Palette' },
+    { id: 'sec-accessibility', label: 'Accessibility', level: 1 },
+    { id: 'sec-mockups', label: 'Mockup Variety' },
+    { id: 'sec-dashboard', label: 'Dashboard Widgets', level: 1 },
+    { id: 'sec-branding', label: 'Branding & Logo' },
+    { id: 'sec-typography', label: 'Typography Scale' },
+  ],
+  components: [
+    { id: 'sec-grid', label: 'Grid Layout' },
+    { id: 'sec-interaction', label: 'Interactions' },
+    { id: 'sec-forms', label: 'Forms' },
+    { id: 'sec-navigation', label: 'Navigation' },
+    { id: 'sec-feedback', label: 'Feedback' },
+    { id: 'sec-data', label: 'Data Display' },
+  ],
+  templates: [
+    { id: 'sec-templates', label: 'Page Templates' },
+  ],
+  flows: [
+    { id: 'sec-flows', label: 'User Flows' },
+  ],
+  tokens_export: [
+    { id: 'sec-tokens', label: 'Design Tokens' },
+    { id: 'sec-export', label: 'Export', level: 1 },
+  ],
+};
 
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar, showGrid, setShowGrid } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
   const [viewMode, setViewMode] = React.useState<'overview' | 'components' | 'templates' | 'flows' | 'tokens_export'>('overview');
+  const scrollContainerRef = React.useRef<HTMLElement | null>(null);
 
   const pRgb = hexToRgb(primaryColor);
   const pScale = generateScale(pRgb);
@@ -53,7 +85,7 @@ export const Canvas: React.FC = () => {
   const xsPx = Math.round(fontSizeBase / 1.3);
 
   return (
-    <main className="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
+    <main ref={scrollContainerRef as React.RefObject<HTMLElement>} className="flex-1 h-screen overflow-y-auto bg-bg theme-transition relative">
       {/* Grid Overlay Rendering */}
       {showGrid && (viewMode === 'overview' || viewMode === 'components') && (
         <div className="absolute inset-0 pointer-events-none z-50 flex h-full min-h-screen" style={{ padding: `0 ${gridMargin}px` }}>
@@ -90,34 +122,40 @@ export const Canvas: React.FC = () => {
 
       </header>
 
+      {/* Notion-style floating section nav */}
+      <SectionNavOverlay
+        sections={SECTION_MAP[viewMode] ?? []}
+        scrollContainerRef={scrollContainerRef}
+      />
+
       <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-12 pb-24">
         {viewMode === 'templates' ? (
-          <PageTemplatesSection />
+          <div id="sec-templates"><PageTemplatesSection /></div>
         ) : viewMode === 'flows' ? (
-          <UserFlowsSection />
+          <div id="sec-flows"><UserFlowsSection /></div>
         ) : viewMode === 'tokens_export' ? (
           <div className="space-y-12">
-            <DesignTokenSection />
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-tokens"><DesignTokenSection /></div>
+            <div id="sec-export" className="pt-8 border-t border-bordercolor theme-transition">
               <DesignSystemExportSection />
             </div>
           </div>
         ) : viewMode === 'components' ? (
           <div className="space-y-16 animate-in fade-in duration-300">
-            <GridLayoutSection />
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-grid"><GridLayoutSection /></div>
+            <div id="sec-interaction" className="pt-8 border-t border-bordercolor theme-transition">
               <InteractionSection />
             </div>
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-forms" className="pt-8 border-t border-bordercolor theme-transition">
               <FormsSection />
             </div>
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-navigation" className="pt-8 border-t border-bordercolor theme-transition">
               <NavigationSection />
             </div>
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-feedback" className="pt-8 border-t border-bordercolor theme-transition">
               <FeedbackSection />
             </div>
-            <div className="pt-8 border-t border-bordercolor theme-transition">
+            <div id="sec-data" className="pt-8 border-t border-bordercolor theme-transition">
               <DataSection />
             </div>
           </div>
@@ -125,7 +163,7 @@ export const Canvas: React.FC = () => {
           /* viewMode === 'overview' */
           <div className="space-y-16 animate-in fade-in duration-300">
             {/* 1. Color Palette Scale */}
-            <section className="space-y-6">
+            <section id="sec-color" className="space-y-6">
               <div className="theme-transition">
                 <h3 className="text-xl font-bold text-tx flex items-center gap-2">
                   <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
@@ -168,11 +206,11 @@ export const Canvas: React.FC = () => {
               </div>
               
               {/* Accessibility Checker (Contrast checker - keep directly under color scale) */}
-              <AccessibilitySection />
+              <div id="sec-accessibility"><AccessibilitySection /></div>
             </section>
 
             {/* 2. Mockup Variety */}
-            <section className="pt-8 border-t border-bordercolor theme-transition space-y-8">
+            <section id="sec-mockups" className="pt-8 border-t border-bordercolor theme-transition space-y-8">
               <div className="theme-transition">
                 <h3 className="text-xl font-bold text-tx flex items-center gap-2">
                   <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
@@ -181,14 +219,14 @@ export const Canvas: React.FC = () => {
                 <p className="text-sm text-muted mt-1 theme-transition">A collection of responsive page layouts and live dashboard modules to preview your design system.</p>
               </div>
               <MockupsSection />
-              <div className="pt-8 theme-transition space-y-6">
+              <div id="sec-dashboard" className="pt-8 theme-transition space-y-6">
                 <h4 className="text-sm font-bold text-muted uppercase tracking-widest">Dashboard Widgets</h4>
                 <DashboardSection />
               </div>
             </section>
 
             {/* 3. Branding & Logo */}
-            <section className="pt-8 border-t border-bordercolor theme-transition space-y-6">
+            <section id="sec-branding" className="pt-8 border-t border-bordercolor theme-transition space-y-6">
               <div className="theme-transition">
                 <h3 className="text-xl font-bold text-tx flex items-center gap-2">
                   <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
@@ -200,7 +238,7 @@ export const Canvas: React.FC = () => {
             </section>
 
             {/* 4. Typography Scale (ระบบตัวอักษร) */}
-            <section className="pt-8 border-t border-bordercolor theme-transition space-y-6">
+            <section id="sec-typography" className="pt-8 border-t border-bordercolor theme-transition space-y-6">
               <div className="theme-transition">
                 <h3 className="text-xl font-bold text-tx flex items-center gap-2">
                   <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
