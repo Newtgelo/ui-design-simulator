@@ -1,18 +1,17 @@
 import React from 'react';
 import { Alert } from '../ui/Alert';
 import { Badge } from '../ui/Badge';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const FeedbackSection: React.FC = () => {
   return (
     <section className="space-y-12">
-      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
-        <span className="w-2 h-6 bg-danger rounded-full"></span> Feedback & Alerts (การแจ้งเตือนและป้ายสถานะ)
-      </h3>
+      <SectionHeading level="h2" title="Feedback & Alerts" description="การแจ้งเตือนและป้ายสถานะ — Alert banners, badges, and interactive status indicators." />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Alerts Column */}
         <div className="lg:col-span-2 space-y-4">
-          <label className="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">Alert Banner Variants</label>
+          <SectionHeading level="h4" title="Alert Banner Variants" className="mb-2" />
           <div className="grid grid-cols-1 gap-4">
             <Alert type="success" title="Payment Successful (ชำระเงินสำเร็จ)" message="Your receipt has been sent to your email. (ใบเสร็จถูกส่งไปยังอีเมลของคุณแล้ว)" />
             <Alert type="warning" title="Warning (คำเตือน)" message="Please check your connection. (กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต)" />
@@ -24,7 +23,7 @@ export const FeedbackSection: React.FC = () => {
         {/* Badges Column */}
         <div className="lg:col-span-1 space-y-6">
           <div className="space-y-4">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">Badge Variants</label>
+            <SectionHeading level="h4" title="Badge Variants" className="mb-2" />
             <div className="flex flex-wrap gap-2.5 p-6 bg-surface/50 border border-bordercolor rounded-2xl">
               <Badge variant="primary">Primary</Badge>
               <Badge variant="secondary">Secondary</Badge>
@@ -37,7 +36,7 @@ export const FeedbackSection: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">Pill Shape Badges (ขอบกลมมนพิเศษ)</label>
+            <SectionHeading level="h4" title="Pill Shape Badges (ขอบกลมมนพิเศษ)" className="mb-2" />
             <div className="flex flex-wrap gap-2.5 p-6 bg-surface/50 border border-bordercolor rounded-2xl">
               <Badge variant="primary" className="rounded-full px-3 py-1 text-[11px]">Primary Pill</Badge>
               <Badge variant="success" className="rounded-full px-3 py-1 text-[11px]">Active</Badge>
@@ -47,7 +46,7 @@ export const FeedbackSection: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">Interactive Badges</label>
+            <SectionHeading level="h4" title="Interactive Badges" className="mb-2" />
             <div className="p-6 bg-surface/50 border border-bordercolor rounded-2xl space-y-3">
               <div className="flex justify-between items-center text-xs">
                 <span>Task status:</span>

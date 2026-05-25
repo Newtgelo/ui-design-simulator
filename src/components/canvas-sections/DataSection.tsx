@@ -4,13 +4,12 @@ import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { CaretRight, MagnifyingGlass, DotsThreeOutlineVertical } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const DataSection: React.FC = () => {
   return (
     <section className="space-y-12">
-      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
-        <span className="w-2 h-6 bg-warning rounded-full"></span> Data & Information (การแสดงผลข้อมูล)
-      </h3>
+      <SectionHeading level="h2" title="Data & Information" description="การแสดงผลข้อมูล — Calendar, data tables, charts, and stat cards." />
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* Calendar Card */}

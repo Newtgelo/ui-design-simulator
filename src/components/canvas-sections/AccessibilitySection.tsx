@@ -137,7 +137,6 @@ export const AccessibilitySection: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-3">
-          <span className="w-2.5 h-6 bg-primary rounded-full theme-transition shrink-0"></span>
           <div>
             <h3 className="text-base sm:text-lg font-bold text-tx group-hover:text-primary transition-colors flex items-center gap-2">
               Accessibility & Contrast (การเข้าถึงและความชัดเจน)

@@ -391,7 +391,7 @@ export const DesignSystemExportSection: React.FC = () => {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold">Design System Export</h2>
+          <h2 className="text-2xl font-bold">Design System Export</h2>
           <p className="text-muted mt-2">Export your design system variables for Figma and Tokens Studio.</p>
         </div>
         <div className="flex gap-2 bg-surface p-1 rounded-xl border border-bordercolor">
@@ -686,8 +686,8 @@ export const DesignSystemExportSection: React.FC = () => {
                 key={part.id}
                 onClick={() => setJsonPart(part.id as any)}
                 className={`flex-1 min-w-[100px] py-2 px-3 rounded-lg text-xs font-bold transition-all ${jsonPart === part.id
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'text-muted hover:bg-bg'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted hover:bg-bg'
                   }`}
               >
                 {part.label}

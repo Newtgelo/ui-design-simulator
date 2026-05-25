@@ -4,6 +4,7 @@ import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { cn } from '@/lib/utils';
 import { Palette } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 interface LogoProps {
   type?: 'primary' | 'secondary' | 'white' | 'dark' | 'glass';
@@ -62,7 +63,7 @@ export const BrandingSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Primary Variations */}
         <Card className="p-5 space-y-4">
-          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Main Variations</h3>
+          <SectionHeading level="h3" title="Main Variations" className="mb-4" />
           
           <div className="space-y-4">
             <div className="space-y-2">
@@ -83,7 +84,7 @@ export const BrandingSection: React.FC = () => {
 
         {/* Contextual Variations */}
         <Card className="p-5 space-y-4">
-          <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Contextual Variations</h3>
+          <SectionHeading level="h3" title="Contextual Variations" className="mb-4" />
           
           <div className="space-y-4">
             <div className="space-y-2">
@@ -105,7 +106,7 @@ export const BrandingSection: React.FC = () => {
 
       {/* Brand Marks & Symbols */}
       <Card className="p-5 space-y-4">
-        <h3 className="text-sm font-bold text-muted uppercase tracking-widest border-b border-bordercolor pb-3">Brand Marks & Symbols</h3>
+        <SectionHeading level="h3" title="Brand Marks & Symbols" className="mb-4" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="flex flex-col items-center gap-2">
             <div className="w-16 h-16 bg-surface border border-bordercolor rounded-xl flex items-center justify-center shadow-sm">

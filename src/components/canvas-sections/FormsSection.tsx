@@ -3,17 +3,16 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Checkbox } from '../ui/Checkbox';
 import { Users, RocketLaunch, Envelope, CaretRight, MagnifyingGlass } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const FormsSection: React.FC = () => {
   return (
     <section className="space-y-4">
-      <h3 className="text-xl font-bold theme-transition flex items-center gap-2">
-        <span className="w-2 h-6 bg-secondary rounded-full"></span> Forms & Buttons
-      </h3>
+      <SectionHeading level="h2" title="Forms & Buttons" description="Interactive form elements, button variants, and component state matrix." />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="space-y-10">
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Button Variants</label>
+            <SectionHeading level="h4" title="Button Variants" className="mb-4" />
             <div className="flex flex-wrap gap-4">
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
@@ -24,7 +23,7 @@ export const FormsSection: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Button Sizes</label>
+            <SectionHeading level="h4" title="Button Sizes" className="mb-4" />
             <div className="flex flex-wrap items-end gap-4">
               <Button size="sm">Small (sm)</Button>
               <Button size="md">Medium (md)</Button>
@@ -33,7 +32,7 @@ export const FormsSection: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Icon Buttons</label>
+            <SectionHeading level="h4" title="Icon Buttons" className="mb-4" />
             <div className="flex flex-wrap gap-4">
               <Button size="icon"><Users size={20} /></Button>
               <Button size="icon" variant="secondary"><RocketLaunch size={20} /></Button>
@@ -50,7 +49,7 @@ export const FormsSection: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Complex & Full Width</label>
+            <SectionHeading level="h4" title="Complex & Full Width" className="mb-4" />
             <div className="space-y-4">
               <Button className="w-full">Full Width Button</Button>
               <div className="flex w-full">
@@ -64,7 +63,7 @@ export const FormsSection: React.FC = () => {
         
         <div className="space-y-10">
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Input Fields</label>
+            <SectionHeading level="h4" title="Input Fields" className="mb-4" />
             <div className="space-y-4">
               <Input label="Standard Input (ฟอร์มปกติ)" placeholder="Enter text..." />
               <Input 
@@ -81,7 +80,7 @@ export const FormsSection: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-[10px] font-bold text-muted uppercase tracking-widest mb-4 block">Advanced Controls</label>
+            <SectionHeading level="h4" title="Advanced Controls" className="mb-4" />
             <div className="bg-surface p-6 rounded-[var(--radius-theme)] border border-bordercolor shadow-[var(--shadow-theme)] theme-transition space-y-6">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Automatic Updates</span>
@@ -107,7 +106,7 @@ export const FormsSection: React.FC = () => {
       </div>
 
       <div className="pt-12">
-        <label className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-6 block border-b border-bordercolor pb-2">Component State Matrix (ตารางแสดงสถานะคอมโพเนนต์)</label>
+        <SectionHeading level="h3" title="Component State Matrix (ตารางแสดงสถานะคอมโพเนนต์)" className="mb-6" />
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>

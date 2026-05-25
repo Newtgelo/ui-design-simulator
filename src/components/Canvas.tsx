@@ -27,6 +27,7 @@ import { GridLayoutSection } from './canvas-sections/GridLayoutSection';
 import { PageTemplatesSection } from './canvas-sections/PageTemplatesSection';
 import { UserFlowsSection } from './canvas-sections/UserFlowsSection';
 import { GridFour, DeviceMobile } from '@phosphor-icons/react';
+import { SectionHeading } from './ui/SectionHeading';
 import { SectionNavOverlay, NavSection } from './SectionNavOverlay';
 
 // Section definitions per view mode
@@ -164,13 +165,7 @@ export const Canvas: React.FC = () => {
           <div className="space-y-16 animate-in fade-in duration-300">
             {/* 1. Color Palette Scale */}
             <section id="sec-color" className="space-y-6">
-              <div className="theme-transition">
-                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
-                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
-                  Color Palette Scale
-                </h3>
-                <p className="text-sm text-muted mt-1 theme-transition">Auto-generated 11-step color scales based on your color selections.</p>
-              </div>
+              <SectionHeading level="h2" title="Color Palette Scale" description="Auto-generated 11-step color scales based on your color selections." />
               <div className="flex h-12 w-full rounded-[var(--radius-theme)] overflow-hidden border border-bordercolor shadow-sm cursor-pointer relative group">
                 {Object.entries(pScale).map(([step, rgb]) => {
                   const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
@@ -211,41 +206,23 @@ export const Canvas: React.FC = () => {
 
             {/* 2. Mockup Variety */}
             <section id="sec-mockups" className="pt-8 border-t border-bordercolor theme-transition space-y-8">
-              <div className="theme-transition">
-                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
-                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
-                  Mockup Variety
-                </h3>
-                <p className="text-sm text-muted mt-1 theme-transition">A collection of responsive page layouts and live dashboard modules to preview your design system.</p>
-              </div>
+              <SectionHeading level="h2" title="Mockup Variety" description="A collection of responsive page layouts and live dashboard modules to preview your design system." />
               <MockupsSection />
               <div id="sec-dashboard" className="pt-8 theme-transition space-y-6">
-                <h4 className="text-sm font-bold text-muted uppercase tracking-widest">Dashboard Widgets</h4>
+                <SectionHeading level="h4" title="Dashboard Widgets" />
                 <DashboardSection />
               </div>
             </section>
 
             {/* 3. Branding & Logo */}
             <section id="sec-branding" className="pt-8 border-t border-bordercolor theme-transition space-y-6">
-              <div className="theme-transition">
-                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
-                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
-                  Branding & Logo
-                </h3>
-                <p className="text-sm text-muted mt-1 theme-transition">Visual representation of your brand across different contexts and backgrounds.</p>
-              </div>
+              <SectionHeading level="h2" title="Branding & Logo" description="Visual representation of your brand across different contexts and backgrounds." />
               <BrandingSection />
             </section>
 
             {/* 4. Typography Scale (ระบบตัวอักษร) */}
             <section id="sec-typography" className="pt-8 border-t border-bordercolor theme-transition space-y-6">
-              <div className="theme-transition">
-                <h3 className="text-xl font-bold text-tx flex items-center gap-2">
-                  <span className="w-2.5 h-6 bg-primary rounded-full theme-transition"></span>
-                  Typography Scale (ระบบตัวอักษร)
-                </h3>
-                <p className="text-sm text-muted mt-1 theme-transition">Scale of font sizes, line heights, and weights for English and Thai typography.</p>
-              </div>
+              <SectionHeading level="h2" title="Typography Scale (ระบบตัวอักษร)" description="Scale of font sizes, line heights, and weights for English and Thai typography." />
               <TypographySection />
             </section>
           </div>

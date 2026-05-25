@@ -3,6 +3,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { CodeBlock, Palette, TextT, BoundingBox, DropHalfBottom } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const DesignTokenSection: React.FC = () => {
   const { 
@@ -20,21 +21,17 @@ export const DesignTokenSection: React.FC = () => {
 
   return (
     <div className="space-y-12 animate-in fade-in duration-300">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold flex items-center gap-3">
-          <CodeBlock className="text-primary" weight="fill" /> Design Tokens
-        </h2>
-        <p className="text-muted mt-2">
-          Your centralized source of truth for design decisions. These tokens define the visual language of your application.
-        </p>
-      </div>
+      <SectionHeading
+        level="h2"
+        title="Design Tokens"
+        description="Your centralized source of truth for design decisions. These tokens define the visual language of your application."
+        className="mb-8"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Colors */}
         <Card className="space-y-6">
-          <h3 className="text-lg font-bold flex items-center gap-2 border-b border-bordercolor pb-2">
-            <Palette className="text-muted" /> Colors
-          </h3>
+          <SectionHeading level="h3" title="Colors" className="mb-4" />
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Primary</span>
@@ -66,9 +63,7 @@ export const DesignTokenSection: React.FC = () => {
 
         {/* Typography */}
         <Card className="space-y-6">
-          <h3 className="text-lg font-bold flex items-center gap-2 border-b border-bordercolor pb-2">
-            <TextT className="text-muted" /> Typography
-          </h3>
+          <SectionHeading level="h3" title="Typography" className="mb-4" />
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Font Family</span>
@@ -91,9 +86,7 @@ export const DesignTokenSection: React.FC = () => {
 
         {/* Shapes & Shadows */}
         <Card className="space-y-6">
-          <h3 className="text-lg font-bold flex items-center gap-2 border-b border-bordercolor pb-2">
-            <BoundingBox className="text-muted" /> Shapes & Structure
-          </h3>
+          <SectionHeading level="h3" title="Shapes & Structure" className="mb-4" />
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Border Radius (Base)</span>
@@ -111,9 +104,7 @@ export const DesignTokenSection: React.FC = () => {
         </Card>
 
         <Card className="space-y-6">
-          <h3 className="text-lg font-bold flex items-center gap-2 border-b border-bordercolor pb-2">
-            <DropHalfBottom className="text-muted" /> Effects
-          </h3>
+          <SectionHeading level="h3" title="Effects" className="mb-4" />
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Shadow Style</span>
@@ -135,7 +126,7 @@ export const DesignTokenSection: React.FC = () => {
         <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center">
             <CodeBlock size={32} weight="duotone" />
         </div>
-        <h3 className="text-xl font-bold">Export Code (Coming Soon)</h3>
+        <SectionHeading level="h3" title="Export Code (Coming Soon)" className="mb-2" />
         <p className="text-sm text-muted max-w-md">
             Soon you will be able to export these tokens directly as a Tailwind config file, CSS variables, or a JSON file for your design system.
         </p>

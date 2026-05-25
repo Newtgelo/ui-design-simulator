@@ -13,7 +13,7 @@ export const InteractionSection: React.FC = () => {
   return (
     <div className="space-y-12 animate-in fade-in duration-500">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold flex items-center gap-3">
+        <h2 className="text-2xl font-bold flex items-center gap-3">
           <CursorClick className="text-primary" weight="fill" /> Interactions & States
         </h2>
         <p className="text-muted mt-2">Defining how components respond to user actions and provide feedback.</p>
@@ -22,10 +22,10 @@ export const InteractionSection: React.FC = () => {
       {/* Button States Matrix */}
       <section className="space-y-6">
         <div className="flex items-center gap-2">
-            <h3 className="text-xl font-bold">Button State Matrix</h3>
-            <Badge variant="outline">Interactive</Badge>
+          <h3 className="text-xl font-bold">Button State Matrix</h3>
+          <Badge variant="outline">Interactive</Badge>
         </div>
-        
+
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -83,34 +83,34 @@ export const InteractionSection: React.FC = () => {
           <h3 className="text-lg font-bold">Input & Form States</h3>
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Default</span>
-                  <Input placeholder="Placeholder text" />
-               </div>
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Hover</span>
-                  <Input placeholder="Hover state" className="border-primary/50" />
-               </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Default</span>
+                <Input placeholder="Placeholder text" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Hover</span>
+                <Input placeholder="Hover state" className="border-primary/50" />
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Focused / Active</span>
-                  <Input defaultValue="Focus ring active" className="border-primary ring-2 ring-primary/20" />
-               </div>
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Disabled</span>
-                  <Input placeholder="Disabled state" disabled />
-               </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Focused / Active</span>
+                <Input defaultValue="Focus ring active" className="border-primary ring-2 ring-primary/20" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Disabled</span>
+                <Input placeholder="Disabled state" disabled />
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Error</span>
-                  <Input defaultValue="Invalid data" className="border-danger text-danger ring-2 ring-danger/10" />
-               </div>
-               <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-muted uppercase">Success</span>
-                  <Input defaultValue="Correct data" className="border-success text-success ring-2 ring-success/10" />
-               </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Error</span>
+                <Input defaultValue="Invalid data" className="border-danger text-danger ring-2 ring-danger/10" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold text-muted uppercase">Success</span>
+                <Input defaultValue="Correct data" className="border-success text-success ring-2 ring-success/10" />
+              </div>
             </div>
           </div>
         </Card>
@@ -122,38 +122,38 @@ export const InteractionSection: React.FC = () => {
             <Timer className="text-muted" size={20} />
           </h3>
           <div className="space-y-8">
-             <div className="space-y-4">
-                <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold">Fast Duration</span>
-                    <Badge variant="outline">150ms</Badge>
-                </div>
-                <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
-                    <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-150 ease-out group-hover:w-full"></div>
-                    <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-75">Preview Fast</div>
-                </div>
-             </div>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center text-xs">
+                <span className="font-bold">Fast Duration</span>
+                <Badge variant="outline">150ms</Badge>
+              </div>
+              <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
+                <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-150 ease-out group-hover:w-full"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-75">Preview Fast</div>
+              </div>
+            </div>
 
-             <div className="space-y-4">
-                <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold">Normal Duration</span>
-                    <Badge variant="outline">300ms</Badge>
-                </div>
-                <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
-                    <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-300 ease-out group-hover:w-full"></div>
-                    <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-150">Preview Normal</div>
-                </div>
-             </div>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center text-xs">
+                <span className="font-bold">Normal Duration</span>
+                <Badge variant="outline">300ms</Badge>
+              </div>
+              <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
+                <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-300 ease-out group-hover:w-full"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-150">Preview Normal</div>
+              </div>
+            </div>
 
-             <div className="space-y-4">
-                <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold">Slow Duration</span>
-                    <Badge variant="outline">500ms</Badge>
-                </div>
-                <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
-                    <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-500 ease-out group-hover:w-full"></div>
-                    <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-300">Preview Slow</div>
-                </div>
-             </div>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center text-xs">
+                <span className="font-bold">Slow Duration</span>
+                <Badge variant="outline">500ms</Badge>
+              </div>
+              <div className="group h-12 bg-surface border border-bordercolor rounded-xl overflow-hidden relative cursor-pointer">
+                <div className="absolute inset-y-0 left-0 bg-primary w-4 transition-all duration-500 ease-out group-hover:w-full"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold opacity-0 group-hover:opacity-100 text-white transition-opacity delay-300">Preview Slow</div>
+              </div>
+            </div>
           </div>
         </Card>
       </div>
@@ -162,34 +162,34 @@ export const InteractionSection: React.FC = () => {
       <section className="space-y-6">
         <h3 className="text-xl font-bold">Feedback & Messaging</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-           <div className="p-4 bg-success/10 border border-success/20 rounded-xl flex items-center gap-3">
-              <CheckCircle className="text-success" size={24} weight="fill" />
-              <div>
-                 <p className="text-xs font-bold text-success">Success</p>
-                 <p className="text-[10px] text-success/80">Operation completed.</p>
-              </div>
-           </div>
-           <div className="p-4 bg-danger/10 border border-danger/20 rounded-xl flex items-center gap-3">
-              <XCircle className="text-danger" size={24} weight="fill" />
-              <div>
-                 <p className="text-xs font-bold text-danger">Error</p>
-                 <p className="text-[10px] text-danger/80">Something went wrong.</p>
-              </div>
-           </div>
-           <div className="p-4 bg-warning/10 border border-warning/20 rounded-xl flex items-center gap-3">
-              <WarningCircle className="text-warning" size={24} weight="fill" />
-              <div>
-                 <p className="text-xs font-bold text-warning">Warning</p>
-                 <p className="text-[10px] text-warning/80">Needs attention.</p>
-              </div>
-           </div>
-           <div className="p-4 bg-info/10 border border-info/20 rounded-xl flex items-center gap-3">
-              <Info className="text-info" size={24} weight="fill" />
-              <div>
-                 <p className="text-xs font-bold text-info">Information</p>
-                 <p className="text-[10px] text-info/80">For your info.</p>
-              </div>
-           </div>
+          <div className="p-4 bg-success/10 border border-success/20 rounded-xl flex items-center gap-3">
+            <CheckCircle className="text-success" size={24} weight="fill" />
+            <div>
+              <p className="text-xs font-bold text-success">Success</p>
+              <p className="text-[10px] text-success/80">Operation completed.</p>
+            </div>
+          </div>
+          <div className="p-4 bg-danger/10 border border-danger/20 rounded-xl flex items-center gap-3">
+            <XCircle className="text-danger" size={24} weight="fill" />
+            <div>
+              <p className="text-xs font-bold text-danger">Error</p>
+              <p className="text-[10px] text-danger/80">Something went wrong.</p>
+            </div>
+          </div>
+          <div className="p-4 bg-warning/10 border border-warning/20 rounded-xl flex items-center gap-3">
+            <WarningCircle className="text-warning" size={24} weight="fill" />
+            <div>
+              <p className="text-xs font-bold text-warning">Warning</p>
+              <p className="text-[10px] text-warning/80">Needs attention.</p>
+            </div>
+          </div>
+          <div className="p-4 bg-info/10 border border-info/20 rounded-xl flex items-center gap-3">
+            <Info className="text-info" size={24} weight="fill" />
+            <div>
+              <p className="text-xs font-bold text-info">Information</p>
+              <p className="text-[10px] text-info/80">For your info.</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
