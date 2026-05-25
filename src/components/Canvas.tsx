@@ -31,7 +31,7 @@ import { GridFour, DeviceMobile } from '@phosphor-icons/react';
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
-  const [activeTab, setActiveTab] = React.useState('all');
+  const [activeTab, setActiveTab] = React.useState('branding');
   const [viewMode, setViewMode] = React.useState<'canvas' | 'tokens' | 'system' | 'templates' | 'flows'>('canvas');
   const [showGrid, setShowGrid] = React.useState(false);
 
