@@ -3,6 +3,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Columns, ArrowRight, Layout as LayoutIcon, ArrowsHorizontal, ArrowsInSimple } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const GridLayoutSection: React.FC = () => {
   const { gridColumns, setGridColumns, gridGutter, setGridGutter, gridMargin, setGridMargin, primaryColor, showGrid, setShowGrid } = useTheme();
@@ -15,10 +16,12 @@ export const GridLayoutSection: React.FC = () => {
 
   return (
     <div className="space-y-12 animate-in fade-in duration-500">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold">Layout & Grid</h2>
-        <p className="text-muted mt-2">Standardized grid system and spatial definitions for consistent layout architecture.</p>
-      </div>
+      <SectionHeading
+        level="h2"
+        title="Layout & Grid"
+        description="Standardized grid system and spatial definitions for consistent layout architecture."
+        className="mb-8"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="p-6 space-y-4">

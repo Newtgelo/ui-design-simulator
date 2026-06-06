@@ -6,6 +6,7 @@ import { Badge } from '../ui/Badge';
 import { hexToRgb, generateScale, rgbToHex, cn } from '@/lib/utils';
 import { Copy, Download, Check } from '@phosphor-icons/react';
 import { Logo } from './BrandingSection';
+import { SectionHeading } from '../ui/SectionHeading';
 
 const SEMANTIC_BASES = {
   success: '#10b981',
@@ -24,6 +25,7 @@ export const DesignSystemExportSection: React.FC = () => {
   const [jsonPart, setJsonPart] = React.useState<'all' | 'colors' | 'typography' | 'spacing' | 'radius' | 'interactions'>('all');
   const [copied, setCopied] = React.useState(false);
   const [lang, setLang] = React.useState<'en' | 'th'>('en');
+  const [device, setDevice] = React.useState<'desktop' | 'mobile'>('desktop');
 
   const primaryRgb = hexToRgb(primaryColor);
   const secondaryRgb = hexToRgb(secondaryColor);
@@ -75,6 +77,45 @@ export const DesignSystemExportSection: React.FC = () => {
     ]
   };
 
+  const getMobileFontSize = (level: number) => {
+    const mobileScale = Math.max(1.15, fontScale - 0.08);
+    const mobileBase = Math.max(14, fontSizeBase - 1);
+    return Math.round(mobileBase * Math.pow(mobileScale, level));
+  };
+  const mobileBase = Math.max(14, fontSizeBase - 1);
+
+  const mobileTypographyTokens = {
+    headings: [
+      { name: 'H1. Headline', thName: 'H1. หัวข้อใหญ่', weight: 'Semi Bold', size: getMobileFontSize(4), line: Math.round(getMobileFontSize(4) * 1.2), spacing: 0 },
+      { name: 'H2. Headline', thName: 'H2. หัวข้อรอง', weight: 'Semi Bold', size: getMobileFontSize(3), line: Math.round(getMobileFontSize(3) * 1.2), spacing: 0 },
+      { name: 'H3. Headline', thName: 'H3. หัวข้อย่อย', weight: 'Semi Bold', size: getMobileFontSize(2), line: Math.round(getMobileFontSize(2) * 1.2), spacing: 0 },
+      { name: 'H4. Headline', thName: 'H4. หัวข้อเล็ก', weight: 'Semi Bold', size: getMobileFontSize(1.2), line: Math.round(getMobileFontSize(1.2) * 1.2), spacing: 0 },
+      { name: 'H5. Headline', thName: 'H5. หัวข้อจิ๋ว', weight: 'Semi Bold', size: getMobileFontSize(0.5), line: Math.round(getMobileFontSize(0.5) * 1.2), spacing: 0 },
+    ],
+    subtitles: [
+      { name: 'S1. Subtitle', thName: 'S1. คำโปรยหลัก', weight: 'Semi Bold', size: Math.round(mobileBase * 1.125), line: Math.round(mobileBase * 1.125 * 1.5), spacing: 0 },
+      { name: 'S2. Subtitle', thName: 'S2. คำโปรยรอง', weight: 'Semi Bold', size: mobileBase, line: Math.round(mobileBase * 1.5), spacing: 0 },
+    ],
+    body: [
+      { name: 'B1. Body', thName: 'B1. เนื้อหาหลัก', weight: 'Regular', size: mobileBase, line: Math.round(mobileBase * 1.5), spacing: 0 },
+      { name: 'B2. Body', thName: 'B2. เนื้อหาเน้น', weight: 'Medium', size: mobileBase, line: Math.round(mobileBase * 1.5), spacing: 0 },
+      { name: 'B3. Body', thName: 'B3. เนื้อหารอง', weight: 'Regular', size: Math.round(mobileBase / 1.14), line: Math.round((mobileBase / 1.14) * 1.5), spacing: 0 },
+      { name: 'B4. Body', thName: 'B4. เนื้อหาเล็ก', weight: 'Medium', size: Math.round(mobileBase / 1.14), line: Math.round((mobileBase / 1.14) * 1.5), spacing: 0 },
+    ],
+    captions: [
+      { name: 'C1. Caption', thName: 'C1. คำอธิบาย', weight: 'Regular', size: Math.round(mobileBase / 1.33), line: Math.round((mobileBase / 1.33) * 1.3), spacing: 0 },
+      { name: 'C2. Caption', thName: 'C2. คำอธิบายรอง', weight: 'Medium', size: Math.round(mobileBase / 1.33), line: Math.round((mobileBase / 1.33) * 1.3), spacing: 0 },
+      { name: 'C3. Caption', thName: 'C3. คำอธิบายเล็ก', weight: 'Medium', size: Math.round(mobileBase / 1.6), line: Math.round((mobileBase / 1.6) * 1.3), spacing: 0 },
+    ],
+    buttons: [
+      { name: 'Giant', thName: 'ปุ่มขนาดใหญ่พิเศษ', weight: 'Semi Bold', size: Math.round(mobileBase * 1.125), line: Math.round(mobileBase * 1.125 * 1.5), spacing: 0 },
+      { name: 'Large', thName: 'ปุ่มขนาดใหญ่', weight: 'Semi Bold', size: mobileBase, line: Math.round(mobileBase * 1.5), spacing: 0 },
+      { name: 'Medium', thName: 'ปุ่มขนาดกลาง', weight: 'Semi Bold', size: Math.round(mobileBase / 1.14), line: Math.round((mobileBase / 1.14) * 1.5), spacing: 0 },
+      { name: 'Small', thName: 'ปุ่มขนาดเล็ก', weight: 'Semi Bold', size: Math.round(mobileBase / 1.33), line: Math.round((mobileBase / 1.33) * 1.5), spacing: 0 },
+      { name: 'Tiny', thName: 'ปุ่มขนาดจิ๋ว', weight: 'Semi Bold', size: Math.round(mobileBase / 1.6), line: Math.round((mobileBase / 1.6) * 1.5), spacing: 0 },
+    ]
+  };
+
   const generateFigmaJson = (part: string = 'all') => {
     const json: any = {
       color: {
@@ -98,11 +139,20 @@ export const DesignSystemExportSection: React.FC = () => {
       typography: {
         $type: "typography",
         fontFamily: { $value: fontFamily.replace('var(--font-', '').replace(')', '') },
-        headings: {},
-        subtitles: {},
-        body: {},
-        captions: {},
-        buttons: {}
+        desktop: {
+          headings: {},
+          subtitles: {},
+          body: {},
+          captions: {},
+          buttons: {}
+        },
+        mobile: {
+          headings: {},
+          subtitles: {},
+          body: {},
+          captions: {},
+          buttons: {}
+        }
       },
       spacing: {
         $type: "number",
@@ -136,11 +186,26 @@ export const DesignSystemExportSection: React.FC = () => {
       };
     });
 
-    // Populate Typography
+    // Populate Typography (Desktop)
     Object.entries(typographyTokens).forEach(([category, tokens]) => {
+      json.typography.desktop[category] = {};
       tokens.forEach(token => {
         const tokenName = token.name.split('.')[0].trim();
-        json.typography[category][tokenName] = {
+        json.typography.desktop[category][tokenName] = {
+          fontSize: { $value: `${token.size}px`, $type: "dimension" },
+          fontWeight: { $value: token.weight, $type: "fontWeight" },
+          lineHeight: { $value: `${token.line}px`, $type: "dimension" },
+          letterSpacing: { $value: `${token.spacing}px`, $type: "dimension" }
+        };
+      });
+    });
+
+    // Populate Typography (Mobile)
+    Object.entries(mobileTypographyTokens).forEach(([category, tokens]) => {
+      json.typography.mobile[category] = {};
+      tokens.forEach(token => {
+        const tokenName = token.name.split('.')[0].trim();
+        json.typography.mobile[category][tokenName] = {
           fontSize: { $value: `${token.size}px`, $type: "dimension" },
           fontWeight: { $value: token.weight, $type: "fontWeight" },
           lineHeight: { $value: `${token.line}px`, $type: "dimension" },
@@ -390,9 +455,12 @@ export const DesignSystemExportSection: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-bold">Design System Export</h2>
-          <p className="text-muted mt-2">Export your design system variables for Figma and Tokens Studio.</p>
+        <div className="flex-1">
+          <SectionHeading
+            level="h2"
+            title="Design System Export"
+            description="Export your design system variables for Figma and Tokens Studio."
+          />
         </div>
         <div className="flex gap-2 bg-surface p-1 rounded-xl border border-bordercolor">
           <button
@@ -435,8 +503,10 @@ export const DesignSystemExportSection: React.FC = () => {
           {/* Typography Card */}
           <Card className="p-8 space-y-6">
             <div className="border-b border-bordercolor pb-4 flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 flex-wrap">
                 <h3 className="text-2xl font-bold">Typography</h3>
+                
+                {/* Language Switcher */}
                 <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full border border-primary/20">
                   <span className="text-[10px] font-bold text-primary/60 uppercase tracking-tight">Preview:</span>
                   <div className="flex gap-1">
@@ -460,19 +530,52 @@ export const DesignSystemExportSection: React.FC = () => {
                     </button>
                   </div>
                 </div>
+
+                {/* Device Switcher */}
+                <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full border border-primary/20">
+                  <span className="text-[10px] font-bold text-primary/60 uppercase tracking-tight">Device:</span>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setDevice('desktop')}
+                      className={cn(
+                        "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all",
+                        device === 'desktop' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
+                      )}
+                    >
+                      Desktop
+                    </button>
+                    <button
+                      onClick={() => setDevice('mobile')}
+                      className={cn(
+                        "px-2 py-0.5 text-[10px] font-bold rounded-md transition-all",
+                        device === 'mobile' ? "bg-primary text-white shadow-sm" : "text-muted hover:text-tx"
+                      )}
+                    >
+                      Mobile
+                    </button>
+                  </div>
+                </div>
               </div>
               <Badge variant="outline" className="font-mono">{fontFamily.replace('var(--font-', '').replace(')', '')}</Badge>
             </div>
 
             <TypographyTable
               title="Text Font"
-              groups={[typographyTokens.headings, typographyTokens.subtitles, typographyTokens.body, typographyTokens.captions]}
+              groups={
+                device === 'desktop'
+                  ? [typographyTokens.headings, typographyTokens.subtitles, typographyTokens.body, typographyTokens.captions]
+                  : [mobileTypographyTokens.headings, mobileTypographyTokens.subtitles, mobileTypographyTokens.body, mobileTypographyTokens.captions]
+              }
             />
 
             <div className="pt-8">
               <TypographyTable
                 title="Button Font"
-                groups={[typographyTokens.buttons]}
+                groups={
+                  device === 'desktop'
+                    ? [typographyTokens.buttons]
+                    : [mobileTypographyTokens.buttons]
+                }
               />
             </div>
           </Card>

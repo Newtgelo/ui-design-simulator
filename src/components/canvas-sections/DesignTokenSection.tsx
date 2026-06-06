@@ -126,9 +126,9 @@ export const DesignTokenSection: React.FC = () => {
         <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center">
             <CodeBlock size={32} weight="duotone" />
         </div>
-        <SectionHeading level="h3" title="Export Code (Coming Soon)" className="mb-2" />
+        <SectionHeading level="h3" title="ต้องการส่งออกโค้ด (Export)?" className="mb-2" />
         <p className="text-sm text-muted max-w-md">
-            Soon you will be able to export these tokens directly as a Tailwind config file, CSS variables, or a JSON file for your design system.
+            คุณสามารถเลือกแท็บ <strong>Design System Export</strong> ด้านบน เพื่อคัดลอกหรือดาวน์โหลดไฟล์ JSON สำหรับ Figma, Tokens Studio หรือใช้ในโปรเจกต์ของคุณได้ทันที
         </p>
       </div>
     </div>

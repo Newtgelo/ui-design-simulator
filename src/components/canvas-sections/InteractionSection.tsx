@@ -6,18 +6,19 @@ import { Input } from '../ui/Input';
 import { Badge } from '../ui/Badge';
 import { cn } from '@/lib/utils';
 import { Timer, Wind, CircleNotch, CursorClick, WarningCircle, CheckCircle, Info, XCircle } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const InteractionSection: React.FC = () => {
   const { primaryColor, borderRadius } = useTheme();
 
   return (
     <div className="space-y-12 animate-in fade-in duration-500">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold flex items-center gap-3">
-          <CursorClick className="text-primary" weight="fill" /> Interactions & States
-        </h2>
-        <p className="text-muted mt-2">Defining how components respond to user actions and provide feedback.</p>
-      </div>
+      <SectionHeading
+        level="h2"
+        title="Interactions & States"
+        description="Defining how components respond to user actions and provide feedback."
+        className="mb-8"
+      />
 
       {/* Button States Matrix */}
       <section className="space-y-6">

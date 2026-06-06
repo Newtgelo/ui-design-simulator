@@ -22,6 +22,7 @@ import {
   Check,
   ArrowLeft
 } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 const avatarColors = [
   'bg-primary/10 text-primary border-primary/20',
@@ -1191,9 +1192,12 @@ export const UserFlowsSection: React.FC = () => {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Header and Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-bold">Interactive User Flows</h2>
-          <p className="text-muted mt-2">Simulate real multi-step user pipelines and screen transitions using your Design System.</p>
+        <div className="flex-1">
+          <SectionHeading
+            level="h2"
+            title="Interactive User Flows"
+            description="Simulate real multi-step user pipelines and screen transitions using your Design System."
+          />
         </div>
         <div className="flex gap-2 bg-surface p-1 rounded-xl border border-bordercolor overflow-x-auto scrollbar-none flex-nowrap max-w-full shrink-0">
           <button 

@@ -26,6 +26,7 @@ import {
   List,
   UserCircle
 } from '@phosphor-icons/react';
+import { SectionHeading } from '../ui/SectionHeading';
 
 export const PageTemplatesSection: React.FC = () => {
   const [activeTemplate, setActiveTemplate] = useState<'dashboard' | 'landing' | 'mobile' | 'ecommerce' | 'saas' | 'portfolio'>('dashboard');
@@ -33,9 +34,12 @@ export const PageTemplatesSection: React.FC = () => {
 
   const TemplateHeader = () => (
     <div className="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-      <div>
-        <h2 className="text-3xl font-bold">Page Templates</h2>
-        <p className="text-muted mt-2">See your design system applied to full-page layouts and real-world scenarios.</p>
+      <div className="flex-1">
+        <SectionHeading
+          level="h2"
+          title="Page Templates"
+          description="See your design system applied to full-page layouts and real-world scenarios."
+        />
       </div>
       <div className="flex bg-surface border border-bordercolor rounded-2xl p-1 shadow-sm overflow-x-auto scrollbar-none flex-nowrap shrink-0 max-w-full">
         <button 

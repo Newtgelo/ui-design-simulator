@@ -54,16 +54,18 @@ const SECTION_MAP: Record<string, NavSection[]> = {
   flows: [
     { id: 'sec-flows', label: 'User Flows' },
   ],
-  tokens_export: [
+  tokens: [
     { id: 'sec-tokens', label: 'Design Tokens' },
-    { id: 'sec-export', label: 'Export', level: 1 },
+  ],
+  export: [
+    { id: 'sec-export', label: 'Design System Export' },
   ],
 };
 
 export const Canvas: React.FC = () => {
   const { primaryColor, fontFamily, fontSizeBase, fontScale, gridColumns, gridGutter, gridMargin, showSnackbar, showGrid, setShowGrid } = useTheme();
   const [copiedColor, setCopiedColor] = React.useState<string | null>(null);
-  const [viewMode, setViewMode] = React.useState<'overview' | 'components' | 'templates' | 'flows' | 'tokens_export'>('overview');
+  const [viewMode, setViewMode] = React.useState<'overview' | 'components' | 'templates' | 'flows' | 'tokens' | 'export'>('overview');
   const scrollContainerRef = React.useRef<HTMLElement | null>(null);
 
   const pRgb = hexToRgb(primaryColor);
@@ -106,7 +108,8 @@ export const Canvas: React.FC = () => {
               { id: 'components', label: 'UI Components' },
               { id: 'templates', label: 'Page Templates' },
               { id: 'flows', label: 'User Flows' },
-              { id: 'tokens_export', label: 'Tokens & Export' }
+              { id: 'tokens', label: 'Design Tokens' },
+              { id: 'export', label: 'Design System Export' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -134,13 +137,10 @@ export const Canvas: React.FC = () => {
           <div id="sec-templates"><PageTemplatesSection /></div>
         ) : viewMode === 'flows' ? (
           <div id="sec-flows"><UserFlowsSection /></div>
-        ) : viewMode === 'tokens_export' ? (
-          <div className="space-y-12">
-            <div id="sec-tokens"><DesignTokenSection /></div>
-            <div id="sec-export" className="pt-8 border-t border-bordercolor theme-transition">
-              <DesignSystemExportSection />
-            </div>
-          </div>
+        ) : viewMode === 'tokens' ? (
+          <div id="sec-tokens"><DesignTokenSection /></div>
+        ) : viewMode === 'export' ? (
+          <div id="sec-export"><DesignSystemExportSection /></div>
         ) : viewMode === 'components' ? (
           <div className="space-y-16 animate-in fade-in duration-300">
             <div id="sec-grid"><GridLayoutSection /></div>
