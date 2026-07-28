@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Noto_Sans_Thai, Prompt, Kanit, Sarabun } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import MobileBlocker from "@/components/MobileBlocker";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansThai = Noto_Sans_Thai({ subsets: ["thai", "latin"], weight: ["400", "500", "600", "700"], variable: "--font-noto-sans-thai" });
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${notoSansThai.variable} ${prompt.variable} ${kanit.variable} ${sarabun.variable}`}>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider>
+          <MobileBlocker />
           {children}
         </ThemeProvider>
       </body>
